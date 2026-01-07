@@ -1,0 +1,122 @@
+ \documentclass{article}
+
+  \usepackage{fancyhdr}
+  \usepackage{amsmath}
+  \usepackage{amsthm}
+  \usepackage{amsfonts}
+  \usepackage{tikz}
+  \usepackage[plain]{algorithm}
+  \usepackage{algpseudocode}
+
+  \usetikzlibrary{automata,positioning}
+
+  %
+  % Basic Document Settings
+  %
+
+  \topmargin=-0.45in
+  \evensidemargin=0in
+  \oddsidemargin=0in
+  \textwidth=6.5in
+  \textheight=9.0in
+  \headsep=0.25in
+
+  \linespread{1.1}
+
+  \pagestyle{fancy}
+  \lhead{\hmwkAuthorName}
+  \chead{} % empty
+  \rhead{\hmwkHeaderTitle}
+  \cfoot{\thepage}
+
+  \renewcommand\headrulewidth{0.4pt}
+  \renewcommand\footrulewidth{0pt}
+
+  \setlength\parindent{0pt}
+
+  %
+  % Homework Details
+  %
+
+  \newcommand{\hmwkTitle}{Homework\ 1}
+  \newcommand{\hmwkDueDate}{Tuesday, January 13, 2026,\ 11{:}59 pm (Thai time)}
+  \newcommand{\hmwkClass}{Data Structure\ and Abstractions}
+  \newcommand{\hmwkClassTime}{Section 2}
+  \newcommand{\hmwkClassInstructor}{Kanat Tangwongsan}
+  \newcommand{\hmwkAuthorName}{\textbf{Jiraroj Wiruchpongsanon (6781617)}}
+
+  % What appears in the top-right header
+  \newcommand{\hmwkHeaderTitle}{Data Structure and Abstractions: Homework 1}
+
+  %
+  % Title Page
+  %
+
+  \title{
+      \vspace{2in}
+      \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+      \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+      \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+      \vspace{3in}
+  }
+
+  \author{\hmwkAuthorName}
+  \date{}
+
+  \renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+  %
+  % Helper Commands
+  %
+
+  \newcounter{partCounter}
+  \newcommand{\solution}{\textbf{\large Solution}}
+
+  \newtheorem*{theorem}{Theorem}
+
+  \theoremstyle{remark}
+  \newtheorem*{remark}{Remark}
+
+  \begin{document}
+
+  \maketitle
+  \newpage
+
+  \section*{Important Notes from the Assignment}
+
+  \textit{Typesetting Requirement.} Written answers must be typed and compiled into
+  \texttt{hw1.pdf}; scans of handwriting are not accepted.
+
+  \textit{AI Usage.} You must write every element of the code yourself. Generative AI may assist
+  with syntax questions and pointers only.
+
+  \textit{Hand-In.} Package \texttt{hw1.pdf} together with the required Java source files in the
+  top-level directory of \texttt{a1.zip} before the deadline. Filenames are case sensitive.
+
+  \textit{Collaboration.} You may collaborate conceptually but must produce your own write-up and
+  code; always list collaborators and sources inside the submission.
+
+  \newpage
+
+  \section*{Problem 1 (4 points)}
+
+  \textbf{Task 2 --- Oh My Magical Math (OHMM\ldots{})}
+
+  The first $n$ even numbers are $0, 2, 4, \ldots, 2(n-1)$. This task involves computing the sum
+  of the first
+  $n$ even numbers and understanding their performance implications. In addition to the Java
+  code in
+  \texttt{SumEven.java}, answer the following in \texttt{hw1.pdf}. Show all work.
+
+  \begin{enumerate}
+      \item[(a)] Using the method discussed in Lecture 1 (Gauss's pairing trick), derive a simple
+  formula for the sum of the first $n$ even numbers. Derive it directly without referencing other
+  formulas.
+      \item[(b)] If we replace the loop in \texttt{sumEven} with this closed-form formula,
+  approximately how many steps does the implementation need as a function of $n$?
+  \end{enumerate}
+
+  \medskip
+  \solution
+
+  \end{document}
