@@ -119,4 +119,32 @@
   \medskip
   \solution
 
+  \begin{enumerate}
+      \item[(a)] let $L$ be the sum of the first n even numbers, $L$ can be written as
+        \begin{equation}\tag{a}\label{eq:L-def}
+          L = 0 + 2 + 4 + 6 + ... + 2(n-2) + 2(n-1)
+        \end{equation}
+
+          or, with the commutative property of real numbers,
+        \begin{equation}\tag{a'}
+            L = 2(n-1) + 2(n-2) + 2(n-3) + 2(n-4) + ... + 2 + 0
+        \end{equation}
+
+          pair up the $k^{th}$ term of $a$ with the $k^{th}$ term of $a'$, when $k = 1, 2, 3, ..., n$, we'll get
+        \[
+          \begin{aligned}
+          2L &= 2(n-1) + (2 + 2(n-2)) + (4 + 2(n-3)) + (6 + 2(n-4)) + ... + (2(n-2) + 2) + 2(n-1) \\
+             &= \underbrace{2(n-1) + 2(n-1) + ... + 2(n-1)}_{n}
+          \end{aligned}
+        \]
+
+        we'll get 
+          \[2L = n \cdot 2(n-1)\]
+
+          which simplifies to $\boxed{L = n(n-1)}$ --- and that's the formular for the sum of the first n even numbers with Gauss's pairing trick. 
+
+      \item[(b)] This 'formula' would have a time complexity of O(1), so roughly 1 step. Though it'd depends on the machine's archetechture, whether it could do multiplication in a single clock cycle, or more --- that'd be 'more precisely' at least 2 steps (for subtraction and multiplication).
+
+  \end{enumerate}
+
   \end{document}
