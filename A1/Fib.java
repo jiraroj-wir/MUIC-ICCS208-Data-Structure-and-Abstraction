@@ -2,12 +2,11 @@ import java.math.BigInteger;
 
 public class Fib {
     public static void main(String[] args) {
-        /*
-        System.out.printf("" + firstNDigit(1) + "\n");
-        System.out.printf("" + firstNDigit(2) + "\n");
-        System.out.printf("" + firstNDigit(3) + "\n");
-        System.out.printf("" + firstNDigit(4) + "\n");
-        */
+        assert firstNDigit(1) == 1;
+        assert firstNDigit(2) == 7;
+        assert firstNDigit(3) == 12;
+        assert firstNDigit(4) == 17;
+        assert firstNDigit(5) == 21;
     }
     public static int firstNDigit(int n) {
         int pos = -1;
