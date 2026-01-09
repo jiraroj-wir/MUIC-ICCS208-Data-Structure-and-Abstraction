@@ -20,7 +20,7 @@ public class Fib {
         for (int k = 3; k <= 40000; k++) {
             fib[k] = fib[k - 1].add(fib[k - 2]);
 
-            if (big_int_length(fib[k]) == n) {
+            if (big_int_length(fib[k]) >= n) {
                 pos = k;
                 break;
             }
