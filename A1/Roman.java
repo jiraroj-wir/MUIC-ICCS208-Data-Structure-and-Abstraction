@@ -1,14 +1,12 @@
 public class Roman {
     public static void main(String[] args) {
-        /*
-        System.out.printf("" + romanToInt("I") + "\n");
-        System.out.printf("" + romanToInt("V") + "\n");
-        System.out.printf("" + romanToInt("VII") + "\n");
-        System.out.printf("" + romanToInt("MCMLIV") + "\n");
-        System.out.printf("" + romanToInt("MCMXC") + "\n");
-        System.out.printf("" + romanToInt("III") + "\n");
-        System.out.printf("" + romanToInt("XCIX") + "\n");
-        */
+        assert romanToInt("I") == 1;
+        assert romanToInt("V") == 5;
+        assert romanToInt("VII") == 7;
+        assert romanToInt("MCMLIV") == 1954;
+        assert romanToInt("MCMXC") == 1990;
+        assert romanToInt("III") == 3;
+        assert romanToInt("XCIX") == 99;
     }
 
     /*
