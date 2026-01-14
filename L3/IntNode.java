@@ -102,4 +102,24 @@ public class IntNode {
             return new IntNode(this.head + delta, rest); // TODO: what to return? how to do this recursively?
         }
     }
+
+    // do test
+    public static void main(String[] args) {
+        IntNode list = new IntNode(1, new IntNode(2, new IntNode(3, null)));
+
+        assert "1, 2, 3".equals(list.toString());
+        assert list.size() == 3;
+        assert "1, 2, 3".equals(list.toString());
+        assert "1, 2, 3".equals(list.iterativeToString());
+
+        assert list.get(0) == 1;
+        assert list.get(2) == 3;
+
+        list.set(1, 4);
+        assert "1, 4, 3".equals(list.iterativeToString());
+
+        IntNode incremented = list.incrList(7);
+        assert "8, 11, 10".equals(incremented.toString());
+        assert "1, 4, 3".equals(list.iterativeToString());
+    }
 }
