@@ -1,5 +1,12 @@
 public class MinMax {
-    public static void main(String[] args) {}
+    public static void main(String[] args) {
+        assert Math.abs(minMaxAverage(new int[] {5}) - 5.0) < 1e-9;
+        assert Math.abs(minMaxAverage(new int[] {4, 9}) - 6.5) < 1e-9;
+        assert Math.abs(minMaxAverage(new int[] {7, 4, 3, 2, 5}) - 4.5) < 1e-9;
+        assert Math.abs(minMaxAverage(new int[] {3, 1, 8, -2, 7, 4}) - 3.0) < 1e-9;
+        assert Math.abs(minMaxAverage(new int[] {10, -1, 2, 9, 5}) - 4.5) < 1e-9;
+    }
+
     /*
      * A rough calculation of the code 'comparison complexity' gives ⌊n/2⌋ + n = 3n/2 - c --- with some deduction along
      * the way.
