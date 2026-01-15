@@ -1,0 +1,150 @@
+  \documentclass{article}
+
+  \usepackage{fancyhdr}
+  \usepackage{amsmath}
+  \usepackage{amsthm}
+  \usepackage{amsfonts}
+  \usepackage{tikz}
+  \usepackage[plain]{algorithm}
+  \usepackage{algpseudocode}
+
+  \usetikzlibrary{automata,positioning}
+
+  %
+  % Basic Document Settings
+  %
+
+  \topmargin=-0.45in
+  \evensidemargin=0in
+  \oddsidemargin=0in
+  \textwidth=6.5in
+  \textheight=9.0in
+  \headsep=0.25in
+
+  \linespread{1.1}
+
+  \pagestyle{fancy}
+  \lhead{\hmwkAuthorName}
+  \chead{} % empty
+  \rhead{\hmwkHeaderTitle}
+  \cfoot{\thepage}
+
+  \renewcommand\headrulewidth{0.4pt}
+  \renewcommand\footrulewidth{0pt}
+
+  \setlength\parindent{0pt}
+
+  %
+  % Homework Details
+  %
+
+  \newcommand{\hmwkTitle}{Homework\ 2}
+  \newcommand{\hmwkDueDate}{Tuesday, January 27, 2026,\ 11{:}59 pm (Thai time)}
+  \newcommand{\hmwkClass}{Data Structure\ and Abstractions}
+  \newcommand{\hmwkClassTime}{Section 2}
+  \newcommand{\hmwkClassInstructor}{Kanat Tangwongsan}
+  \newcommand{\hmwkAuthorName}{\textbf{Jiraroj Wiruchpongsanon (6781617)}}
+
+  % What appears in the top-right header
+  \newcommand{\hmwkHeaderTitle}{Data Structure and Abstractions: Homework 2}
+
+  %
+  % Title Page
+  %
+
+  \title{
+      \vspace{2in}
+      \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+      \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+      \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+      \vspace{3in}
+  }
+
+  \author{\hmwkAuthorName}
+  \date{}
+
+  \renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+  %
+  % Helper Commands
+  %
+
+  \newcounter{partCounter}
+  \newcommand{\solution}{\textbf{\large Solution}}
+
+  \newtheorem*{theorem}{Theorem}
+
+  \theoremstyle{remark}
+  \newtheorem*{remark}{Remark}
+
+  \begin{document}
+
+  \maketitle
+  \newpage
+
+  \section*{Important Notes from the Assignment}
+
+  \textit{Typesetting Requirements.} For written questions, you must properly typeset your answer,
+  produce a PDF file called \texttt{hw2.pdf}, and add it to the zip file that you will upload to Canvas. No
+  other format will be accepted. To typeset your homework, apart from Microsoft Word, there are
+  LibreOffice and \LaTeX, which we recommend. Note that a scan of your handwritten solution will not be
+  accepted. You can find helpful resources about how to typeset your work on the course website.
+
+  \textit{AI Usage.} Use of generative AI (genAI), including AI-assisted code completion, is prohibited.
+  You must write every element of the code yourself.
+
+  \textit{Hand-In.} When you hand in your work, your zip file will contain no more than the following
+  files: \texttt{hw2.pdf}, \texttt{MinMax.java}, \texttt{RPal.java}, \texttt{mydeque/LinkedListDeque.java},
+  and \texttt{mydeque/ArrayDeque.java}.
+
+  \textit{Collaboration.} We interpret collaboration very liberally. You may work with other students.
+  However, each student must write up and hand in his or her assignment separately. Let us repeat: You
+  need to write your own code. You must not look at or copy someone else's code. You need to write up
+  answers to written problems individually. The fact that you can recreate the solution from memory will
+  be taken as proof that you actually understood it, and you may actually be interviewed about your
+  answers. Be sure to indicate who you have worked with (refer to the hand-in instructions).
+
+  \newpage
+
+  \section*{Problem 2 (8 points)}
+
+  \textbf{Task 2 --- Fibonacci Growth (8 points)}
+
+  For this task, save your work in \texttt{hw2.pdf}.
+
+  In class, our ArrayList implementation uses the array doubling trick, which doubles the capacity of
+  the array every time the array becomes full. Our analysis shows that starting with an array of capacity 1
+  with no data items initially, appending $n$ data items ends up needing at most $2n$ copying steps.
+
+  This problem involves a more fancy array growing scheme. To describe this new approach, recall
+  the Fibonacci sequence from Discrete Math, which is given by
+  \[
+      F_{n+2} = F_{n+1} + F_n \quad \text{for } n \ge 0,
+  \]
+  with $F_1 = F_2 = 1$. In our new scheme, the capacity of the underlying array will strictly follow the
+  Fibonacci sequence. Initially, the capacity is $F_2 = 1$. When full, we grow the capacity to $F_3 = 2$.
+  When full again, we grow the capacity to $F_4 = 3$\ldots{} then to $F_5 = 5$, then to $F_6 = 8$, and so on.
+
+  Amazingly this turns out to work quite well! You will prove a few facts about Fibonacci numbers and
+  apply them to analyze the total copying steps.
+
+  \textbf{Subtask I} Using mathematical induction, prove that for $n \ge 1$,
+  \[
+      1 + F_1 + F_2 + \dots + F_n = F_{n+2}.
+  \]
+  You are expected to write a solid, rigorous proof based on the definition of Fibonacci numbers (above).
+
+  \textbf{Subtask II} Prove, e.g., using direct proof that for $n \ge 1$,
+  \[
+      \frac{1}{F_n} \left(1 + \sum_{k=1}^{n} F_k \right) \le 3.
+  \]
+
+  \textbf{Subtask III} Suppose we start with no data items in our ArrayList. If we use the Fibonacci growth
+  scheme and add in $n$ data items, give a detailed analysis of the total number of copy steps (like we did in
+  class) of this scheme. State your argument carefully. To simplify matters, you may wish to assume that
+  $n = F_r + 1$ for some integer $r \ge 2$.
+
+  \medskip
+  \solution
+
+  \end{document}
