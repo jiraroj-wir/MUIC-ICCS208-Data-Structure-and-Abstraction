@@ -83,10 +83,30 @@ public class SLList {
     IntNode class, feel free to do so. You should know that it is possible to implement this without touching IntNode at
     all.
     */
+    public String toString() {
+        /*
+         * since java `String` is immutable, `str = str + current.head` will creates a new string every time it gets
+         * called --- so, I use string with buffer instead.
+         */
+        StringBuffer str_buff = new StringBuffer();
+        IntNode current = this.sentinel.next;
+
+        str_buff.append("[");
+        while (current != null) {
+            if (str_buff.length() > 1) { // ignore the first '['
+                str_buff.append(", ");
+            }
+            str_buff.append(current.value);
+
+            current = current.next;
+        }
+        str_buff.append("]");
+
+        return str_buff.toString();
+    }
 }
+
 /*
-
-
 Exercise 2: Write removeFirst
 Add a public void removeFirst() method to your SLList class. This method removes the element at the front of the list.
 If the list is empty, it does nothing. How does it affect how we maintain size ?
