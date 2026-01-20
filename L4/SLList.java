@@ -104,6 +104,16 @@ public class SLList {
 
         return str_buff.toString();
     }
+
+    public static void main(String[] args) {
+        SLList list = new SLList();
+        list.addLast(1);
+        list.addLast(2);
+        list.addFirst(0);
+
+        assert "[0, 1, 2]".equals(list.toString());
+        assert list.size() == 3;
+    }
 }
 
 /*
