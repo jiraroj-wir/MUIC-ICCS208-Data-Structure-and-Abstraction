@@ -132,11 +132,39 @@ public class SLList {
 
     public static void main(String[] args) {
         SLList list = new SLList();
-        list.addLast(1);
-        list.addLast(2);
-        list.addFirst(0);
+        assert list.size() == 0;
+        assert "[]".equals(list.toString());
 
-        assert "[0, 1, 2]".equals(list.toString());
+        list.addFirst(5);
+        assert list.size() == 1;
+        assert "[5]".equals(list.toString());
+        assert list.getFirst() == 5;
+        assert list.getLast() == 5;
+
+        list.addLast(7);
+        list.addLast(9);
         assert list.size() == 3;
+        assert "[5, 7, 9]".equals(list.toString());
+        assert list.getLast() == 9;
+
+        list.removeFirst();
+        assert list.size() == 2;
+        assert "[7, 9]".equals(list.toString());
+        assert list.getFirst() == 7;
+
+        list.removeFirst();
+        list.removeFirst(); // drops to empty
+        assert list.size() == 0;
+        assert "[]".equals(list.toString());
+
+        boolean threw = false;
+        try {
+            list.getFirst();
+        } catch (IllegalStateException e) {
+            threw = true;
+        }
+        assert threw;
+
+        // Similar block for getLast()
     }
 }
