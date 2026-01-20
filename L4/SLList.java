@@ -7,6 +7,8 @@ public class SLList {
 
     private final IntNode sentinel;
 
+    private int size;
+
     /*
     Exercise 0: Putting Them Altogether
 
@@ -22,22 +24,68 @@ public class SLList {
     - getLast
     - size (should be fast)
     */
-    SLList() {
+    public SLList() {
         this.sentinel = new IntNode();
-        this.sentinel.next = null;
+        size = 0;
     }
 
-    SLList(int x) {
-        this.sentinel = new IntNode();
-        this.sentinel.next = new IntNode();
-        this.sentinel.next.value = x;
+    public SLList(int x) {
+        this(); // calls SLList
+        addFirst(x);
     }
+
+    public void addFirst(int x) {
+        IntNode new_first = new IntNode();
+        new_first.value = x;
+        new_first.next = sentinel.next;
+        sentinel.next = new_first;
+        size++;
+    }
+
+    public void addLast(int x) {
+        IntNode ptr = this.sentinel;
+        while (ptr.next != null) {
+            ptr = ptr.next;
+        }
+
+        ptr.next = new IntNode();
+        ptr.next.value = x;
+        size++;
+    }
+
+    public int getFirst() {
+        if (this.sentinel.next == null) {
+            throw new IllegalStateException("empty list");
+        }
+
+        return this.sentinel.next.value;
+    }
+
+    public int getLast() {
+        if (this.sentinel.next == null) {
+            throw new IllegalStateException("empty list");
+        }
+
+        IntNode ptr = this.sentinel;
+        while (ptr.next != null) {
+            ptr = ptr.next;
+        }
+
+        return ptr.value;
+    }
+
+    public int size() { return this.size; }
+
+    /*
+    Exercise 1: Write toString
+
+    Add a public String toString() method to your SLList class. If you have a compelling reason to change the internal
+    IntNode class, feel free to do so. You should know that it is possible to implement this without touching IntNode at
+    all.
+    */
 }
 /*
-Exercise 1: Write toString
-Add a public String toString() method to your SLList class. If you have a compelling reason to change the internal
-IntNode class, feel free to do so. You should know that it is possible to implement this without touching IntNode at
-all.
+
 
 Exercise 2: Write removeFirst
 Add a public void removeFirst() method to your SLList class. This method removes the element at the front of the list.
