@@ -105,6 +105,31 @@ public class SLList {
         return str_buff.toString();
     }
 
+    /*
+    Exercise 2: Write removeFirst
+    Add a public void removeFirst() method to your SLList class. This method removes the element at the front of the
+    list. If the list is empty, it does nothing. How does it affect how we maintain size ?
+    */
+    public void removeFirst() {
+        if (this.sentinel.next == null || this.size == 0) {
+            return;
+        }
+
+        this.sentinel.next = this.sentinel.next.next;
+        this.size--;
+
+        /*
+         * it doesn't affect our SLList's size maintainance much, just reduce it's size field by 1.
+         */
+    }
+
+    /*
+    Exercise 3: Write insert
+    Add a public void insert(int newValue, int k) method to your SLList class. The method insert(newValue, k) inserts
+    newValue into the list at position k. This means, for example, insert(x, 0) will insert x at the front of the list.
+    Because insert adds a number to the list, if the list's size was n prior, it will be n + 1 after insert.
+    */
+
     public static void main(String[] args) {
         SLList list = new SLList();
         list.addLast(1);
@@ -115,14 +140,3 @@ public class SLList {
         assert list.size() == 3;
     }
 }
-
-/*
-Exercise 2: Write removeFirst
-Add a public void removeFirst() method to your SLList class. This method removes the element at the front of the list.
-If the list is empty, it does nothing. How does it affect how we maintain size ?
-
-Exercise 3: Write insert
-Add a public void insert(int newValue, int k) method to your SLList class. The method insert(newValue, k) inserts
-newValue into the list at position k. This means, for example, insert(x, 0) will insert x at the front of the list.
-Because insert adds a number to the list, if the list's size was n prior, it will be n + 1 after insert.
-*/
