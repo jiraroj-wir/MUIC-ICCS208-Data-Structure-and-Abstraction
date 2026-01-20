@@ -147,4 +147,40 @@
   \medskip
   \solution
 
+  \begin{enumerate}
+      \item[(I)] 
+        \begin{proof}
+
+        For $n \geq 1$ where $n \in \mathbb{I}$, let $S(n) \text{ be } 1 + F_1 + F_2 + ... + F_n = F_{n+2}$; where $F_i$ notates the $i^{th}$ member of a fibonacci sequence, $F_1 = F_2 = 1$ and $F_{n+2} = F_{n+1} + F_n$. \\
+
+        \paragraph{test base case (n = 1,2,3,4).}
+          \begin{align*}
+          S(1) &= 1 + F_1 = F_{1+2} = 1 + 1 = 2 = F_3,\\
+          S(2) &= 1 + F_1 + F_2 = F_{2+2} = 1 + 1 + 1 = 3 = F_4,\\
+          S(3) &= 1 + F_1 + F_2 + F_3 = F_{3+2} = 1 + 1 + 1 + 2 = 5 = F_5,\\
+          S(4) &= 1 + F_1 + F_2 + F_3 + F_4 = F_{4+2} = 1 + 1 + 1 + 2 + 3 = 8 = F_6.
+          \end{align*}  
+        So, $S(1), S(2), S(3), S(4)$ holds true.
+
+        % couldn't end subtask I in the page, so enter new page from this part.
+        \newpage
+        \paragraph{induction}
+          we're given $S(n): 1 + F_1 + F_2 + ... + F_n = F_{n+2} \text{ ; } n \geq 1, \text{ and } F_1 = F_2 = 1$. 
+        \begin{align*}
+        S(n+1)  &= 1 + F_1 + F_2 + \cdots + F_n + F_{n+1} \\
+                &= (1 + F_1 + F_2 + \cdots + F_n) + F_{n+1}
+                && \text{group the first $n^{\text{th}}$ term together} \\
+                &= F_{n+2} + F_{n+1}
+                && \text{the first term is equivalent to } S(n) \\
+                &= F_{n+3}  
+                && \text{as the recursive relation of a fibonacci sequence}
+        \end{align*}
+
+        \paragraph{conclusion} $S(n)$ holds true for all $n >= 1$
+
+        \qedhere
+        \end{proof}
+
+  \end{enumerate}
+
   \end{document}
