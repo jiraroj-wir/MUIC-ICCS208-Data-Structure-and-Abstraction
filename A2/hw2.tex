@@ -167,8 +167,8 @@
         \paragraph{induction}
           we're given $S(n): 1 + F_1 + F_2 + ... + F_n = F_{n+2} \text{ ; } n \geq 1, \text{ and } F_1 = F_2 = 1$. 
         \begin{align*}
-        S(n+1)  &= 1 + F_1 + F_2 + \cdots + F_n + F_{n+1} \\
-                &= (1 + F_1 + F_2 + \cdots + F_n) + F_{n+1}
+        S(n+1)  &= 1 + F_1 + F_2 + ... + F_n + F_{n+1} \\
+                &= (1 + F_1 + F_2 + ... + F_n) + F_{n+1}
                 && \text{group the first $n^{\text{th}}$ term together} \\
                 &= F_{n+2} + F_{n+1}
                 && \text{the first term is equivalent to } S(n) \\
@@ -180,6 +180,50 @@
 
         \qedhere
         \end{proof}
+
+      \item[(II)]
+        \begin{proof}
+        \begin{align*}
+            \text{LHS}
+            &= \frac{1}{F_n}\!\left(1 + \sum_{k=1}^n F_k\right) \\
+            &= \frac{F_{n+2}}{F_n} 
+            && \text{latter term is equivalent to } F_{n+2} \text{ --- proof in Subtask I} \\
+            &= \frac{F_{n+1} + F_{n}}{F_n} 
+            && \text{unfold $F_{n+2}$ by fibonacci sequence's recursive relation} \\
+            &= \frac{F_n + F_{n-1} + F_n}{F_n}
+            && \text{unfold $F_{n+1}$ by fibonacci sequence's recursive relation} \\
+            &= \frac{2F_n + F_{n-1}}{F_n}
+            && \text{use commutative and associative property of $\mathbb{R}$} \\
+            &= 2 + \frac{F_{n-1}}{F_n} \\
+            &\le 2 + 1 
+            &&  F_{n-1} \le F_n \rightarrow \frac{F_{n-1}}{F_n} \le 1\\
+            &\le 3 \text{ = RHS.}
+        \end{align*}
+        \qedhere
+        \end{proof}
+
+    % not enough space again
+    \newpage
+
+    \item[(III)] We assume that $n = F_r + 1$ where $r \geq 2$ --- as this gives the worse ratio of $n$ to 'number of copies'. Started with $F_2$, when the amount of items exceed our ArrayList size, we copy the the old capacity worth of items, so the total number of copy steps are
+
+        \[F_2 + F_3 + F_4 + ... + F_{r}\]
+
+        which we can use the relation we proof in Subtask I to simplify as $F_{r+2} - 2$ --- worst case steps needed. Now, the result isn't so easy to compare to the 'doubling ArrayList's size approach', so we have to simplify it even more. 
+
+        \begin{align*}
+            F_{r+2} - 2 &= F_{r+1} + F_r - 2
+                && \text{unfold $F_{r+2}$ by fibonacci sequence's recursive relation} \\
+                &= F_r + F_{r-1} + F_r - 2
+                && \text{unfold $F_{r+1}$ by fibonacci sequence's recursive relation} \\
+                &= 2n + F_{r-1} - 4
+                && \text{since } n = F_r + 1 \\
+                & \le 3n - 5
+                &&  \text{since } F_r = n - 1, \text{ and } F_{n-1} \le F_n \rightarrow \frac{F_{n-1}}{F_n} \le 1\\
+                & \le 3n
+        \end{align*}
+
+        So, it turns out using a fibonacci sequence as ArrayList size incrementor performs worse than just doubling the ArrayList's size; this probably due to the sequence's growth scheme being less than 2 --- as defined the the $n^{th}$ fibonacci number as $F_n = F_{n-1} + F_{n-2}$ where $n \geq 1$; $F_{n-2} \le F_{n-1} \rightarrow F_{n} \le 2F_{n-1}$
 
   \end{enumerate}
 
