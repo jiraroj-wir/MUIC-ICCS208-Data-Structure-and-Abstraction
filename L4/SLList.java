@@ -129,6 +129,27 @@ public class SLList {
     newValue into the list at position k. This means, for example, insert(x, 0) will insert x at the front of the list.
     Because insert adds a number to the list, if the list's size was n prior, it will be n + 1 after insert.
     */
+    public void insert(int newValue, int k) {
+        if (k <= 0) {
+            this.addFirst(newValue);
+            return;
+        }
+        if (k >= size) {
+            this.addLast(newValue);
+            return;
+        }
+
+        IntNode current = this.sentinel;
+        for (int i = 0; i < k; i++) {
+            current = current.next;
+        }
+
+        IntNode node = new IntNode();
+        node.value = newValue;
+        node.next = current.next;
+        current.next = node;
+        size++;
+    }
 
     public static void main(String[] args) {
         SLList list = new SLList();
@@ -137,23 +158,24 @@ public class SLList {
 
         list.addFirst(5);
         assert list.size() == 1;
-        assert "[5]".equals(list.toString());
         assert list.getFirst() == 5;
         assert list.getLast() == 5;
+        assert "[5]".equals(list.toString());
 
         list.addLast(7);
         list.addLast(9);
         assert list.size() == 3;
-        assert "[5, 7, 9]".equals(list.toString());
+        assert list.getFirst() == 5;
         assert list.getLast() == 9;
+        assert "[5, 7, 9]".equals(list.toString());
 
-        list.removeFirst();
+        list.removeFirst(); // drops 5
         assert list.size() == 2;
-        assert "[7, 9]".equals(list.toString());
         assert list.getFirst() == 7;
+        assert "[7, 9]".equals(list.toString());
 
         list.removeFirst();
-        list.removeFirst(); // drops to empty
+        list.removeFirst(); // now empty
         assert list.size() == 0;
         assert "[]".equals(list.toString());
 
@@ -165,6 +187,20 @@ public class SLList {
         }
         assert threw;
 
-        // Similar block for getLast()
+        threw = false;
+        try {
+            list.getLast();
+        } catch (IllegalStateException e) {
+            threw = true;
+        }
+        assert threw;
+
+        list.addLast(1);
+        list.addLast(3);
+        list.insert(0, 0);           // front
+        list.insert(2, 2);           // middle
+        list.insert(4, list.size()); // end
+        assert "[0, 1, 2, 3, 4]".equals(list.toString());
+        assert list.size() == 5;
     }
 }
