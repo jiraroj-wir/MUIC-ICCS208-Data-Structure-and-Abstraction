@@ -41,11 +41,16 @@ public class LinkedListDeque<T> {
         */
         this.sentinel.next = first;
         first.next.prev = first; // this.sentinel.next.next
-        this.size += 1;
+        this.size++;
     }
 
     // Adds an item of type T to the back of the deque.
-    public void addLast(T item) {}
+    public void addLast(T item) {
+        Node last = new Node(item, this.sentinel, this.sentinel.prev);
+        this.sentinel.prev = last;
+        last.prev.next = last;
+        this.size++;
+    }
 
     // Returns true if deque is empty, false otherwise.
     public boolean isEmpty() {
