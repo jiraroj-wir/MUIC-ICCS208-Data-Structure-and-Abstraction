@@ -109,9 +109,21 @@ public class LinkedListDeque<T> {
 
         return last.value;
     }
-    // Gets the item at the given index, where 0 is the front, 1 is the next item, // and so forth. If no such item
-    // exists, returns null. Must not alter the deque!
-    public T get(int index) { return null; }
+    // Gets the item at the given index, where 0 is the front, 1 is the next item,
+    // and so forth. If no such item exists, returns null. Must not alter the deque!
+    public T get(int index) {
+        if (index < 0 || index >= this.size) {
+            return null;
+            // throw new IndexOutOfBoundsException("Ahhh!!!, index out of bound!!!"); // panic, scream
+        }
+
+        Node ptr = this.sentinel.next;
+        for (int _i = 0; _i < index; _i++) {
+            ptr = ptr.next;
+        }
+
+        return ptr.value;
+    }
 
     public void printDeque() { System.out.printf("" + this.toString() + '\n'); }
 }
