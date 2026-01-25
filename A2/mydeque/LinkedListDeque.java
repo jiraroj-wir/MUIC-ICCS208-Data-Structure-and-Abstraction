@@ -133,64 +133,72 @@ public class LinkedListDeque<T> {
     // tests
     public static void main(String[] args) {
         LinkedListDeque<Integer> dq = new LinkedListDeque<>();
-        System.out.printf("start -> empty=%s size=%d contents=%s%n", dq.isEmpty(), dq.size(), dq);
+        assert dq.isEmpty();
+        assert dq.size() == 0;
+        assert "[]".equals(dq.toString());
 
-        // basic adds/removes
         dq.addFirst(1);
         dq.addFirst(2);
         dq.addLast(0);
         dq.addLast(-1);
-        System.out.printf("after mixed adds -> size=%d contents=%s first=%s last=%s%n", dq.size(), dq, dq.get(0),
-                          dq.get(dq.size() - 1));
+        assert dq.size() == 4;
+        assert "[2, 1, 0, -1]".equals(dq.toString());
+        assert dq.get(0) == 2;
+        assert dq.get(dq.size() - 1) == -1;
 
-        System.out.printf("removeFirst -> %s%n", dq.removeFirst()); // removes 2
-        System.out.printf("removeLast -> %s%n", dq.removeLast());   // removes -1
-        System.out.printf("after removes -> size=%d contents=%s%n", dq.size(), dq);
+        assert dq.removeFirst() == 2;
+        assert dq.removeLast() == -1;
+        assert dq.size() == 2;
+        assert "[1, 0]".equals(dq.toString());
 
-        // get at positions and null cases
-        System.out.printf("get(0)=%s%n", dq.get(0));
-        System.out.printf("get(1)=%s%n", dq.get(1));
-        System.out.printf("get(10)=%s%n", dq.get(10));
+        assert dq.get(0) == 1;
+        assert dq.get(1) == 0;
+        assert dq.get(10) == null;
 
-        // remove down to empty again
-        System.out.printf("removeFirst -> %s%n", dq.removeFirst()); // removes 1
-        System.out.printf("removeLast -> %s%n", dq.removeLast());   // removes 0
-        System.out.printf("after emptying -> empty=%s size=%d contents=%s%n", dq.isEmpty(), dq.size(), dq);
+        assert dq.removeFirst() == 1;
+        assert dq.removeLast() == 0;
+        assert dq.isEmpty();
+        assert dq.removeFirst() == null;
+        assert dq.removeLast() == null;
 
-        System.out.printf("removeFirst on empty -> %s%n", dq.removeFirst());
-        System.out.printf("removeLast on empty -> %s%n", dq.removeLast());
-
-        // build up larger dataset
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++)
             dq.addLast(i * 10);
-        }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++)
             dq.addFirst(-i * 10);
-        }
-        System.out.printf("after bulk adds -> size=%d contents=%s%n", dq.size(), dq);
-
-        // iterate manually via get
-        System.out.print("sequence via get():");
+        assert dq.size() == 10;
+        int[] expected = {-40, -30, -20, -10, 0, 0, 10, 20, 30, 40};
         for (int i = 0; i < dq.size(); i++) {
-            System.out.print(" " + dq.get(i));
+            assert dq.get(i) == expected[i];
         }
-        System.out.println();
 
-        // clone tests
         LinkedListDeque<Integer> copy = new LinkedListDeque<>(dq);
-        System.out.printf("copy -> size=%d contents=%s%n", copy.size(), copy);
+        assert copy.size() == dq.size();
+        assert copy.toString().equals(dq.toString());
 
         dq.removeFirst();
         dq.removeLast();
         copy.addFirst(999);
         copy.addLast(111);
-        System.out.printf("after independent edits -> original=%s size=%d%n", dq, dq.size());
-        System.out.printf("after independent edits -> copy    =%s size=%d%n", copy, copy.size());
+        assert dq.size() == 8;
+        assert copy.size() == 12;
+        assert !dq.toString().equals(copy.toString());
 
-        // ensure original still correct after many ops
-        while (!dq.isEmpty()) {
-            System.out.printf("popping %s%n", dq.removeFirst());
-        }
-        System.out.printf("end -> empty=%s size=%d contents=%s%n", dq.isEmpty(), dq.size(), dq);
+        while (!dq.isEmpty())
+            dq.removeFirst();
+        assert dq.isEmpty();
+        assert "[]".equals(dq.toString());
+
+        LinkedListDeque<String> words = new LinkedListDeque<>();
+        words.addLast("orca");
+        words.addFirst("6781617");
+        assert "[6781617, orca]".equals(words.toString());
+        assert "orca".equals(words.removeLast());
+        assert "6781617".equals(words.removeFirst());
+
+        LinkedListDeque<Double> doubles = new LinkedListDeque<>();
+        doubles.addFirst(1.5);
+        doubles.addLast(2.5);
+        assert doubles.get(0) == 1.5;
+        assert doubles.get(1) == 2.5;
     }
 }
