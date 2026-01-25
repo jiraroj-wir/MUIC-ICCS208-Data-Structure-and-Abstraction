@@ -56,10 +56,30 @@ public class LinkedListDeque<T> {
     public boolean isEmpty() {
         return (this.sentinel.next == this.sentinel && this.sentinel.prev == this.sentinel && this.size == 0);
     }
+
     // Returns the number of items in the deque.
     public int size() { return this.size; }
+
     // Returns a string showing the items in the deque from first to last, // separated by a space.
-    public String toString() { return ""; }
+    @Override // use this `toString()` instead of the `official` ones from java.lang.Object
+    public String toString() {
+        StringBuilder str_b = new StringBuilder(); // avoid `String` copying itself everytime we do append
+
+        Node ptr = sentinel.next;
+        for (int _i = 0; _i < this.size; _i++) {
+            if (str_b.length() > 0) {
+                str_b.append(", ");
+            } else {
+                str_b.append('[');
+            }
+            str_b.append(ptr.value);
+            ptr = ptr.next;
+        }
+        str_b.append(']');
+
+        return str_b.toString();
+    }
+
     // Removes and returns the item at the front of the deque. // If no such item exists, returns null.
     public T removeFirst() { return null; }
 
@@ -69,5 +89,5 @@ public class LinkedListDeque<T> {
     // exists, returns null. Must not alter the deque!
     public T get(int index) { return null; }
 
-    public void printDeque() {}
+    public void printDeque() { System.out.printf("" + this.toString() + '\n'); }
 }
