@@ -130,4 +130,68 @@ public class LinkedListDeque<T> {
     }
 
     public void printDeque() { System.out.printf("" + this.toString() + '\n'); }
+
+    // tests
+    public static void main(String[] args) {
+        LinkedListDeque<Integer> dq = new LinkedListDeque<>();
+        System.out.printf("start -> empty=%s size=%d contents=%s%n", dq.isEmpty(), dq.size(), dq);
+
+        // basic adds/removes
+        dq.addFirst(1);
+        dq.addFirst(2);
+        dq.addLast(0);
+        dq.addLast(-1);
+        System.out.printf("after mixed adds -> size=%d contents=%s first=%s last=%s%n", dq.size(), dq, dq.get(0),
+                          dq.get(dq.size() - 1));
+
+        System.out.printf("removeFirst -> %s%n", dq.removeFirst()); // removes 2
+        System.out.printf("removeLast -> %s%n", dq.removeLast());   // removes -1
+        System.out.printf("after removes -> size=%d contents=%s%n", dq.size(), dq);
+
+        // get at positions and null cases
+        System.out.printf("get(0)=%s%n", dq.get(0));
+        System.out.printf("get(1)=%s%n", dq.get(1));
+        System.out.printf("get(10)=%s%n", dq.get(10));
+
+        // remove down to empty again
+        System.out.printf("removeFirst -> %s%n", dq.removeFirst()); // removes 1
+        System.out.printf("removeLast -> %s%n", dq.removeLast());   // removes 0
+        System.out.printf("after emptying -> empty=%s size=%d contents=%s%n", dq.isEmpty(), dq.size(), dq);
+
+        System.out.printf("removeFirst on empty -> %s%n", dq.removeFirst());
+        System.out.printf("removeLast on empty -> %s%n", dq.removeLast());
+
+        // build up larger dataset
+        for (int i = 0; i < 5; i++) {
+            dq.addLast(i * 10);
+        }
+        for (int i = 0; i < 5; i++) {
+            dq.addFirst(-i * 10);
+        }
+        System.out.printf("after bulk adds -> size=%d contents=%s%n", dq.size(), dq);
+
+        // iterate manually via get
+        System.out.print("sequence via get():");
+        for (int i = 0; i < dq.size(); i++) {
+            System.out.print(" " + dq.get(i));
+        }
+        System.out.println();
+
+        // clone tests
+        LinkedListDeque<Integer> copy = new LinkedListDeque<>(dq);
+        System.out.printf("copy -> size=%d contents=%s%n", copy.size(), copy);
+
+        dq.removeFirst();
+        dq.removeLast();
+        copy.addFirst(999);
+        copy.addLast(111);
+        System.out.printf("after independent edits -> original=%s size=%d%n", dq, dq.size());
+        System.out.printf("after independent edits -> copy    =%s size=%d%n", copy, copy.size());
+
+        // ensure original still correct after many ops
+        while (!dq.isEmpty()) {
+            System.out.printf("popping %s%n", dq.removeFirst());
+        }
+        System.out.printf("end -> empty=%s size=%d contents=%s%n", dq.isEmpty(), dq.size(), dq);
+    }
 }
