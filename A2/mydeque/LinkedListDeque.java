@@ -70,11 +70,10 @@ public class LinkedListDeque<T> {
         StringBuilder str_b = new StringBuilder(); // avoid `String` copying itself everytime we do append
 
         Node ptr = sentinel.next;
+        str_b.append('[');
         for (int _i = 0; _i < this.size; _i++) {
-            if (str_b.length() > 0) {
+            if (str_b.length() > 1) { // accounted for '['
                 str_b.append(", ");
-            } else {
-                str_b.append('[');
             }
             str_b.append(ptr.value);
             ptr = ptr.next;
