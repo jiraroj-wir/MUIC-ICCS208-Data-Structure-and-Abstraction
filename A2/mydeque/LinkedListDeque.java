@@ -28,7 +28,11 @@ public class LinkedListDeque<T> {
     public LinkedListDeque(LinkedListDeque<T> other) {
         this();
 
-        // TODO: find a better way to do this.
+        Node other_ptr = other.sentinel.next;
+        for (int _i = 0; _i < other.size && other_ptr != other.sentinel; _i++) {
+            this.addLast(other_ptr.value);
+            other_ptr = other_ptr.next;
+        }
     }
 
     // Adds an item of type T to the front of the deque.
