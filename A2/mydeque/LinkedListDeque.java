@@ -57,7 +57,7 @@ public class LinkedListDeque<T> {
         return (this.sentinel.next == this.sentinel && this.sentinel.prev == this.sentinel && this.size == 0);
     }
     // Returns the number of items in the deque.
-    public int size() { return 0; }
+    public int size() { return this.size; }
     // Returns a string showing the items in the deque from first to last, // separated by a space.
     public String toString() { return ""; }
     // Removes and returns the item at the front of the deque. // If no such item exists, returns null.
