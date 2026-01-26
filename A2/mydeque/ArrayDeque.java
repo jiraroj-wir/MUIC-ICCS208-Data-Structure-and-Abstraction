@@ -48,7 +48,21 @@ public class ArrayDeque<T> {
         this.size++;
     }
     // Adds an item of type T to the back of the deque.
-    public void addLast(T item) {}
+    public void addLast(T item) {
+        if (this.size() == this.items.length) {
+            resize(this.items.length << 1);
+        }
+
+        if (this.isEmpty()) {
+            this.first_ptr = 0;
+            this.last_ptr = 0;
+        } else {
+            this.last_ptr = (this.last_ptr + 1) % this.items.length;
+        }
+
+        this.items[last_ptr] = item;
+        this.size++;
+    }
     // Returns true if deque is empty, false otherwise.
     public boolean isEmpty() { return (this.size() == 0); }
     // Returns the number of items in the deque.
