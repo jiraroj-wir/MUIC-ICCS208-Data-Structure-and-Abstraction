@@ -92,16 +92,14 @@ public class ArrayDeque<T> {
         StringBuilder str_b = new StringBuilder(); // avoid `String` copying itself everytime we do append
 
         int idx = first_ptr;
-        str_b.append('[');
         for (int i = 0; i < this.size(); i++) {
-            if (str_b.length() > 1) { // accounted for '['
-                str_b.append(", ");
+            if (i > 0) {
+                str_b.append(' ');
             }
 
             str_b.append(this.items[idx]);
             idx = (idx + 1) % this.items.length;
         }
-        str_b.append(']');
 
         return str_b.toString();
     }
@@ -168,24 +166,24 @@ public class ArrayDeque<T> {
 
     // tests
     public static void main(String[] args) {
-        LinkedListDeque<Integer> dq = new LinkedListDeque<>();
+        ArrayDeque<Integer> dq = new ArrayDeque<>();
         assert dq.isEmpty();
         assert dq.size() == 0;
-        assert "[]".equals(dq.toString());
+        assert "".equals(dq.toString());
 
         dq.addFirst(1);
         dq.addFirst(2);
         dq.addLast(0);
         dq.addLast(-1);
         assert dq.size() == 4;
-        assert "[2, 1, 0, -1]".equals(dq.toString());
+        assert "2 1 0 -1".equals(dq.toString());
         assert dq.get(0) == 2;
         assert dq.get(dq.size() - 1) == -1;
 
         assert dq.removeFirst() == 2;
         assert dq.removeLast() == -1;
         assert dq.size() == 2;
-        assert "[1, 0]".equals(dq.toString());
+        assert "1 0".equals(dq.toString());
 
         assert dq.get(0) == 1;
         assert dq.get(1) == 0;
@@ -207,7 +205,7 @@ public class ArrayDeque<T> {
             assert dq.get(i) == expected[i];
         }
 
-        LinkedListDeque<Integer> copy = new LinkedListDeque<>(dq);
+        ArrayDeque<Integer> copy = new ArrayDeque<>(dq);
         assert copy.size() == dq.size();
         assert copy.toString().equals(dq.toString());
 
@@ -222,16 +220,16 @@ public class ArrayDeque<T> {
         while (!dq.isEmpty())
             dq.removeFirst();
         assert dq.isEmpty();
-        assert "[]".equals(dq.toString());
+        assert "".equals(dq.toString());
 
-        LinkedListDeque<String> words = new LinkedListDeque<>();
+        ArrayDeque<String> words = new ArrayDeque<>();
         words.addLast("orca");
         words.addFirst("6781617");
-        assert "[6781617, orca]".equals(words.toString());
+        assert "6781617 orca".equals(words.toString());
         assert "orca".equals(words.removeLast());
         assert "6781617".equals(words.removeFirst());
 
-        LinkedListDeque<Double> doubles = new LinkedListDeque<>();
+        ArrayDeque<Double> doubles = new ArrayDeque<>();
         doubles.addFirst(1.5);
         doubles.addLast(2.5);
         assert doubles.get(0) == 1.5;
