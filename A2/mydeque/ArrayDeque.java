@@ -5,6 +5,7 @@ public class ArrayDeque<T> {
     private int last_ptr;
 
     // Creates an empty array deque.
+    @SuppressWarnings("unchecked") // remove my lsp warnings
     public ArrayDeque() {
         items = (T[]) new Object[8];
         this.size = 0;
@@ -15,6 +16,19 @@ public class ArrayDeque<T> {
     // Creates a deep copy of other.
     public ArrayDeque(ArrayDeque<T> other) {}
 
+    @SuppressWarnings("unchecked")
+    private void resize(int new_capacity) {
+        T[] new_items = (T[]) new Object[new_capacity];
+        int right_chunk = Math.min(this.size(), items.length - first_ptr);
+        System.arraycopy(items, first_ptr, new_items, 0, right_chunk);
+        if (this.size() > right_chunk) {
+            System.arraycopy(items, 0, new_items, right_chunk, this.size() - right_chunk);
+        }
+        items = new_items;
+        first_ptr = 0;
+        last_ptr = this.size() == 0 ? 0 : this.size() - 1;
+    }
+
     // Adds an item of type T to the front of the deque.
     public void addFirst(T item) {}
     // Adds an item of type T to the back of the deque.
@@ -22,7 +36,17 @@ public class ArrayDeque<T> {
     // Returns true if deque is empty, false otherwise.
     public boolean isEmpty() { return (this.size() == 0 && this.first_ptr == this.last_ptr); }
     // Returns the number of items in the deque.
-    public int size() { return this.size; }
+    public int size() {
+        return this.size;
+
+        /*  this failed when `first_ptr` == `last_ptr`, and maybe a few more cases
+        if (first_ptr > last_ptr) {
+            return this.items.length - this.first_ptr + this.last_ptr + 1;
+        }
+
+        return this.last_ptr - this.first_ptr + 1;
+        */
+    }
     // Returns a string showing the items in the deque from first to last, // separated by a space.
     public String toString() { return ""; }
     // Removes and returns the item at the front of the deque. // If no such item exists, returns null.
