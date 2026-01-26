@@ -47,6 +47,7 @@ public class ArrayDeque<T> {
         this.items[first_ptr] = item;
         this.size++;
     }
+
     // Adds an item of type T to the back of the deque.
     public void addLast(T item) {
         if (this.size() == this.items.length) {
@@ -63,8 +64,10 @@ public class ArrayDeque<T> {
         this.items[last_ptr] = item;
         this.size++;
     }
+
     // Returns true if deque is empty, false otherwise.
     public boolean isEmpty() { return (this.size() == 0); }
+
     // Returns the number of items in the deque.
     public int size() {
         return this.size;
@@ -77,8 +80,26 @@ public class ArrayDeque<T> {
         return this.last_ptr - this.first_ptr + 1;
         */
     }
+
     // Returns a string showing the items in the deque from first to last, // separated by a space.
-    public String toString() { return ""; }
+    public String toString() {
+        StringBuilder str_b = new StringBuilder(); // avoid `String` copying itself everytime we do append
+
+        int idx = first_ptr;
+        str_b.append('[');
+        for (int i = 0; i < this.size(); i++) {
+            if (str_b.length() > 1) { // accounted for '['
+                str_b.append(", ");
+            }
+
+            str_b.append(this.items[idx]);
+            idx = (idx + 1) % this.items.length;
+        }
+        str_b.append(']');
+
+        return str_b.toString();
+    }
+
     // Removes and returns the item at the front of the deque. // If no such item exists, returns null.
     public T removeFirst() { return null; }
     // Removes and returns the item at the back of the deque. // If no such item exists, returns null.
