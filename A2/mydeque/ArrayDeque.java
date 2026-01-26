@@ -19,22 +19,38 @@ public class ArrayDeque<T> {
     @SuppressWarnings("unchecked")
     private void resize(int new_capacity) {
         T[] new_items = (T[]) new Object[new_capacity];
+
         int right_chunk = Math.min(this.size(), items.length - first_ptr);
         System.arraycopy(items, first_ptr, new_items, 0, right_chunk);
         if (this.size() > right_chunk) {
             System.arraycopy(items, 0, new_items, right_chunk, this.size() - right_chunk);
         }
+
         items = new_items;
         first_ptr = 0;
         last_ptr = this.size() == 0 ? 0 : this.size() - 1;
     }
 
     // Adds an item of type T to the front of the deque.
-    public void addFirst(T item) {}
+    public void addFirst(T item) {
+        if (this.size() == this.items.length) {
+            resize(this.items.length << 1);
+        }
+
+        if (this.isEmpty()) {
+            this.first_ptr = 0;
+            this.last_ptr = 0;
+        } else {
+            this.first_ptr = (this.first_ptr - 1 + this.items.length) % this.items.length;
+        }
+
+        this.items[first_ptr] = item;
+        this.size++;
+    }
     // Adds an item of type T to the back of the deque.
     public void addLast(T item) {}
     // Returns true if deque is empty, false otherwise.
-    public boolean isEmpty() { return (this.size() == 0 && this.first_ptr == this.last_ptr); }
+    public boolean isEmpty() { return (this.size() == 0); }
     // Returns the number of items in the deque.
     public int size() {
         return this.size;
