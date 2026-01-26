@@ -14,7 +14,13 @@ public class ArrayDeque<T> {
     }
 
     // Creates a deep copy of other.
-    public ArrayDeque(ArrayDeque<T> other) {}
+    public ArrayDeque(ArrayDeque<T> other) {
+        this();
+
+        for (int i = 0; i < other.size(); i++) {
+            this.addLast(other.get(i));
+        }
+    }
 
     @SuppressWarnings("unchecked")
     private void resize(int new_capacity) {
