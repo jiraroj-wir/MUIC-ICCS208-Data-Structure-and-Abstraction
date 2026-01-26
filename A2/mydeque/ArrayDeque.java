@@ -165,4 +165,76 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() { System.out.printf("" + this.toString() + '\n'); }
+
+    // tests
+    public static void main(String[] args) {
+        LinkedListDeque<Integer> dq = new LinkedListDeque<>();
+        assert dq.isEmpty();
+        assert dq.size() == 0;
+        assert "[]".equals(dq.toString());
+
+        dq.addFirst(1);
+        dq.addFirst(2);
+        dq.addLast(0);
+        dq.addLast(-1);
+        assert dq.size() == 4;
+        assert "[2, 1, 0, -1]".equals(dq.toString());
+        assert dq.get(0) == 2;
+        assert dq.get(dq.size() - 1) == -1;
+
+        assert dq.removeFirst() == 2;
+        assert dq.removeLast() == -1;
+        assert dq.size() == 2;
+        assert "[1, 0]".equals(dq.toString());
+
+        assert dq.get(0) == 1;
+        assert dq.get(1) == 0;
+        assert dq.get(10) == null;
+
+        assert dq.removeFirst() == 1;
+        assert dq.removeLast() == 0;
+        assert dq.isEmpty();
+        assert dq.removeFirst() == null;
+        assert dq.removeLast() == null;
+
+        for (int i = 0; i < 5; i++)
+            dq.addLast(i * 10);
+        for (int i = 0; i < 5; i++)
+            dq.addFirst(-i * 10);
+        assert dq.size() == 10;
+        int[] expected = {-40, -30, -20, -10, 0, 0, 10, 20, 30, 40};
+        for (int i = 0; i < dq.size(); i++) {
+            assert dq.get(i) == expected[i];
+        }
+
+        LinkedListDeque<Integer> copy = new LinkedListDeque<>(dq);
+        assert copy.size() == dq.size();
+        assert copy.toString().equals(dq.toString());
+
+        dq.removeFirst();
+        dq.removeLast();
+        copy.addFirst(999);
+        copy.addLast(111);
+        assert dq.size() == 8;
+        assert copy.size() == 12;
+        assert !dq.toString().equals(copy.toString());
+
+        while (!dq.isEmpty())
+            dq.removeFirst();
+        assert dq.isEmpty();
+        assert "[]".equals(dq.toString());
+
+        LinkedListDeque<String> words = new LinkedListDeque<>();
+        words.addLast("orca");
+        words.addFirst("6781617");
+        assert "[6781617, orca]".equals(words.toString());
+        assert "orca".equals(words.removeLast());
+        assert "6781617".equals(words.removeFirst());
+
+        LinkedListDeque<Double> doubles = new LinkedListDeque<>();
+        doubles.addFirst(1.5);
+        doubles.addLast(2.5);
+        assert doubles.get(0) == 1.5;
+        assert doubles.get(1) == 2.5;
+    }
 }
