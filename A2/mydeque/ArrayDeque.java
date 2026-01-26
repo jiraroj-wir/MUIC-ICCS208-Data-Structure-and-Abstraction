@@ -106,9 +106,9 @@ public class ArrayDeque<T> {
             return null;
         }
 
-        T removed = items[first_ptr];
-        items[first_ptr] = null;
-        first_ptr = (first_ptr + 1) % this.items.length;
+        T removed = items[this.first_ptr];
+        this.items[this.first_ptr] = null;
+        this.first_ptr = (this.first_ptr + 1) % this.items.length;
         this.size--;
 
         // threshold at 0.25 of the items size, reduce by halfs
@@ -125,10 +125,32 @@ public class ArrayDeque<T> {
         return removed;
     }
     // Removes and returns the item at the back of the deque. // If no such item exists, returns null.
-    public T removeLast() { return null; }
+    public T removeLast() {
+        if (this.isEmpty()) {
+            return null;
+        }
+
+        T removed = this.items[this.last_ptr]; // save for return
+        this.items[this.last_ptr] = null;
+        this.last_ptr = (this.last_ptr - 1 + this.items.length) % this.items.length;
+        this.size--;
+
+        // threshold at 0.25 of the items size, reduce by halfs
+        // the items' size must be at least 16
+        if (this.items.length >= 16 && this.size < (this.items.length >> 2)) {
+            this.resize(this.items.length >> 1);
+        }
+
+        if (this.isEmpty()) {
+            this.first_ptr = 0;
+            this.last_ptr = 0;
+        }
+
+        return removed;
+    }
     // Gets the item at the given index, where 0 is the front, 1 is the next item, // and so forth. If no such
     // item exists, returns null. Must not alter the deque!
-    public T get(int index) { return null; }
+    public T get(int index) { return this.items[(this.first_ptr + index) % this.items.length]; }
 
     public void printDeque() { System.out.printf("" + this.toString() + '\n'); }
 }
