@@ -70,15 +70,13 @@ public class LinkedListDeque<T> {
         StringBuilder str_b = new StringBuilder(); // avoid `String` copying itself everytime we do append
 
         Node ptr = sentinel.next;
-        str_b.append('[');
         for (int _i = 0; _i < this.size; _i++) {
-            if (str_b.length() > 1) { // accounted for '['
-                str_b.append(", ");
+            if (_i > 0) {
+                str_b.append(' ');
             }
             str_b.append(ptr.value);
             ptr = ptr.next;
         }
-        str_b.append(']');
 
         return str_b.toString();
     }
@@ -135,21 +133,21 @@ public class LinkedListDeque<T> {
         LinkedListDeque<Integer> dq = new LinkedListDeque<>();
         assert dq.isEmpty();
         assert dq.size() == 0;
-        assert "[]".equals(dq.toString());
+        assert "".equals(dq.toString());
 
         dq.addFirst(1);
         dq.addFirst(2);
         dq.addLast(0);
         dq.addLast(-1);
         assert dq.size() == 4;
-        assert "[2, 1, 0, -1]".equals(dq.toString());
+        assert "2 1 0 -1".equals(dq.toString());
         assert dq.get(0) == 2;
         assert dq.get(dq.size() - 1) == -1;
 
         assert dq.removeFirst() == 2;
         assert dq.removeLast() == -1;
         assert dq.size() == 2;
-        assert "[1, 0]".equals(dq.toString());
+        assert "1 0".equals(dq.toString());
 
         assert dq.get(0) == 1;
         assert dq.get(1) == 0;
@@ -186,12 +184,12 @@ public class LinkedListDeque<T> {
         while (!dq.isEmpty())
             dq.removeFirst();
         assert dq.isEmpty();
-        assert "[]".equals(dq.toString());
+        assert "".equals(dq.toString());
 
         LinkedListDeque<String> words = new LinkedListDeque<>();
         words.addLast("orca");
         words.addFirst("6781617");
-        assert "[6781617, orca]".equals(words.toString());
+        assert "6781617 orca".equals(words.toString());
         assert "orca".equals(words.removeLast());
         assert "6781617".equals(words.removeFirst());
 
