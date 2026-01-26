@@ -150,7 +150,13 @@ public class ArrayDeque<T> {
     }
     // Gets the item at the given index, where 0 is the front, 1 is the next item, // and so forth. If no such
     // item exists, returns null. Must not alter the deque!
-    public T get(int index) { return this.items[(this.first_ptr + index) % this.items.length]; }
+    public T get(int index) {
+        if (index < 0 || index >= this.size()) {
+            return null;
+        }
+
+        return this.items[(this.first_ptr + index) % this.items.length];
+    }
 
     public void printDeque() { System.out.printf("" + this.toString() + '\n'); }
 }
