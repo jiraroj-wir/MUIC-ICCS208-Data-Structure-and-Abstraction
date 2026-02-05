@@ -184,6 +184,37 @@ public class AList<T> {
     // Returns the number of items in the deque.
     public int size() { return this.size; }
 
+    /*
+    Exercise III: Loop Invariant
+    As a comment block in the same file you're handing in for the previous exercises, complete the following reasoning.
+    Importantly, flesh out the loop invariant and "assertions" throughout the code to establish a valid chain of
+    reasoning from the start to finish.
+    */
+
+    /*
+    int sum(int x) { // precondition: x >= 0
+        int p = 0;
+        for (int i = 0; i < x; i++) { // @loop_invariant: 0 <= i <= x and ___________________________
+            p += pow(2, i);           // suppose there is a powering function where pow(2, i) returns 2**i
+        }
+        return p;
+    }
+    // post-condition: return 2**x - 1
+    */
+
+    /*
+    at the start of each loop iteration (current i):
+    1) 0 <= i <= x
+    2) p == (2^i - 1)
+
+    Initialization: i = 0, p = 0; 2^0 - 1 = 0, so invariant holds
+
+    Maintenance: firstly, we assume invariant holds at loop start: p = 2^i - 1, then the body do: p += 2^i
+    -> p = (2^i - 1) + 2^i = 2^(i+1) - 1 --- the next assumption is p = 2^(i+1) - 1, so invariant holds
+
+    Termination: loop ends when (i == x); invariant gives p = 2^x - 1, which match the postcondition
+    */
+
     // test
     public static void main(String[] args) {
         AList<Integer> list = new AList<>();
