@@ -183,4 +183,41 @@ public class AList<T> {
 
     // Returns the number of items in the deque.
     public int size() { return this.size; }
+
+    // test
+    public static void main(String[] args) {
+        AList<Integer> list = new AList<>();
+        assert "[]".equals(list.toString());
+        assert list.isEmpty();
+
+        list.addLast(2);
+        assert "[2]".equals(list.toString());
+        assert list.getFirst() == 2;
+        assert list.getLast() == 2;
+
+        list.addFirst(1);
+        assert "[1, 2]".equals(list.toString());
+        assert list.getFirst() == 1;
+
+        list.addLast(4);
+        assert "[1, 2, 4]".equals(list.toString());
+        assert list.getLast() == 4;
+
+        list.insert(3, 2);
+        assert "[1, 2, 3, 4]".equals(list.toString());
+
+        list.insert(0, 0);
+        assert "[0, 1, 2, 3, 4]".equals(list.toString());
+
+        list.insert(5, list.size());
+        assert "[0, 1, 2, 3, 4, 5]".equals(list.toString());
+
+        list.removeFirst();
+        assert "[1, 2, 3, 4, 5]".equals(list.toString());
+
+        list.removeLast();
+        assert "[1, 2, 3, 4]".equals(list.toString());
+
+        assert list.size() == 4;
+    }
 }
