@@ -230,10 +230,7 @@ public class Game {
         return description.toString();
     }
 
-    private void look() {
-        System.out.printf("You are in the campus pub \n");
-        System.out.printf("Exits: ", describeRoom(currentRoom));
-    }
+    private void look() { System.out.printf("Exits: " + describeRoom(currentRoom) + '\n'); }
 
     /**
      * "Quit" was entered. Check the rest of the command to see
