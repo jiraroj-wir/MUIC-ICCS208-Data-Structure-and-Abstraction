@@ -49,18 +49,18 @@ public class Game {
         lab.setExits(outside, office, null, null);
         office.setExits(null, null, null, lab);
         */
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        outside.setExit(Direction.EAST, theater);
+        outside.setExit(Direction.SOUTH, lab);
+        outside.setExit(Direction.WEST, pub);
 
-        theater.setExit("west", outside);
+        theater.setExit(Direction.WEST, outside);
 
-        pub.setExit("east", outside);
+        pub.setExit(Direction.EAST, outside);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+        lab.setExit(Direction.NORTH, outside);
+        lab.setExit(Direction.EAST, office);
 
-        office.setExit("west", lab);
+        office.setExit(Direction.WEST, lab);
 
         currentRoom = outside; // start game outside
     }
@@ -150,7 +150,7 @@ public class Game {
         System.out.println("around at the university.");
         System.out.println();
         System.out.println("Your command words are:");
-        System.out.println("   go quit help");
+        System.out.println("   " + CommandWords.commandList());
     }
 
     /**
@@ -165,24 +165,14 @@ public class Game {
         }
 
         String direction = command.getSecondWord();
+        Direction desired_direction = Direction.fromString(direction);
+        if (desired_direction == null) {
+            System.out.println("That isn't a valid direction.");
+            return;
+        }
 
         // Try to leave current room.
-        /*
-        Room nextRoom = null;
-        if (direction.equals("north")) {
-            nextRoom = currentRoom.northExit;
-        }
-        if (direction.equals("east")) {
-            nextRoom = currentRoom.eastExit;
-        }
-        if (direction.equals("south")) {
-            nextRoom = currentRoom.southExit;
-        }
-        if (direction.equals("west")) {
-            nextRoom = currentRoom.westExit;
-        }
-        */
-        Room nextRoom = currentRoom.getExit(direction);
+        Room nextRoom = currentRoom.getExit(desired_direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
@@ -231,7 +221,7 @@ public class Game {
             description.append("west ");
         }
         */
-        for (String direction : current_room.getAvailableDirections()) {
+        for (Direction direction : current_room.getAvailableDirections()) {
             description.append(direction).append(' ');
         }
 
