@@ -18,6 +18,7 @@
 public class Game {
     private Parser parser;
     private Room currentRoom;
+    private Room previousRoom = null;
 
     /**
      * Create the game and initialise its internal map.
@@ -133,6 +134,8 @@ public class Game {
             goRoom(command);
         } else if (commandWord.equals("look")) {
             look();
+        } else if (commandWord.equals("back")) {
+            goBack(command);
         } else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
@@ -167,18 +170,19 @@ public class Game {
         }
 
         String direction = command.getSecondWord();
-        Direction desired_direction = Direction.fromString(direction);
-        if (desired_direction == null) {
+        Direction desiredDirection = Direction.fromString(direction);
+        if (desiredDirection == null) {
             System.out.println("That isn't a valid direction.");
             return;
         }
 
         // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(desired_direction);
+        Room nextRoom = currentRoom.getExit(desiredDirection);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         } else {
+            previousRoom = currentRoom;
             currentRoom = nextRoom;
 
             /*
@@ -231,6 +235,29 @@ public class Game {
     }
 
     private void look() { System.out.printf("Exits: " + describeRoom(currentRoom) + '\n'); }
+
+    /*
+     * go back to the previous room
+     * *** this implementation only work once, you can't do multiple go backs
+     * *** using a deque will allows the program to revert back to all moves, but i don't have much time left
+     */
+    private void goBack(Command command) {
+        if (command.hasSecondWord()) {
+            System.out.println("Back what?");
+            return;
+        }
+
+        if (previousRoom == null) {
+            System.out.println("You haven't gone anywhere yet.");
+            return;
+        }
+
+        Room target = previousRoom;
+        previousRoom = currentRoom;
+        currentRoom = target;
+
+        System.out.printf("%s%n", describeRoom(currentRoom));
+    }
 
     /**
      * "Quit" was entered. Check the rest of the command to see
