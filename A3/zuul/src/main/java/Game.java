@@ -41,11 +41,26 @@ public class Game {
         office = new Room("in the computing admin office");
 
         // initialise room exits
+        /*
+         * (north, east, south, west)
         outside.setExits(null, theater, lab, pub);
         theater.setExits(null, null, null, outside);
         pub.setExits(null, outside, null, null);
         lab.setExits(outside, office, null, null);
         office.setExits(null, null, null, lab);
+        */
+        outside.setExit("east", theater);
+        outside.setExit("south", lab);
+        outside.setExit("west", pub);
+
+        theater.setExit("west", outside);
+
+        pub.setExit("east", outside);
+
+        lab.setExit("north", outside);
+        lab.setExit("east", office);
+
+        office.setExit("west", lab);
 
         currentRoom = outside; // start game outside
     }
@@ -152,6 +167,7 @@ public class Game {
         String direction = command.getSecondWord();
 
         // Try to leave current room.
+        /*
         Room nextRoom = null;
         if (direction.equals("north")) {
             nextRoom = currentRoom.northExit;
@@ -165,6 +181,8 @@ public class Game {
         if (direction.equals("west")) {
             nextRoom = currentRoom.westExit;
         }
+        */
+        Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
@@ -199,6 +217,7 @@ public class Game {
         description.append("You are ").append(current_room.getDescription()).append('\n');
         description.append("Exits: ");
 
+        /*
         if (current_room.northExit != null) {
             description.append("north ");
         }
@@ -210,6 +229,10 @@ public class Game {
         }
         if (current_room.westExit != null) {
             description.append("west ");
+        }
+        */
+        for (String direction : current_room.getAvailableDirections()) {
+            description.append(direction).append(' ');
         }
 
         return description.toString();
