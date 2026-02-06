@@ -17,7 +17,8 @@ public class CommandWords {
         GO("go"),
         QUIT("quit"),
         HELP("help"),
-        LOOK("look");
+        LOOK("look"),
+        BACK("back");
 
         private final String word;
 
