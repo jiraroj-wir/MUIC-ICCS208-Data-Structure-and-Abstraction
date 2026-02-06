@@ -15,10 +15,16 @@
  * @version 2016.02.29
  */
 
+import java.util.Random;
+
 public class Game {
     private Parser parser;
     private Room currentRoom;
     private Room previousRoom = null;
+    private Room labRoom;
+    private Room libraryRoom;
+    private Room magicRoomTransporter;
+    private final Random random = new Random();
 
     /**
      * Create the game and initialise its internal map.
@@ -32,7 +38,7 @@ public class Game {
      * Create all the rooms and link their exits together.
      */
     private void createRooms() {
-        Room outside, theater, pub, lab, office, library, cafeteria, basement;
+        Room outside, theater, pub, lab, office, library, cafeteria, magicRoom;
 
         // create the rooms
         outside = new Room("outside the main entrance of the university");
@@ -42,7 +48,11 @@ public class Game {
         office = new Room("in the computing admin office");
         library = new Room("inside the quiet campus library");
         cafeteria = new Room("inside the bustling student cafeteria");
-        basement = new Room("in the dimly lit maintenance basement");
+        magicRoom = new Room("inside a mysterious magic room");
+
+        labRoom = lab;
+        libraryRoom = library;
+        magicRoomTransporter = magicRoom;
 
         // initialise room exits
         /*
@@ -55,6 +65,7 @@ public class Game {
         */
         outside.setExit(Direction.EAST, theater);
         outside.setExit(Direction.SOUTH, lab);
+        outside.setExit(Direction.DOWN, magicRoom);
         outside.setExit(Direction.WEST, pub);
         outside.setExit(Direction.NORTH, library);
 
@@ -66,11 +77,8 @@ public class Game {
 
         lab.setExit(Direction.NORTH, outside);
         lab.setExit(Direction.EAST, office);
-        lab.setExit(Direction.DOWN, basement);
-        lab.setExit(Direction.UP, office);
 
         office.setExit(Direction.WEST, lab);
-        office.setExit(Direction.DOWN, lab);
 
         library.setExit(Direction.SOUTH, outside);
         library.setExit(Direction.EAST, cafeteria);
@@ -79,7 +87,7 @@ public class Game {
         cafeteria.setExit(Direction.WEST, library);
         cafeteria.setExit(Direction.SOUTH, theater);
 
-        basement.setExit(Direction.UP, lab);
+        magicRoom.setExit(Direction.SOUTH, lab);
 
         currentRoom = outside; // start game outside
     }
@@ -200,6 +208,21 @@ public class Game {
         if (nextRoom == null) {
             System.out.println("There is no door!");
         } else {
+            /*
+             * magic room feature: when stepped into the room, you got teleported to random room
+             *
+             * *** I've manually picked the lab and library 'randomly' as the destination
+             * *** if you aim for a proper randomized room, I think creating a `static List<Room>` field in room class,
+             * that got update everytime new room has been initialized; then, pull one room from the list, randomly
+             * should gives some random room (exclude the magic room itself)
+             *
+             * P.S. As a bad speaker, I spent 4 days preparing for my public speaking (EC3), and now i don't have enough
+             * time to complete this assignment properly.
+             */
+            if (nextRoom == magicRoomTransporter) {
+                System.out.println("You step into the magic room and feel reality warp!");
+                nextRoom = random.nextBoolean() ? labRoom : libraryRoom;
+            }
             previousRoom = currentRoom;
             currentRoom = nextRoom;
 
@@ -290,8 +313,4 @@ public class Game {
             return true; // signal that we want to quit
         }
     }
-
-    /*
-     * TODO: i might have to drop the magic transporter room, the time is quite close
-     */
 }
