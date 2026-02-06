@@ -32,7 +32,7 @@ public class Game {
      * Create all the rooms and link their exits together.
      */
     private void createRooms() {
-        Room outside, theater, pub, lab, office;
+        Room outside, theater, pub, lab, office, library, cafeteria, basement;
 
         // create the rooms
         outside = new Room("outside the main entrance of the university");
@@ -40,6 +40,9 @@ public class Game {
         pub = new Room("in the campus pub");
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
+        library = new Room("inside the quiet campus library");
+        cafeteria = new Room("inside the bustling student cafeteria");
+        basement = new Room("in the dimly lit maintenance basement");
 
         // initialise room exits
         /*
@@ -53,15 +56,30 @@ public class Game {
         outside.setExit(Direction.EAST, theater);
         outside.setExit(Direction.SOUTH, lab);
         outside.setExit(Direction.WEST, pub);
+        outside.setExit(Direction.NORTH, library);
 
         theater.setExit(Direction.WEST, outside);
+        theater.setExit(Direction.NORTH, cafeteria);
 
         pub.setExit(Direction.EAST, outside);
+        pub.setExit(Direction.NORTH, library);
 
         lab.setExit(Direction.NORTH, outside);
         lab.setExit(Direction.EAST, office);
+        lab.setExit(Direction.DOWN, basement);
+        lab.setExit(Direction.UP, office);
 
         office.setExit(Direction.WEST, lab);
+        office.setExit(Direction.DOWN, lab);
+
+        library.setExit(Direction.SOUTH, outside);
+        library.setExit(Direction.EAST, cafeteria);
+        library.setExit(Direction.WEST, pub);
+
+        cafeteria.setExit(Direction.WEST, library);
+        cafeteria.setExit(Direction.SOUTH, theater);
+
+        basement.setExit(Direction.UP, lab);
 
         currentRoom = outside; // start game outside
     }
