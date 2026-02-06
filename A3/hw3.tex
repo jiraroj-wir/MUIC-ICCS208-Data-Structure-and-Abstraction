@@ -1,0 +1,144 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{} % empty
+\rhead{\hmwkHeaderTitle}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0pt}
+
+\setlength\parindent{0pt}
+
+%
+% Homework Details
+%
+
+\newcommand{\hmwkTitle}{Homework\ 3}
+\newcommand{\hmwkDueDate}{Friday, February 6, 2026,\ 11{:}59 pm (Thai time)}
+\newcommand{\hmwkClass}{Data Structure\ and Abstractions}
+\newcommand{\hmwkClassTime}{Section 2}
+\newcommand{\hmwkClassInstructor}{Kanat Tangwongsan}
+\newcommand{\hmwkAuthorName}{\textbf{Jiraroj Wiruchpongsanon (6781617)}}
+
+% What appears in the top-right header
+\newcommand{\hmwkHeaderTitle}{Data Structure and Abstractions: Homework 3}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Helper Commands
+%
+
+\newcounter{partCounter}
+\newcommand{\solution}{\textbf{\large Solution}}
+
+\newtheorem*{theorem}{Theorem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\section*{Task 3: Loops \& Numerical Computation (7 points)}
+
+For this task, save your work in hw3.pdf
+Consider the Java code below. We have already fleshed out a loop invariant for you. Your task is to
+add Hoare logic justifications so that we have a proof that mult returns the product of x and y. You may
+be inspired by worked examples from class.
+
+\begin{verbatim}
+// precondition: x >= 0 && y >= 0;
+    int mult(int x, int y) {
+    int k = x, n = y, res = 0;
+    while (k != 0) { // @loop_invariant x * y == k * n + res;
+        if (k%2 == 1) res = res + n;
+        k /= 2;
+        n *= 2;
+    }
+    return res;
+}
+// post-condition: returns x * y
+\end{verbatim}
+
+\medskip
+\solution
+
+\vspace{1em}
+\hrulefill
+
+\section*{Task 4: Looping an Array (7 points)}
+
+For this task, save your work in hw3.pdf
+The Java code below was written to find the last index that x appears in the array A. If x doesn’t appear in A, then the function returns −1.
+
+\begin{verbatim}
+    int find(int[] A, int x) {
+    int n = A.length, i = n - 1;
+    while (i >= 0) {
+        if (A[i] == x)
+        return i;
+        i -= 1;
+    }
+    return -1;
+}
+\end{verbatim}
+Your task is as follows:
+\begin{enumerate}
+    \item Write a precondition and a post-condition for find. Your conditions should be in sync with the
+invariants and other justification steps you will also make about the code. At the very least, the
+post-condition should allow us to say that find does find the last index of x as specified above.
+    \item Specify a loop invariant for the loop that find uses.
+    \item Fill in Hoare logic justifications so that we have a complete proof that given the precondition, the
+post-condition holds, thereby find meets the specification.
+\end{enumerate}
+
+\medskip
+\solution
+
+\vspace{1em}
+\hrulefill
+
+\end{document}
