@@ -13,13 +13,13 @@
  * @version 2016.02.29
  */
 
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class Room {
     private String description;
-    private Map<String, Room> exits = new HashMap<>();
+    // private Map<String, Room> exits = new HashMap<>();
+    private Map<Direction, Room> exits = new EnumMap<>(Direction.class);
 
     /*
     public Room northExit;
@@ -44,7 +44,7 @@ public class Room {
      * @param south The south exit.
      * @param west The west exit.
      */
-    public void setExit(String direction, Room neighbor) {
+    public void setExit(Direction direction, Room neighbor) {
         if (direction != null && neighbor != null) {
             exits.put(direction, neighbor);
         }
@@ -72,10 +72,10 @@ public class Room {
      */
     public String getDescription() { return description; }
 
-    public Room getExit(String direction) { return exits.get(direction); }
+    public Room getExit(Direction direction) { return exits.get(direction); }
 
     /*
-     * @return set of avilable keys of the map
+     * @return set of available direction keys
      */
-    public Iterable<String> getAvailableDirections() { return exits.keySet(); }
+    public Iterable<Direction> getAvailableDirections() { return exits.keySet(); }
 }
