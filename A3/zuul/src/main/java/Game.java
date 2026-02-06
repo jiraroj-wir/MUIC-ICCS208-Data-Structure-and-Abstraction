@@ -131,6 +131,8 @@ public class Game {
             printHelp();
         } else if (commandWord.equals("go")) {
             goRoom(command);
+        } else if (commandWord.equals("look")) {
+            look();
         } else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
@@ -226,6 +228,11 @@ public class Game {
         }
 
         return description.toString();
+    }
+
+    private void look() {
+        System.out.printf("You are in the campus pub \n");
+        System.out.printf("Exits: ", describeRoom(currentRoom));
     }
 
     /**
