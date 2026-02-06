@@ -233,7 +233,65 @@ post-condition holds, thereby find meets the specification.
         \item or case where the returned value are within the range of \([0, n-1]\), or when the returned value isn't \(-1\). this means that there exist an index \(i\) in array \(A\) that equals to \(x\), and since we search backwards, \(i\) is the last index that \(x\) occours.
     \end{itemize}
 
-\item \[I \equiv \left(\forall j \left(A[j] \ne x \land i < j \le n - 1\right)\right) \land (-1 \le i \le n - 1)\]
+    \item \[
+    I \equiv \left(\forall j \left(A[j] \ne x \land i < j \le n - 1\right)\right) \land (-1 \le i \le n - 1)
+    \]
+
+    \item     
+    
+    \begin{itemize}
+        \item \textbf{Initialization: }
+        \[
+        n = \text{length of array } A,\ i = n - 1
+        \]
+        consider the proposition
+        \[
+        \forall j (i < j < n \Rightarrow A[j] \ne x)
+        \]
+        but since \(i\) is already equal to \(n - 1\), which gives
+        \[
+        n - 1 < j < n
+        \]
+        there is no such \(j\) that could satisfy this inequality, thus there is no counter-example that could be made against this invariant, therefore the invariant holds true.
+
+        \item \textbf{Maintenance: }
+        we try to prove
+        \[
+        \{I \land i \ge 0\}\ \text{body}\ \{I\}
+        \]
+        \begin{enumerate}
+            \item case 1: when \(A[i] = x\).  
+
+            from the invariant we already know that for all indices \(j\) with \(i < j < n\), \(A[j] \ne x\),
+            since the current index \(i\) contains \(x\) and no index to the right of \(i\) contains \(x\), index \(i\) is the last occurrence of \(x\), 
+            and therefore returning \(i\) satisfies the postcondition.
+
+            \item case 2: when \(A[i] \ne x\).  
+            the code executes \(i = i - 1\). Let \(i' = i - 1\)
+            for any \(j\) with \(i' < j < n\), either
+            \begin{itemize}
+                \item \(j = i\), in which case \(A[j] = A[i] \ne x\), or
+                \item \(j > i\), in which case \(A[j] \ne x\) by the invariant.
+            \end{itemize}
+            thus
+            \[
+            \forall j (i' < j < n \Rightarrow A[j] \ne x)
+            \]
+            and together with \(-1 \le i' \le n-1\), the loop invariant still holds.
+        \end{enumerate}
+
+        \item \textbf{Termination: }  
+        the loop ends when \(i < 0\), and from the invariant we also have \(-1 \le i\); therefore at exit \(i = -1\).  
+        substituting \(i = -1\) into the invariant
+        \[
+        \forall j (i < j < n \Rightarrow A[j] \ne x)
+        \]
+        gives
+        \[
+        \forall j (0 \le j < n \Rightarrow A[j] \ne x)
+        \]
+        and we can conclude that \(x\) does not appear anywhere in array \(A\). therefore returning \(-1\) satisfies the postcondition.
+    \end{itemize}
 \end{enumerate}
 
 \vspace{1em}
