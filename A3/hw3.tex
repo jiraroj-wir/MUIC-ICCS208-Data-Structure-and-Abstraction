@@ -107,6 +107,83 @@ be inspired by worked examples from class.
 \solution
 
 \vspace{1em}
+
+firstly, precondition are \(x \ge 0\) and \(y \ge 0\). then, on the \textbf{initialization phase}, we got 
+\[\(k = x\), \quad \(n = y\), \quad \(res = 0\)\]
+
+, which we could use to define the loop invariant (I) as
+
+\[
+I \equiv (x \cdot y = k \cdot n + res) \land k \ge 0 \land n \ge 0
+\]
+and since
+\[
+k = x,\ n = y,\ res = 0 \implies kn + res = xy
+\]
+
+the loop invariant holds. next, on the \textbf{maintenance phase}, we'll prove 
+\[\(\{I \land k \ne 0\}\)\text{ body }\(\{I\}\)\]
+
+\begin{enumerate}
+    \item case 1: in case of \(k \in \mathbb{O}\), since \(k\) is odd
+
+    \[
+    k = 2v + 1
+    \]
+
+    then, after the loop execution, we'll get
+
+    \[
+    k' = v, \quad \ n' = 2n, \quad res' = res + n
+    \]
+
+    which when combined
+    \[
+    \begin{aligned}
+    k'n' + res' &= v(2n) + (res + n) \\
+                &= (2v + 1)n + res && \text{and since } k = 2v + 1\\
+                &= kn + res = xy
+    \end{aligned}
+    \]
+
+    \item case 2: in case of \(k \in \mathbb{E}\)
+
+    then the execution gives
+    \[
+    k' = v,\ n' = 2n \text{ and } res' = res
+    \]
+
+    which combines to
+
+    \[
+    \begin{aligned}
+    k'n' + res' &= v(2n) + res \\
+                &= 2vn + res && \text{since } k = 2v \text{ for even numbers}\\
+                &= kn + res = xy
+    \end{aligned}
+    \]
+
+\end{enumerate}
+
+since both case holds true, the maintenance phase is satisfied, and we reach our \textbf{termination phase}: since the loop invariant holds true before the loop starts, and it still holds true (on both case) when the loops end --- while \(k = 0\).
+
+\vspace{1em}
+
+from
+
+\begin{align}
+    x \cdot y &= kn + res \text{ when } k = 0 \\
+    &= 0(n) + res
+\end{align}
+
+thus
+\[
+x \cdot y = res
+\]
+
+the function returns variable `res`, which is equivalent of returning \(x \cdot y\)
+
+\vspace{1em}
 \hrulefill
 
 \section*{Task 4: Looping an Array (7 points)}
