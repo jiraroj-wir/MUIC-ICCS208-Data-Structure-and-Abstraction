@@ -12,8 +12,18 @@
 public class CommandWords {
     // NOTE: I think this one is good already, no need for enum
     // a constant array that holds all valid command words
-    private static final String[] validCommands = {"go", "quit", "help"};
+    // private static final String[] validCommands = {"go", "quit", "help"};
+    public enum CommandWord {
+        GO("go"),
+        QUIT("quit"),
+        HELP("help");
 
+        private final String word;
+
+        CommandWord(String word) { this.word = word; }
+
+        public String getWord() { return word; }
+    }
     /**
      * Constructor - initialise the command words.
      */
@@ -27,11 +37,22 @@ public class CommandWords {
      * false if it isn't.
      */
     public boolean isCommand(String aString) {
-        for (int i = 0; i < validCommands.length; i++) {
-            if (validCommands[i].equals(aString))
+        for (CommandWord command : CommandWord.values()) {
+            if (command.getWord().equals(aString)) {
                 return true;
+            }
         }
         // if we get here, the string was not found in the commands
         return false;
     }
+
+    /*
+    public boolean isCommand(String aString) {
+        for (int i = 0; i < validCommands.length; i++) {
+            if (validCommands[i].equals(aString))
+                return true;
+        }
+        return false;
+    }
+    */
 }
