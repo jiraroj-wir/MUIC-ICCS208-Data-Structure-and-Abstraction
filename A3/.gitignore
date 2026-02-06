@@ -1,0 +1,9 @@
+# gradle 
+deque-palindrome/build.gradle
+deque-palindrome/gradle/
+deque-palindrome/gradlew
+deque-palindrome/gradlew.bat
+zuul/build.gradle
+zuul/gradle/
+zuul/gradlew
+zuul/gradlew.bat
