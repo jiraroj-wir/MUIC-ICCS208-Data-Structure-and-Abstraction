@@ -55,4 +55,14 @@ public class CommandWords {
         return false;
     }
     */
+
+    public static String commandList() {
+        StringBuilder builder = new StringBuilder();
+
+        for (CommandWord command : CommandWord.values()) {
+            builder.append(command.getWord()).append(' ');
+        }
+
+        return builder.toString().trim();
+    }
 }
