@@ -16,7 +16,8 @@ public class CommandWords {
     public enum CommandWord {
         GO("go"),
         QUIT("quit"),
-        HELP("help");
+        HELP("help"),
+        LOOK("look");
 
         private final String word;
 
