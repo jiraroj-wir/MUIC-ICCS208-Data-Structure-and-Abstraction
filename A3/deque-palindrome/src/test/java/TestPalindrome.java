@@ -12,12 +12,36 @@ public class TestPalindrome {
 
     @Test
     public void testWordToDeque() {
-        Deque d = palindrome.wordToDeque("persiflage");
+        Deque<Character> d = palindrome.wordToDeque("persiflage");
         String actual = "";
         for (int i = 0; i < "persiflage".length(); i++) {
             actual += d.removeFirst();
         }
         assertEquals("persiflage", actual);
+    }
+
+    @Test
+    public void testIsPalindrome_true() {
+        assertTrue(palindrome.isPalindrome(""));
+        assertTrue(palindrome.isPalindrome("a"));
+        assertTrue(palindrome.isPalindrome("aa"));
+        assertTrue(palindrome.isPalindrome("racecar"));
+    }
+
+    @Test
+    public void testIsPalindrome_false() {
+        assertFalse(palindrome.isPalindrome("horse"));
+        assertFalse(palindrome.isPalindrome("cat"));
+        assertFalse(palindrome.isPalindrome("orca"));
+        assertFalse(palindrome.isPalindrome("aA"));
+    }
+
+    @Test
+    public void testIsPalindrome_even_and_odd_lengths() {
+        assertTrue(palindrome.isPalindrome("noon"));
+        assertTrue(palindrome.isPalindrome("level"));
+        assertFalse(palindrome.isPalindrome("levels"));
+        assertFalse(palindrome.isPalindrome("abc"));
     }
 }
 // */
