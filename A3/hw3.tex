@@ -217,6 +217,25 @@ post-condition holds, thereby find meets the specification.
 \medskip
 \solution
 
+\begin{enumerate}
+    \item precondition are an array of integer \(A\) that isn't empty (or equals to null --- points to elsewhere but the first member of the array), and \(n\text{ is length of array } A\), \(i\) will be all the indices of the array, ranging from \(0 \text{ to } (n-1)\).
+
+    \vspace{1em}
+
+    post-condition got two cases
+
+    \begin{itemize}
+        \item case where the returned value are \(-1\), this means that
+        \[
+        \forall j \ne x \text{ when } 0 \le j \le n - 1
+        \]
+
+        \item or case where the returned value are within the range of \([0, n-1]\), or when the returned value isn't \(-1\). this means that there exist an index \(i\) in array \(A\) that equals to \(x\), and since we search backwards, \(i\) is the last index that \(x\) occours.
+    \end{itemize}
+
+\item \[I \equiv \left(\forall j \left(A[j] \ne x \land i < j \le n - 1\right)\right) \land (-1 \le i \le n - 1)\]
+\end{enumerate}
+
 \vspace{1em}
 \hrulefill
 
