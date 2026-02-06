@@ -43,5 +43,16 @@ public class TestPalindrome {
         assertFalse(palindrome.isPalindrome("levels"));
         assertFalse(palindrome.isPalindrome("abc"));
     }
+
+    @Test
+    public void testIsPalindrome_with_off_by_one() {
+        CharacterComparator offByOne = new OffByOne();
+        assertTrue(palindrome.isPalindrome("flake", offByOne));
+        assertTrue(palindrome.isPalindrome("abab", offByOne));
+        assertTrue(palindrome.isPalindrome("a", offByOne));
+        assertFalse(palindrome.isPalindrome("noon", offByOne));
+        assertFalse(palindrome.isPalindrome("racecar", offByOne));
+        assertFalse(palindrome.isPalindrome("abca", offByOne));
+    }
 }
 // */
