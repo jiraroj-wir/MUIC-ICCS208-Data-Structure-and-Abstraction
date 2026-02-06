@@ -1,4 +1,4 @@
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
 
     private class Node {
         T value;
@@ -36,6 +36,7 @@ public class LinkedListDeque<T> {
     }
 
     // Adds an item of type T to the front of the deque.
+    @Override
     public void addFirst(T item) {
         Node first = new Node(item, this.sentinel.next, this.sentinel);
         /*
@@ -49,6 +50,7 @@ public class LinkedListDeque<T> {
     }
 
     // Adds an item of type T to the back of the deque.
+    @Override
     public void addLast(T item) {
         Node last = new Node(item, this.sentinel, this.sentinel.prev);
         this.sentinel.prev = last;
@@ -57,11 +59,13 @@ public class LinkedListDeque<T> {
     }
 
     // Returns true if deque is empty, false otherwise.
+    @Override
     public boolean isEmpty() {
         return (this.sentinel.next == this.sentinel && this.sentinel.prev == this.sentinel && this.size == 0);
     }
 
     // Returns the number of items in the deque.
+    @Override
     public int size() { return this.size; }
 
     // Returns a string showing the items in the deque from first to last, // separated by a space.
@@ -82,6 +86,7 @@ public class LinkedListDeque<T> {
     }
 
     // Removes and returns the item at the front of the deque. // If no such item exists, returns null.
+    @Override
     public T removeFirst() {
         if (this.isEmpty()) {
             return null;
@@ -97,6 +102,7 @@ public class LinkedListDeque<T> {
     }
 
     // Removes and returns the item at the back of the deque. // If no such item exists, returns null.
+    @Override
     public T removeLast() {
         if (this.isEmpty()) {
             return null;
@@ -112,6 +118,7 @@ public class LinkedListDeque<T> {
     }
     // Gets the item at the given index, where 0 is the front, 1 is the next item,
     // and so forth. If no such item exists, returns null. Must not alter the deque!
+    @Override
     public T get(int index) {
         if (index < 0 || index >= this.size) {
             return null;
@@ -126,6 +133,7 @@ public class LinkedListDeque<T> {
         return ptr.value;
     }
 
+    @Override
     public void printDeque() { System.out.printf("" + this.toString() + '\n'); }
 
     // tests
