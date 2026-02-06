@@ -290,4 +290,8 @@ public class Game {
             return true; // signal that we want to quit
         }
     }
+
+    /*
+     * TODO: i might have to drop the magic transporter room, the time is quite close
+     */
 }
