@@ -15,7 +15,13 @@ public class SLList {
 
     public void addFirst(int x) { first = new IntNode(x, first); }
 
-    public int getFirst() { return first.value; }
+    public int getFirst() {
+        if (this.first == null) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        return first.value;
+    }
 
     public int get(int index) {
         IntNode current = this.first;
@@ -26,6 +32,10 @@ public class SLList {
             }
 
             current = current.next;
+        }
+
+        if (current == null) {
+            throw new IndexOutOfBoundsException();
         }
 
         return current.value;
