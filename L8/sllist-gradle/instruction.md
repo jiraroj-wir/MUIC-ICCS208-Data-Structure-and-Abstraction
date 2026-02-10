@@ -35,6 +35,8 @@ Your tasks are as follows:
 
 - Implement the following method in SLList:  
 
-- a method public int get(int index) that returns the element at position index, where we adopt the convention that the front of the list has index 0. If the list is empty, getFirst will throw an IndexOutOfBoundsException exception. Similarly, get(i) will throw an exception IndexOutOfBoundsException if the index requested is out of range..  
+> a method public int get(int index) that returns the element at position index, where we adopt the convention that the front of the list has index 0.  
+
+- If the list is empty, getFirst will throw an IndexOutOfBoundsException exception. Similarly, get(i) will throw an exception IndexOutOfBoundsException if the index requested is out of range..  
 
 - Write tests to ensure all the methods work correctly as intended. Your test cases should thoroughly exercise various combinations of list usage. Run through the tests. Your tests should verify that the correct exception is thrown at the right moment. (Hint: Look up on the Internet "how to assert an exception in JUnit")  
