@@ -16,4 +16,18 @@ public class SLList {
     public void addFirst(int x) { first = new IntNode(x, first); }
 
     public int getFirst() { return first.value; }
+
+    public int get(int index) {
+        IntNode current = this.first;
+
+        for (int i = 0; i < index; i++) {
+            if (current == null) {
+                throw new IndexOutOfBoundsException();
+            }
+
+            current = current.next;
+        }
+
+        return current.value;
+    }
 }
