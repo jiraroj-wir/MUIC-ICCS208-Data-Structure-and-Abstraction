@@ -24,6 +24,10 @@ public class SLList {
     }
 
     public int get(int index) {
+        if (index < 0) { // negative numbers
+            throw new IndexOutOfBoundsException();
+        }
+
         IntNode current = this.first;
 
         for (int i = 0; i < index; i++) {
