@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SLListTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-10T08:58:30.807Z" hostname="orcas-MacBook-Air.local" time="0.024">
+  <properties/>
+  <testcase name="exceptionThrown()" classname="SLListTest" time="0.015"/>
+  <testcase name="normalUsage()" classname="SLListTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
