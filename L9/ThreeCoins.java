@@ -98,6 +98,7 @@ we then intersect the range from those cases
 
 thus p is true for all integers over 20.
 
+QED.
 */
 
 public class ThreeCoins {
@@ -133,7 +134,7 @@ public class ThreeCoins {
     }
 
     /*
-    [TODO] Extra Challenge: Write a public method public static int numWays(int n) that counts the number of ways an
+    Extra Challenge: Write a public method public static int numWays(int n) that counts the number of ways an
     amount n can be expressed using this set of stamp values.
     */
     public static int numWays(int n) {
