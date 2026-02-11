@@ -11,6 +11,93 @@ ThreeCoins.java to Canvas.
 /*
 You will begin by first proving the following theorem: Given an unlimited supply of 5-cent stamps, 11-cent, and 12-cent
 stamps, we can make any amount that is at least 20 cents.
+
+Proof.
+
+we split this proof into five congruence cases, prove each of them by
+observation, we claim that
+
+any integer p that's at least 20 can be constructed
+with the sum of 5, 11 and 12
+
+classify the integers by their residue modulo 5, given the base integer
+of each category (residue of 0, 1, 2, 3 and 4), sum it up with arbitrary 5n
+where n is also an integer --- we could construct any integer following
+that base integers.
+
+so, now we just need to find those 5 base integers, intersect their range
+--- which is b - 5 where b is that base integer.
+
+1) case 1: b0 ≡ 0 (mod 5)
+
+we got the smallest b0 as 0, which we can now construct any integer of
+this same residue
+
+0 = 0*5 + 0*11 + 0*12
+
+0 ≡ 0 + 5n (mod 5)
+
+and thus, the range of this base residue case is
+(-5, ∞) (around (0, ∞)).
+
+2) case 2: b1 ≡ 1 (mod 5)
+
+the smallest b1 following the construction rule is
+
+11 = 11,
+
+hence every integer of this residue is
+
+11 ≡ 11 + 5n (mod 5),     11 + 5n = 11 + 5n
+
+and the range is
+(11 - 5, ∞) = (6, ∞).
+
+3) case 3: b2 ≡ 2 (mod 5)
+
+the smallest b2 is
+
+12 = 12,
+
+so any integer of this residue satisfies
+
+12 ≡ 12 + 5n (mod 5),     12 + 5n = 12 + 5n
+
+and the range is
+(12 - 5, ∞) = (7, ∞).
+
+4) case 4: b3 ≡ 3 (mod 5)
+
+the smallest b3 is
+
+23 = 11 + 12,
+
+giving
+
+23 ≡ 23 + 5n (mod 5),     23 + 5n = 11 + 12 + 5n
+
+and the range is
+(23 - 5, ∞) = (18, ∞).
+
+5) case 5: b4 ≡ 4 (mod 5)
+
+the smallest b4 is
+
+24 = 12 + 12,
+
+giving
+
+24 ≡ 24 + 5n (mod 5),     24 + 5n = 12 + 12 + 5n
+
+and the range is
+(24 - 5, ∞) = (19, ∞).
+
+we then intersect the range from those cases
+
+(0, ∞) ∩ (6, ∞) ∩ (7, ∞) ∩ (18, ∞) ∩ (19, ∞) = (19, ∞) ≈ [20, ∞)
+
+thus p is true for all integers over 20.
+
 */
 
 public class ThreeCoins {
