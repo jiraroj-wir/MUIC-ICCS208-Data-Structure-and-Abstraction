@@ -136,6 +136,24 @@ public class ThreeCoins {
     [TODO] Extra Challenge: Write a public method public static int numWays(int n) that counts the number of ways an
     amount n can be expressed using this set of stamp values.
     */
+    public static int numWays(int n) {
+        if (n < 0) {
+            return 0;
+        }
+
+        int[] coins = {5, 11, 12};
+
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+
+        for (int c : coins) {
+            for (int i = c; i <= n; i++) {
+                dp[i] += dp[i - c];
+            }
+        }
+
+        return dp[n];
+    }
 
     // test
     public static void main(String[] args) {
