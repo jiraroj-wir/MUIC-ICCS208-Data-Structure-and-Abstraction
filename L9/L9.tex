@@ -1,0 +1,64 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper, margin=1in]{geometry}
+
+% Basic math packages
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{fontspec}      % XeLaTeX fonts
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+\title{Practice Exercises}
+\date{}
+\maketitle
+
+\begin{proof}
+    we claim that
+    
+    \[
+        P(n): (\sum_{k=0}^{n} a_k 10^k - \sum_{k=0}^{n} a_k) \equiv 0 \pmod 3
+    \]
+
+    or
+
+    \[
+        P(n): \sum_{k=0}^{n} a_k 10^k \equiv \sum_{k=0}^{n} a_k \pmod 3
+    \]
+
+    for the \textbf{base case} where $n_0 = 1$
+
+    \[
+    \begin{aligned}
+    P(1) &= \sum_{k=0}^{1} a_k 10^k - \sum_{k=0}^{1} a_k  \\
+    &= (a_0 + 10a_1) - (a_0 + a_1) \\
+    &= 9a_1 \equiv 0 \pmod{3}.
+    \end{aligned}
+    \]
+
+    then, we assume P(k) for arbitrary $(k \ge n_0)$, we prove $P(k+1)$
+
+    \vspace{1em}
+
+    every positive integer divisable by 3 will have all digits sum that's divisable by 3 as well, so
+
+    \[P(k+1): \sum_{k=0}^{n} a_k 10^k + a_{k+1}10^{k+1} \equiv \sum_{k=0}^{n} a_k + a_{k+1} \pmod 3\]
+
+    and since $P(k)$, our inductive hypothesis, on both side, already satisfied, we can ignore it, and focus on the term with coefficient of $k+1$
+
+    \[a_{k+1}10^{k+1} \equiv a_{k+1} \pmod 3\]
+
+    this is true, since we only focus on the sum of all digits, $a_{k+1}10^{k+1} = \{a_{k+1}\}\underbrace{00\ldots 0}_{k+1}$ --- which all it's digit sums up to $a_{k+1}$, same for $a_{k+1}$. since P(k+1) follows P(k), the \textbf{induction case} is satisfied, thus we can conclude the given relation is true \end{proof}
+
+\end{document}
