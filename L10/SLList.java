@@ -1,9 +1,42 @@
-public class SLList {
+import java.lang.Iterable;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class SLList implements Iterable<Integer> {
+    @Override
+    public Iterator<Integer> iterator() {
+        return new MyIterator();
+    }
+
+    private class MyIterator implements Iterator<Integer> {
+        private IntNode current;
+
+        MyIterator() { current = sentinel.next; }
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public Integer next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            Integer val = current.value;
+            current = current.next;
+
+            return val;
+        }
+    }
+
     private static class IntNode {
         Integer value;
         IntNode next;
 
         IntNode() {}
+
         IntNode(Integer value, IntNode next) {
             this.value = value;
             this.next = next;
