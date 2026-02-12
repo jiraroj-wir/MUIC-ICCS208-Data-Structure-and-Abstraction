@@ -31,6 +31,48 @@ public class SLList implements Iterable<Integer> {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (other == null || this.getClass() != other.getClass()) {
+            return false;
+        }
+
+        SLList o = (SLList)other;
+
+        if (this.size() != o.size()) {
+            return false;
+        }
+
+        // for-each we just implemented
+        /*
+        while (this.iterator().hasNext()) {
+            Integer val1 = this.iterator().next();
+            Integer val2 = o.iterator().next();
+
+            if (!val1.equals(val2)) {
+                return false;
+            }
+        }
+        */
+
+        IntNode ptr1 = this.sentinel.next;
+        IntNode ptr2 = o.sentinel.next;
+
+        while (ptr1 != null) {
+            if (!ptr1.value.equals(ptr2.value)) {
+                return false;
+            }
+
+            ptr1 = ptr1.next;
+            ptr2 = ptr2.next;
+        }
+
+        return true;
+    }
+
     private static class IntNode {
         Integer value;
         IntNode next;
