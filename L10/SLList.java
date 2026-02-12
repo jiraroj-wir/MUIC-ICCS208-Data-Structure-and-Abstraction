@@ -1,8 +1,13 @@
 public class SLList {
-
     private static class IntNode {
-        int value;
+        Integer value;
         IntNode next;
+
+        IntNode() {}
+        IntNode(Integer value, IntNode next) {
+            this.value = value;
+            this.next = next;
+        }
     }
 
     private final IntNode sentinel;
@@ -29,12 +34,12 @@ public class SLList {
         size = 0;
     }
 
-    public SLList(int x) {
+    public SLList(Integer x) {
         this(); // calls SLList
         addFirst(x);
     }
 
-    public void addFirst(int x) {
+    public void addFirst(Integer x) {
         IntNode new_first = new IntNode();
         new_first.value = x;
         new_first.next = sentinel.next;
@@ -42,7 +47,7 @@ public class SLList {
         size++;
     }
 
-    public void addLast(int x) {
+    public void addLast(Integer x) {
         IntNode ptr = this.sentinel;
         while (ptr.next != null) {
             ptr = ptr.next;
@@ -53,7 +58,7 @@ public class SLList {
         size++;
     }
 
-    public int getFirst() {
+    public Integer getFirst() {
         if (this.sentinel.next == null) {
             throw new IllegalStateException("empty list");
         }
@@ -61,7 +66,7 @@ public class SLList {
         return this.sentinel.next.value;
     }
 
-    public int getLast() {
+    public Integer getLast() {
         if (this.sentinel.next == null) {
             throw new IllegalStateException("empty list");
         }
@@ -129,7 +134,7 @@ public class SLList {
     newValue into the list at position k. This means, for example, insert(x, 0) will insert x at the front of the list.
     Because insert adds a number to the list, if the list's size was n prior, it will be n + 1 after insert.
     */
-    public void insert(int newValue, int k) {
+    public void insert(Integer newValue, int k) {
         if (k <= 0) {
             this.addFirst(newValue);
             return;
