@@ -32,3 +32,34 @@ public static void main(String[] args) {
     System.out.println(countEven.count(numbers));
 }
 */
+
+public class CountIf<T> {
+    private Predicate<T> pred;
+
+    CountIf(Predicate<T> pred) { this.pred = pred; }
+
+    public int count(T[] items) {
+        int cnt = 0;
+
+        for (int i = 0; i < items.length; i++) {
+            if (this.pred.test(items[i])) {
+                cnt++;
+            }
+        }
+
+        return cnt;
+    }
+
+    private static class isEven implements Predicate<Integer> {
+        @Override
+        public boolean test(Integer x) {
+            return x % 2 == 0;
+        }
+    }
+
+    public static void main(String[] args) {
+        CountIf<Integer> countEven = new CountIf<>(new isEven());
+        Integer[] numbers = new Integer[] {1, 2, 3, 4, 5};
+        System.out.println(countEven.count(numbers));
+    }
+}
