@@ -99,4 +99,23 @@ public class SimpleHistogram<DT> implements Histogram<DT>, Iterable<DT> {
             return (DT)keys[index++];
         }
     }
+
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("{");
+        for (DT item : this) {
+            str.append("(");
+            str.append("" + item + ", " + this.map.get(item));
+            str.append("), ");
+        }
+
+        int len = str.length();
+        if (len >= 2) {
+            str.delete(len - 2, len); // removes trailing ", "
+        }
+
+        str.append("}");
+
+        return str.toString();
+    }
 }
