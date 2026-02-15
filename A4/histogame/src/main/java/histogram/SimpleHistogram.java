@@ -137,7 +137,7 @@ public class SimpleHistogram<DT> implements Histogram<DT>, Iterable<DT> {
         }
 
         Iterator<DT> itA = this.iterator();
-        Iterator<DT> itB = other.iterator();
+        Iterator<DT> itB = obj.iterator();
 
         while (itA.hasNext() && itB.hasNext()) {
             DT a = itA.next();
@@ -147,7 +147,7 @@ public class SimpleHistogram<DT> implements Histogram<DT>, Iterable<DT> {
                 return false;
             }
 
-            if (!java.util.Objects.equals(this.map.get(a), other.map.get(b))) {
+            if (!java.util.Objects.equals(this.map.get(a), obj.map.get(b))) {
                 return false;
             }
         }
