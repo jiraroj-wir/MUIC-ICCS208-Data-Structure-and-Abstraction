@@ -118,4 +118,40 @@ public class SimpleHistogram<DT> implements Histogram<DT>, Iterable<DT> {
 
         return str.toString();
     }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean equals(Object object) {
+        if (this == object) { // V-address
+            return true;
+        }
+
+        if (!(object instanceof SimpleHistogram<?>)) {
+            return false;
+        }
+
+        SimpleHistogram<DT> obj = (SimpleHistogram<DT>)object; // type cast
+
+        if (this.totalCount != obj.totalCount || this.map.size() != obj.map.size()) {
+            return false;
+        }
+
+        Iterator<DT> itA = this.iterator();
+        Iterator<DT> itB = other.iterator();
+
+        while (itA.hasNext() && itB.hasNext()) {
+            DT a = itA.next();
+            DT b = itB.next();
+
+            if (!java.util.Objects.equals(a, b)) {
+                return false;
+            }
+
+            if (!java.util.Objects.equals(this.map.get(a), other.map.get(b))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
