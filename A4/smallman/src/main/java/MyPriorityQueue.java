@@ -46,8 +46,10 @@ public class MyPriorityQueue<T> implements IPriorityQueue<T> {
     }
 
     @Override
+    // returns an iterator that will list all the items in the container from small to large
     public Iterator<T> iterator() {
-        return null;
+        // return null;
+        return new ArrayList<>(queueItems).iterator(); // just use the build-ins
     }
 
     @Override
