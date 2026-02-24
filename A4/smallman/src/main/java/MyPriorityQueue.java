@@ -36,8 +36,14 @@ public class MyPriorityQueue<T> implements IPriorityQueue<T> {
     }
 
     @Override
+    // returns the smallest item currently in the container (if there are multiple such items, return any one of them)
     public T getMinimum() {
-        return null;
+        // return null;
+        if (this.queueItems.isEmpty()) {
+            throw new NoSuchElementException("the queue is empty");
+        }
+
+        return this.queueItems.get(0); // as the queue is sorted form lowest to highest, index 0 is the lowest
     }
 
     @Override
