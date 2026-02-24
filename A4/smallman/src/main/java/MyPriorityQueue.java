@@ -22,8 +22,10 @@ public class MyPriorityQueue<T> implements IPriorityQueue<T> {
     public void removeMinimum() {}
 
     @Override
+    // returns how many items the container has
     public int size() {
-        return 0;
+        // return 0;
+        return queueItems.size();
     }
 
     @Override
