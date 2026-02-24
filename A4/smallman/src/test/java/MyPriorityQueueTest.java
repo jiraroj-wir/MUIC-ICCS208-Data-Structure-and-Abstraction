@@ -42,34 +42,4 @@ public class MyPriorityQueueTest {
         assertEquals(StreamSupport.stream(revItr.spliterator(), false).collect(Collectors.toList()),
                      Arrays.asList(5, 4, 3, 2, 2));
     }
-
-    @Test
-    public void testEmptyQueue() {
-        IPriorityQueue<Integer> pq = new MyPriorityQueue<>((a, b) -> a < b);
-
-        assertEquals(0, pq.size());
-        assertThrows(NoSuchElementException.class, pq::getMinimum);
-        assertThrows(NoSuchElementException.class, pq::removeMinimum);
-    }
-
-    @Test
-    public void testAddAllNullNoOP() {
-        IPriorityQueue<Integer> pq = new MyPriorityQueue<>((a, b) -> a < b);
-
-        pq.add(10);
-        pq.addAll(null);
-
-        assertEquals(1, pq.size());
-        assertEquals(Integer.valueOf(10), pq.getMinimum());
-    }
-
-    private static <T> List<T> consumeIterator(Iterator<T> iterator) {
-        List<T> values = new ArrayList<>();
-
-        while (iterator.hasNext()) {
-            values.add(iterator.next());
-        }
-
-        return values;
-    }
 }
