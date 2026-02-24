@@ -28,6 +28,10 @@ public class Midway {
     }
 
     private static long recurrence(int n) {
+        if (n == 63) {
+            return 0x7FFFFFFFFFFFFFFFL; // 2^63 - 1
+        }
+
         return (1L << n) - 1; // T(n) = 2^n - 1}
     }
 
@@ -42,4 +46,3 @@ public class Midway {
         assert stepsRemaining(new int[] {1, 2, 0}) == 5;
         assert stepsRemaining(new int[] {2, 2, 1, 1, 2, 2, 1}) == 51;
     }
-}
