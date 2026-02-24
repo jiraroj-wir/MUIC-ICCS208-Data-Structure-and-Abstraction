@@ -12,19 +12,19 @@ public class MyPriorityQueue<T> implements IPriorityQueue<T> {
             throw new NoSuchElementException("comparator shouldn't be null");
         }
 
-        queueItems = new ArrayList<>();
-        comparator = cc;
+        this.queueItems = new ArrayList<>();
+        this.comparator = cc;
     }
 
     @Override
     // adds an item
     public void add(T item) {
         int idx = 0;
-        while (idx < queueItems.size() && comparator.lessThan(queueItems.get(idx), item)) {
+        while (idx < this.queueItems.size() && this.comparator.lessThan(this.queueItems.get(idx), item)) {
             idx++;
         }
 
-        queueItems.add(idx, item);
+        this.queueItems.add(idx, item);
     }
 
     @Override
@@ -47,14 +47,14 @@ public class MyPriorityQueue<T> implements IPriorityQueue<T> {
     // returns how many items the container has
     public int size() {
         // return 0;
-        return queueItems.size();
+        return this.queueItems.size();
     }
 
     @Override
     // returns an iterator that will list all the items in the container from small to large
     public Iterator<T> iterator() {
         // return null;
-        return new ArrayList<>(queueItems).iterator(); // just use the build-ins
+        return new ArrayList<>(this.queueItems).iterator(); // just use the build-ins
     }
 
     @Override
