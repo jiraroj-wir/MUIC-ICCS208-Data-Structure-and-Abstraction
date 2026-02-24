@@ -194,8 +194,9 @@ Prove that for $n \ge 1$, \texttt{foo(n)} returns a pair $(p, q)$ such that
 \solution
 
 \section*{Task 7: Midway Tower of Hanoi (4 points)}
+For this task, save your work in \texttt{smallman/Midway.java}. 
 
-For this task, save your work in \texttt{smallman/Midway.java}. Monks at a remote monastery are busy solving the Tower of Hanoi problem, a duty passed on for tens of generations. According to an old tale, when this group of monks finishes, $P$ will be shown to equal $NP$, and the world will come to an end.
+Monks at a remote monastery are busy solving the Tower of Hanoi problem, a duty passed on for tens of generations. According to an old tale, when this group of monks finishes, $P$ will be shown to equal $NP$, and the world will come to an end.
 
 In Tower of Hanoi, you are given $N$ disks labeled $0, 1, \ldots, N-1$ by their sizes. There are 3 pegs: Peg 0, Peg 1, and Peg 2. Initially, all disks are on Peg 0, neatly arranged from small (Disk 0) to large (Disk $N-1$), with the smallest on top. The goal is to transfer all disks to Peg 1. You can move exactly one disk at a time, and a larger disk can never be placed on top of a smaller disk.
 
@@ -213,21 +214,44 @@ Following these steps uses $2^N - 1$ moves. Because this number is huge, the mon
 
 \textbf{Subtask I:} Prove, using mathematical induction, that for any $n \ge 0$, \texttt{solve\_hanoi(n, ...)} generates exactly $2^n - 1$ lines of instructions.
 
-\textbf{Subtask II:} Implement
-\begin{verbatim}
-public static long stepsRemaining(int[] diskPos)
-\end{verbatim}
-that takes in the current positions of the disks and returns the number of steps that remain in the computer-generated instruction sequence. The current positions are given as an array of integers: \texttt{diskPos.length} tells you how many disks there are, and the entry at index $i$ (written \texttt{diskPos[i]}) is one of $\{0, 1, 2\}$ indicating the peg where Disk $i$ resides. We guarantee $0 \le \texttt{diskPos.length} \le 63$. For example:
-\begin{itemize}
-    \item \texttt{stepsRemaining(\{0\})} should return $1$.
-    \item \texttt{stepsRemaining(\{2, 2, 1\})} should return $3$.
-    \item \texttt{stepsRemaining(\{2, 2, 1, 1, 2, 2, 1\})} should return $51$.
-\end{itemize}
-(Hint: Solve the inputs \texttt{\{2, 2, 0\}} and \texttt{\{1, 2, 0\}} by hand. How many moves occur before the largest disk moves?)
-
-\textbf{Performance Expectations:} Your code should return within 1 second and use only a reasonable amount of memory (e.g., do not explicitly generate the entire instruction sequence).
-
 \medskip
 \solution
 
+\begin{proof}
+
+    we claim that
+
+    \[
+        P(n) \equiv \text{solve\_hanoi(n, ...) will print out for exactly } 2^n - 1 \text{ lines when } n \ge 0
+    \]
+
+    for the \textbf{base case} where $n_0 = 0$
+
+    \[
+        P(0) \equiv 2^0 - 1 = 0 \text{ as the function only works when } n > 0 \text{ so nothing got printed out}
+    \]
+
+    then, we assume P(k) for arbitrary $(k \ge n_0)$, we prove $P(k+1) = 2^{k+1} - 1$
+
+    \vspace{1em}
+
+    from the recurrence, if $n = 0$, the function does nothing, so nothing got printed out
+
+    \[T(0) = 0\]
+
+    and for $n > 0$, solve\_hanoi(n-1, ...) will print out $T(n-1)$ lines (moves the top n-1 disks to the left or right, so we can move disk n to the middle), then the mother function prints out (move disk n to the middle), and ended with another solve\_hanoi(n-1, ...) (with different parameter), this $T(n-1)$ lines of actually solving for $T(n-1)$ --- which the pile's position will iterate between left and right; thus
+
+    \[T(n) = 2T(n-1) + 1)\]
+
+    we use this recurrence relation to prove $P(k+1)$
+
+    \begin{align*}
+        P(k+1) &\equiv T(k+1) = 2T(k) + 1 && \quad \text{from the recurrence}\\
+        &= 2(2^k-1) + 1 && \quad \text{induction hypothesis} \\
+        &= 2^{k+1} - 2 + 1 = 2^{k+1} - 1
+    \end{align*}
+
+    since P(k+1) follows P(k), the \textbf{induction case} is satisfied, thus we can conclude the given predicate is true \end{proof}
+
+\end{proof}
 \end{document}
