@@ -1,14 +1,31 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class MyPriorityQueue<T> implements IPriorityQueue<T> {
     private List<T> queueItems;
+    private CompareWith<T> comparator;
 
-    public MyPriorityQueue(CompareWith<T> cc) { queueItems = new ArrayList<>(); }
+    public MyPriorityQueue(CompareWith<T> cc) {
+        if (cc == null) {
+            throw new NoSuchElementException("comparator shouldn't be null");
+        }
+
+        queueItems = new ArrayList<>();
+        comparator = cc;
+    }
 
     @Override
-    public void add(T item) {}
+    // adds an item
+    public void add(T item) {
+        int idx = 0;
+        while (idx < queueItems.size() && comparator.lessThan(queueItems.get(idx), item)) {
+            idx++;
+        }
+
+        queueItems.add(idx, item);
+    }
 
     @Override
     public void addAll(List<T> items) {}
