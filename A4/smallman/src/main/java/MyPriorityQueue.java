@@ -3,7 +3,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class MyPriorityQueue<T> implements IPriorityQueue<T> {
+public class MyPriorityQueue<T> implements IPriorityQueue<T>, Iterable<T> {
     private List<T> queueItems;
     private CompareWith<T> comparator;
 
@@ -73,8 +73,55 @@ public class MyPriorityQueue<T> implements IPriorityQueue<T> {
         return new ArrayList<>(this.queueItems).iterator(); // just use the build-ins
     }
 
+    /*
+    @Override
+    public Iterator<T> iterator() {
+        return new ForwardIterator();
+    }
+    */
+
     @Override
     public Iterator<T> revIterator() {
-        return null;
+        // return null;
+        // I don't think you can reverse an iterator here, like .reverse()?
+        return new ReverseIterator();
+    }
+
+    private class ForwardIterator implements Iterator<T> {
+        private final List<T> queue = new ArrayList<>(this.queueItems);
+        private int index;
+
+        @Override
+        public boolean hasNext() {
+            return index < queue.size();
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            return queue.get(index++);
+        }
+    }
+
+    private class ReverseIterator implements Iterator<T> {
+        private final List<T> queue = new ArrayList<>(this.queueItems);
+        private int index = queue.size() - 1;
+
+        @Override
+        public boolean hasNext() {
+            return index >= 0;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            return queue.get(index--);
+        }
     }
 }
