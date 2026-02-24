@@ -46,3 +46,4 @@ public class Midway {
         assert stepsRemaining(new int[] {1, 2, 0}) == 5;
         assert stepsRemaining(new int[] {2, 2, 1, 1, 2, 2, 1}) == 51;
     }
+}
