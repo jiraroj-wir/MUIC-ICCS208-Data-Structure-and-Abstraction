@@ -30,7 +30,7 @@ public class MyPriorityQueue<T> implements IPriorityQueue<T>, Iterable<T> {
     @Override
     // adds a list of items
     public void addAll(List<T> items) {
-        for (item : items) {
+        for (T item : items) {
             this.add(item);
         }
     }
@@ -88,7 +88,7 @@ public class MyPriorityQueue<T> implements IPriorityQueue<T>, Iterable<T> {
     }
 
     private class ForwardIterator implements Iterator<T> {
-        private final List<T> queue = new ArrayList<>(this.queueItems);
+        private final List<T> queue = new ArrayList<>(MyPriorityQueue.this.queueItems);
         private int index;
 
         @Override
@@ -107,7 +107,7 @@ public class MyPriorityQueue<T> implements IPriorityQueue<T>, Iterable<T> {
     }
 
     private class ReverseIterator implements Iterator<T> {
-        private final List<T> queue = new ArrayList<>(this.queueItems);
+        private final List<T> queue = new ArrayList<>(MyPriorityQueue.this.queueItems);
         private int index = queue.size() - 1;
 
         @Override
