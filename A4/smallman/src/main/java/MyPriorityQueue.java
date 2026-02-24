@@ -5,7 +5,7 @@ import java.util.List;
 public class MyPriorityQueue<T> implements IPriorityQueue<T> {
     private List<T> queueItems;
 
-    public MyPriorityQueue(CompareWith<T> cc) {}
+    public MyPriorityQueue(CompareWith<T> cc) { queueItems = new ArrayList<>(); }
 
     @Override
     public void add(T item) {}
