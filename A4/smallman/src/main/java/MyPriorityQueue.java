@@ -47,7 +47,17 @@ public class MyPriorityQueue<T> implements IPriorityQueue<T> {
     }
 
     @Override
-    public void removeMinimum() {}
+    // removes the smallest item in the container (if there are multiple such items, remove the one that getMinimum
+    // would return.)
+    public void removeMinimum() {
+        if (this.queueItems.isEmpty()) {
+            throw new NoSuchElementException("the queue is empty");
+        }
+
+        // I don't think there's an easy way to reference the item that getMinimum would return, then remove that item,
+        // here; but, my getMinimum will always return index 0, so remove at index 0?
+        this.queueItems.remove(0);
+    }
 
     @Override
     // returns how many items the container has
