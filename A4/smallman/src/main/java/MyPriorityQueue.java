@@ -28,7 +28,12 @@ public class MyPriorityQueue<T> implements IPriorityQueue<T> {
     }
 
     @Override
-    public void addAll(List<T> items) {}
+    // adds a list of items
+    public void addAll(List<T> items) {
+        for (item : items) {
+            this.add(item);
+        }
+    }
 
     @Override
     public T getMinimum() {
