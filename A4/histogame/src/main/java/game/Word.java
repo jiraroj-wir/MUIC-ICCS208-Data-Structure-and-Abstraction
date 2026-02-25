@@ -23,10 +23,22 @@ public class Word implements Formable<Word>, Comparable<Word> {
 
     // Returns a Histogram describing the character distribution of the word.
     public Histogram<Character> getHistogram() { return this.hist; }
+
+    // Returns true if the Word represented by other can be formed using some
+    // or all of the characters of this word
     @Override
     public boolean canForm(Word other) {
         // TODO: Fix me
-        return false;
+        // return false;
+        Histogram<Character> other_hist = other.getHistogram();
+
+        for (Character ch : other_hist) {
+            if (this.hist.getCount(ch) < other_hist.getCount(ch)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override
