@@ -59,7 +59,7 @@ public class WordDatabase implements IDatabase {
         // return null;
         List<Word> lst = new ArrayList<>();
 
-        for (word w : this.words) {
+        for (Word w : this.words) {
             if (w.getWord().length() == l) {
                 lst.add(w);
             }
@@ -72,8 +72,15 @@ public class WordDatabase implements IDatabase {
     // and which can be formed from all or some of the letters of the word w
     @Override
     public List<Word> getAllSubWords(Word w, int minLen) {
-        // TODO:
-        // return null;
+        List<Word> lst = new ArrayList<>();
+
+        for (Word wd : words) {
+            if (wd.getWord().length() >= minLen && w.canForm(candidate)) {
+                lst.add(candidate);
+            }
+        }
+
+        return lst;
     }
 
     // Returns true if the word o is in the database and false otherwise
