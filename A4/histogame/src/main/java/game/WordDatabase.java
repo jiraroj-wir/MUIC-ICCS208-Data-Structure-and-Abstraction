@@ -86,8 +86,12 @@ public class WordDatabase implements IDatabase {
     // Returns true if the word o is in the database and false otherwise
     @Override
     public boolean contains(Word o) {
-        // TODO:
-        // return false;
-        return words.contains(o.getWord());
+        for (Word wd : words) {
+            if (wd.getWord().equals(o.getWord())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
