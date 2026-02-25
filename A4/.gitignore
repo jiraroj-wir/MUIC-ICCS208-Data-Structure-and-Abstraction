@@ -1,0 +1,12 @@
+# gradle
+histogame/.gradle/
+histogame/build.gradle
+histogame/gradle/
+histogame/gradlew
+histogame/gradlew.bat
+histogame/src/main/resources/
+smallman/.gradle/
+smallman/build.gradle
+smallman/gradle/
+smallman/gradlew
+smallman/gradlew.bat
