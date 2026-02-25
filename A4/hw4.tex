@@ -233,6 +233,69 @@ Prove that for $n \ge 1$, \texttt{foo(n)} returns a pair $(p, q)$ such that
 \medskip
 \solution
 
+\begin{proof}
+
+    we claim that
+
+    \[
+        P(n) \equiv \forall n \ge 1, \text{ foo(n) returns pq such that } \frac{p}{q} = 1 - \frac{1}{n+1}
+    \]
+
+    for the \textbf{base case} where $n_0 = 1$
+
+    \begin{align*}
+        P(1) &\equiv \text{ foo(1) would returns } (1, 2) \simeq (p, q) \\
+        &\mapsto \frac{p}{q} = \frac{1}{2} = 1 - \frac{1}{1+1}
+    \end{align*}
+
+    then, we assume P(k) for arbitrary $(k \ge n_0)$, we prove $P(k+1)$
+
+    \begin{align*}
+        P(k+1) &\equiv \text{ foo(k+1)} \text{; $p_0, q_0$ will be the result of foo(k)}
+    \end{align*}
+
+    therefore 
+
+    \[
+    \frac{p_0}{q_0} = \frac{k}{k+1} \quad \text{ as induction hypothesis}
+    \]
+
+    foo(k+1) would return
+
+    \[
+    (q_0 + p_0(k+1)(k+2), \; q_0 (k+1)(k+2))
+    \]
+
+    so, $p_{\text{foo}(k+1)}$ and $q_{\text{foo}(k+1)}$, denoted as regular $p$ and $q$ would have a ratio of
+
+    \[
+    \frac{p}{q}
+    =
+    \frac{q_0 + p_0 (k+1)(k+2)}
+         {q_0 (k+1)(k+2)}
+    \text{ where }
+    (k+1)p_0 = k q_0
+    \text{ or }
+    q_0 = \frac{p_0 (k+1)}{k}.
+    \]    
+
+    substitude $q_0$ with $\frac{p_0(k+1)}{k}$ as
+
+    \begin{align*}
+    \frac{p}{q}
+    &= \frac{q_0+p_0(k+1)(k+2)}{q_0 (k+1)(k+2)} \\
+    &= \frac{\frac{p_0(k+1)}{k}+p_0(k+1)(k+2)}{\frac{p_0(k+1)}{k}(k+1)(k+2)} \\
+    &= \frac{p_0(k+1)\left(\frac{1}{k}+ (k+2)\right)}{p_0\frac{k+1}{k}(k+1)(k+2)} \\
+    &= \frac{\frac{1}{k}+ (k+2)}{\frac{k+1}{k}(k+2)} \\
+    &= \frac{\frac{1+k(k+2)}{k}}{\frac{k+1}{k}(k+2)} \\
+    &= \frac{(k+1)^2}{(k+1)(k+2)} \\
+    &= \frac{k+1}{k+2} = 1-\frac{1}{k+2}
+    \end{align*}
+
+    since P(k+1) follows P(k), the \textbf{induction case} is satisfied, thus we can conclude the given predicate is true
+
+\end{proof}
+
 \vspace{1em}
 \hrulefill
 
