@@ -52,10 +52,20 @@ public class WordDatabase implements IDatabase {
         }
     }
 
+    // Returns a List of Words in the database whose length is exactly l.
     @Override
     public List<Word> getWordWithLength(int l) {
         // TODO:
-        return null;
+        // return null;
+        List<Word> lst = new ArrayList<>();
+
+        for (word w : this.words) {
+            if (w.getWord().length() == l) {
+                lst.add(w);
+            }
+        }
+
+        return lst;
     }
 
     @Override
