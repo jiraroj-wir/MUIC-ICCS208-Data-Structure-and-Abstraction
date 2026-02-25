@@ -21,6 +21,8 @@ public class Word implements Formable<Word>, Comparable<Word> {
     // Returns the String representation of the word
     public String getWord() { return this.word; }
 
+    // Returns a Histogram describing the character distribution of the word.
+    public Histogram<Character> getHistogram() { return this.hist; }
     @Override
     public boolean canForm(Word other) {
         // TODO: Fix me
