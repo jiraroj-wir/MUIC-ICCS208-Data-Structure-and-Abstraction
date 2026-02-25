@@ -17,7 +17,7 @@ public class WordDatabase implements IDatabase {
     private WordDatabase() { this.words = new ArrayList<>(); }
 
     // Load all the words from a file given by filename
-    public WordDatabase(String filename) throws FileNotFoundException {
+    public WordDatabase(String filename) throws IOException {
         this();
 
         InputStream is = getClass().getClassLoader().getResourceAsStream(filename);
