@@ -2,6 +2,7 @@ package game;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -75,8 +76,8 @@ public class WordDatabase implements IDatabase {
         List<Word> lst = new ArrayList<>();
 
         for (Word wd : words) {
-            if (wd.getWord().length() >= minLen && w.canForm(candidate)) {
-                lst.add(candidate);
+            if (wd.getWord().length() >= minLen && w.canForm(wd)) {
+                lst.add(wd);
             }
         }
 
