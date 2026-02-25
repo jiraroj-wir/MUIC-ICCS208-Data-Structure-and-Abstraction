@@ -18,6 +18,9 @@ public class Word implements Formable<Word>, Comparable<Word> {
         }
     }
 
+    // Returns the String representation of the word
+    public String getWord() { return this.word; }
+
     @Override
     public boolean canForm(Word other) {
         // TODO: Fix me
