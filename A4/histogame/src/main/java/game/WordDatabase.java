@@ -1,5 +1,10 @@
 package game;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 // HINT(s):
@@ -7,14 +12,44 @@ import java.util.List;
 //   InputStream is = getClass().getClassLoader().getResourceAsStream(filename);
 
 public class WordDatabase implements IDatabase {
+    private final List<Word> words;
+
+    private WordDatabase() { this.words = new ArrayList<>(); }
+
+    // Load all the words from a file given by filename
+    public WordDatabase(String filename) throws FileNotFoundException {
+        this();
+
+        InputStream is = getClass().getClassLoader().getResourceAsStream(filename);
+        if (is == null) {
+            throw new FileNotFoundException("file: " + filename + "not found!");
+        }
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (!line.isEmpty()) {
+                    this.words.add(new Word(line));
+                }
+            }
+        }
+    }
+
+    // Adds a word to the database.
     @Override
     public void add(Word w) {
         // TODO:
+        this.words.add(new Word(w));
     }
 
+    // Removes w from the database and has no effect if w is not present
     @Override
     public void remove(Word w) {
         // TODO:
+        if (words.contains(w)) {
+            words.remove(words.indexOf(w));
+        }
     }
 
     @Override
