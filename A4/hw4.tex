@@ -171,6 +171,46 @@ Your Task: Prove that for $n \ge 1$, \texttt{sumSqr(n)} returns $1^2 + 2^2 + 3^2
 \medskip
 \solution
 
+\vspace{1em}
+\hrulefill
+
+\begin{proof}
+as sumSqr(int n) only calls sumHelper(n, 0) for $n \ge 1$, we focus on sumHelper(n, 0), let the claim
+
+\[
+P(n) \equiv \forall a,\; \text{ sumHelper(n, a) } = a + \sum_{i=1}^n i^2
+\]
+
+now, we prove this using induction; for the \textbf{base case} where $n_0 = 0$
+
+\begin{align*}
+    P(0) \equiv \text{ sumHelper(0, a)} 
+    &= a \\
+    &= a + \sum_{i=1}^{0} i^2
+\end{align*}
+
+then, we assume P(k) for arbitrary $(k \ge n_0)$, we prove $P(k+1)$
+
+\begin{align*}
+    P(k+1) &\equiv \text{ sumHelper(k+1, a)} \\
+    &= \text{ sumHelper(k, a + $(k+1)^2)$} \\
+    &= (a + (k+1)^2) + \sum_{i=1}^{k} i^2 \\
+    &= a + \sum_{i=1}^{k} i^2 + (k+1)^2 \\
+    &= a + \sum_{i=1}^{k+1} i^2
+\end{align*}
+
+since P(k+1) follows P(k) for arbitrary $a$, the \textbf{induction case} is satisfied, thus we can conclude the given predicate is true.
+
+therefore, 
+\[
+\text{ sumSqr(n)} = \text{ sumHelper(n, 0)} = \sum_{i=1}^{n} i^2
+\]
+
+\end{proof}
+
+\vspace{1em}
+\hrulefill
+
 \section*{Task 5: Mysterious Function (2 points)}
 
 Consider the following Python function \texttt{foo}, which takes as input an integer $n \ge 1$ and returns a tuple of length 2 of integers:
@@ -192,6 +232,9 @@ Prove that for $n \ge 1$, \texttt{foo(n)} returns a pair $(p, q)$ such that
 
 \medskip
 \solution
+
+\vspace{1em}
+\hrulefill
 
 \section*{Task 7: Midway Tower of Hanoi (4 points)}
 For this task, save your work in \texttt{smallman/Midway.java}. 
