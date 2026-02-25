@@ -40,7 +40,7 @@ public class WordDatabase implements IDatabase {
     @Override
     public void add(Word w) {
         // TODO:
-        this.words.add(new Word(w));
+        this.words.add(new Word(w.getWord()));
     }
 
     // Removes w from the database and has no effect if w is not present
