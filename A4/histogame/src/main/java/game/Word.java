@@ -41,9 +41,29 @@ public class Word implements Formable<Word>, Comparable<Word> {
         return true;
     }
 
+    // Return -1 if this word is shorter than the word represented by o OR // when this word and the word represented by
+    // o have the same length but // this word comes before the word represented by o alphabetically. Return zero if
+    // this word and o word are identical. Return +1 otherwise.
     @Override
     public int compareTo(Word o) {
-        // TODO: Fix me
-        return 0;
+        if (this.word.equals(o.word)) { // identical
+            return 0;
+        }
+
+        int diff = this.word.length() - o.word.length();
+        if (diff < 0) { // compare length
+            return -1;
+        } else if (diff > 0) {
+            return 1;
+        }
+
+        int alpha = this.word.compareTo(o.word); // same length, check alphabetical order
+        if (alpha < 0) {
+            return -1;
+        } else if (alpha > 0) {
+            return 1;
+        }
+
+        return 0; // then it supposed to be identical
     }
 }
