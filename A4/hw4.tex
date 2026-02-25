@@ -95,6 +95,42 @@ Any $2^n \times 2^n$ grid with one painted cell can be tiled using L-shaped trio
 \medskip
 \solution
 
+\begin{proof}
+
+    we claim that
+
+    \[
+        P(n) \equiv \forall n \ge 1 \text{ any $2^n \times 2^n$ grid with one painted cell can be fully tiled using L-shaped triminoes in any orientation}
+    \]
+
+    for the \textbf{base case} where $n_0 = 1$
+
+    \begin{align*}
+        P(1) &\equiv \text{a $2^1 \times 2^1$ grid with one painted entry could be covered by a single triminos} \\
+        &\text{\hspace{1em} (as one of the four possible arrangement would work)}
+    \end{align*}
+
+    then, we assume P(k) for arbitrary $(k \ge n_0)$, we prove $P(k+1)$
+
+    \vspace{1em}
+
+    we split $2^{k+1} \tiems 2^{k+1}$ into 4 quadrant: $Q_1, Q_2, Q_3 \text{ and } Q_4$, as we could positioned the (single) painted entry by it's quadrant --- which it has to be in one of the four quadrant.
+
+    \vspace{1em}
+
+    this quadrant that contains the painted entry would be the size of $\frac{2^{k+1}}{2} \times \frac{2^{k+1}}{2} = 2^k \times 2^k$, which is just $P(k)$ --- that from our inductive hypothesis, holds true.
+
+    \vspace{1em}
+
+    now, we focus on the remaining three quadrant, these three, if we view each of them as a single cell, will be arranged in one of the four possible L-shaped triminoes arrangement. if we put in a single L-shaped trimino on the apex of those three $2^k \times 2^k$ grid, each of those three grid would have one used (painted) entry --- which is just the set-up of $P(k)$ that we assume to be true already; and therefore, by inductive hypothesis, these three grid, together, will be tilable with L-shaped triminoes.
+
+    \vspace{1em}
+    and since P(k+1) follows P(k), the \textbf{induction case} is satisfied, thus we can conclude the given predicate is true
+
+\end{proof}
+
+\newpage 
+
 \section*{Task 4: Tail Sum of Squares (2 points)}
 
 Consider the following snippet of Java code:
@@ -144,9 +180,6 @@ therefore,
 \]
 
 \end{proof}
-
-\vspace{1em}
-\hrulefill
 
 \section*{Task 5: Mysterious Function (2 points)}
 
@@ -294,7 +327,7 @@ Following these steps uses $2^N - 1$ moves. Because this number is huge, the mon
         &= 2^{k+1} - 2 + 1 = 2^{k+1} - 1
     \end{align*}
 
-    since P(k+1) follows P(k), the \textbf{induction case} is satisfied, thus we can conclude the given predicate is true \end{proof}
+    since P(k+1) follows P(k), the \textbf{induction case} is satisfied, thus we can conclude the given predicate is true
 
 \end{proof}
 \end{document}
