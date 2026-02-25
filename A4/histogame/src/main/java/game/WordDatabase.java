@@ -68,15 +68,19 @@ public class WordDatabase implements IDatabase {
         return lst;
     }
 
+    // Returns a List of Words in the database whose length is at least minLen
+    // and which can be formed from all or some of the letters of the word w
     @Override
     public List<Word> getAllSubWords(Word w, int minLen) {
         // TODO:
-        return null;
+        // return null;
     }
 
+    // Returns true if the word o is in the database and false otherwise
     @Override
     public boolean contains(Word o) {
         // TODO:
-        return false;
+        // return false;
+        return words.contains(o.getWord());
     }
 }
