@@ -92,66 +92,6 @@ Any $2^n \times 2^n$ grid with one painted cell can be tiled using L-shaped trio
 
 \textbf{Subtask I:} Re-prove the theorem above, in your own words, by induction on $n$ so that you fully understand how it works.
 
-\textbf{Subtask II:} Turn the proof into code. Inside \texttt{MissingTile.java}, implement
-\begin{verbatim}
-public static void tileGrid(Grid board)
-\end{verbatim}
-that tiles the provided board instance using the information obtained from the instance. The board instance implements the following \texttt{Grid} interface:
-\begin{verbatim}
-// The top-left corner is coordinate x=0 and y=0. The bottom-right corner is
-// coordinate x=size()-1 and y=size()-1.
-public interface Grid {
-    // return the width/height of the square grid. coordinates in the grid are
-    // numbers between 0 and size()-1, inclusive.
-    int size();
-    // return the x coordinate of the painted cell
-    int getPaintedCellX();
-    // return the y coordinate of the painted cell
-    int getPaintedCellY();
-    // install a triomino tile so that the missing corner is at coordinate (x, y)
-    // and the orientation of the tile is given by the orientation parameter,
-    // encoded as follows: missing NE = 0, missing SE = 1, missing SW = 2, and
-    // missing NW = 3. The function returns true if the tiling is possible; it
-    // returns false if the tiling failed (e.g., overlap with an existing tile or
-    // touches the painted cell.
-    boolean setTile(int x, int y, int orientation);
-
-    // return a boolean value indicating whether the grid has been fully tiled
-    boolean isFullyTiled();
-}
-\end{verbatim}
-
-As an example, suppose you are given a board instance whose size is $4 \times 4$ and the painted cell is at coordinate $x = 3$ and $y = 1$. That is, \texttt{board.size()} returns 4, \texttt{board.getPaintedCellX()} returns 3, and \texttt{board.getPaintedCellY()} returns 1. The grid can be manually tiled by invoking
-\begin{enumerate}
-    \item \texttt{board.setTile(1, 1, 1)}
-    \item \texttt{board.setTile(3, 1, 1)}
-    \item \texttt{board.setTile(2, 1, 0)}
-    \item \texttt{board.setTile(1, 2, 0)}
-    \item \texttt{board.setTile(2, 2, 3)}
-\end{enumerate}
-Here, the argument \texttt{orientation} uses the encoding described in the interface specification above (e.g., \texttt{1} means the triomino is missing the SE corner).
-
-\textbf{Performance Expectations:} Your code will be tested with grid sizes between $1 \times 1$ and $1024 \times 1024$. A call to \texttt{tileGrid} should return within 2 seconds.
-
-\textbf{Test Driver:} The starter pack provides a Java program that implements the \texttt{Grid} interface. You should not need to modify this program. Keep in mind that the grader will use the original version of the driver (\texttt{TileDriver.java}).
-
-\textbf{Getting Started Guide:} The inductive proof shows that to tile a $2^k \times 2^k$ grid, we recursively tile four $2^{k-1} \times 2^{k-1}$ subgrids of the big grid, each with a different painted cell. The key question is how to account for each subgrid when its painted cell potentially differs from the original grid. Consider the following design approaches (pick one):
-\begin{itemize}
-    \item \textbf{Idea \#1:} Write a helper method with parameters such as
-\begin{verbatim}
-static void tilingHelper(int size, int topX, int topY,
-                         int paintedX, int paintedY, Grid bd)
-\end{verbatim}
-    that explicitly passes the coordinates describing the current subgrid and its painted cell.
-    \item \textbf{Idea \#2:} Instead of passing many parameters, create and act on a view of the real object. Implement an inner class \texttt{GridView} that also implements \texttt{Grid}. Each time you subdivide the grid, return a \texttt{GridView} instance whose \texttt{size}, \texttt{getPaintedCellX}, and \texttt{getPaintedCellY} reflect the subgrid's information, and whose \texttt{setTile} method forwards the command to the real grid while compensating for offsets. You do not need \texttt{isFullyTiled} to work for the view. The class should at least support
-\begin{verbatim}
-public GridView(Grid parentGrid);
-public GridView subgrid(int topX, int topY, int size,
-                        int virtualPaintedX, int virtualPaintedY);
-\end{verbatim}
-    and any additional helpers you find useful.
-\end{itemize}
-
 \medskip
 \solution
 
@@ -170,9 +110,6 @@ Your Task: Prove that for $n \ge 1$, \texttt{sumSqr(n)} returns $1^2 + 2^2 + 3^2
 
 \medskip
 \solution
-
-\vspace{1em}
-\hrulefill
 
 \begin{proof}
 as sumSqr(int n) only calls sumHelper(n, 0) for $n \ge 1$, we focus on sumHelper(n, 0), let the claim
