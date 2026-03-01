@@ -7,6 +7,7 @@
 \usepackage{tikz}
 \usepackage[plain]{algorithm}
 \usepackage{algpseudocode}
+\usepackage{amssymb}
 
 \usetikzlibrary{automata,positioning}
 
@@ -53,6 +54,13 @@
 \renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
 
 \newcounter{partCounter}
+\newcommand{\solution}{\textbf{\large Solution}}
+
+\newtheorem*{theorem}{Theorem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
 
 \begin{document}
 
@@ -102,6 +110,50 @@ What’s the running time in Big-O of \texttt{fnA} as a function of $n$, which i
 
 \medskip
 \solution
+
+\begin{enumerate}
+    \item find the limit of $f(n) \text{ and } g(n)$
+
+        \[\lim_{n \to \infty} \frac{n}{n\log n} = \lim_{n \to \infty} \frac{1}{\log n} = 0 < \infty\]
+
+        which means there exist a constant $c > 0$, such that for every positive integer n, $f(n) \le c \cdot g(n)$
+
+    \item 
+        \begin{proof}
+            from the definition of big-Oh, we can write $d(n)$ as 
+
+        \[d(n) = c_1 f(n)\]
+
+        and $e(n)$ as
+
+        \[e(n) = c_2 g(n)\]
+
+        so, to check whether $d(n)e(n) \in O(f(n)g(n))$ we do
+
+        \begin{align*}
+            \lim_{n \to \infty} \frac{d(n)e(n)}{f(n)g(n)} &= \lim_{n \to \infty} \frac{c_1f(n)c_2g(n)}{f(n)g(n)} \\
+            &= c_1c_2 < \infty
+        \end{align*}
+        \end{proof}
+
+    \item if we write that out, it'll be
+
+        \[1000(0) + 1000(1) + 1000(2) + ... + 1000(n)\]
+
+        that's
+
+        \[1000 \sum_{i=0}^{n} i = 1000 \frac{n(n+1)}{2}\]
+
+        which is \boxed{$O(n^2)$}.
+
+    \item there's no constant $c$ that satisfy $h(n) \le c \cdot n^4$ when $h(n) = 16n^2 + 11n^4 + 0.1n^5$, to prove this, we find limit of $h(n) \text{ by } n^3$ as
+
+        \begin{align*}
+            \lim_{n \to \infty} \frac{h(n)}{n^4} &= \lim_{n \to \infty} \frac{0 + 11 + 0.1n}{1} && \quad \text{divide both numerator and denominator with } n^4 \\
+            &= \infty \nless \infty
+        \end{align*}
+
+\end{enumerate}
 
 \vspace{1em}
 \hrulefill
