@@ -245,6 +245,52 @@ void programB(int n) {
 \medskip
 \solution
 
+for `programA`, the function accepts parameter `n`, we ignore `prod` and the operation inside the loop, as multiplication is the result of the loop's condition, and multiplication usually be done in a single instructions/ clock cycles. so, we focus on the loop's condition itself
+
+\vspace{1em}
+
+the loop exits when `c` $\le 0$, which initially, `c` = `n`, then in each iteration, c got divided by 2, so `c`'s value would be in a sequence of
+
+\[c, \frac{c}{2^1}, \frac{c}{2^2}, \frac{c}{2^3}, ..., \frac{c}{2^k}\]
+
+which 
+
+\[\frac{c}{2^k} = 1\]
+
+or
+
+\[2^k = c \text{ when `c` = `n`}\]
+
+therefore, 
+
+\[k = \log_2 c = \log_2 n\]
+
+and we can conclude that \boxed{\text{`programA`}\in \Theta(\log n)}
+
+    \medskip
+    \begin{center}
+    \rule{0.3\linewidth}{0.2pt}
+    \end{center}
+    \medskip
+
+for `programB', just like the previous one, we only focus on the loop's condition itself.
+
+\vspace{1em}
+
+as `c` initially starts at 1, tripled it's value in every iteration, and the loop terminates when `c` $\ge$ `n`, we can write the `c`'s value sequence as
+
+\[1, 1\cdot3^1, 1\cdot3^2, 1\cdot3^3, ..., 1\cdot3^k\]
+
+which 
+
+\[3^k \ge n\]
+
+therefore, 
+
+\[k = \log_3 n\]
+
+and we can conclude that \boxed{\text{`programB`} \in \Theta(\log_3 n)}
+
 \vspace{1em}
 \hrulefill
 
