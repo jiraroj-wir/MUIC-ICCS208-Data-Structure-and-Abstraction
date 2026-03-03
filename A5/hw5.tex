@@ -344,7 +344,23 @@ Your answer for this part should look like the following: $(\cdot)z + (\cdot)$.
         
         \vspace{1em}
 
-        as these operation are not sequencial, we just add them up, as $\boxed{k_1\cdot \frac{z}{2} + 2k_2z + k_2}$ for best case, and $\boxed{k_1\cdot \frac{z}{2} + 2k_2z + k_1\cdot \frac{z}{2}}$ in worse case. 
+        as these operation are not sequencial, we just add them up, as 
+        \[
+        \boxed{\left(\frac{k_1}{2} + 2k_2\right)z + k_2}
+        \]
+        for best case, and 
+        \[
+        \boxed{\left(k_1 + 2k_2\right)z}
+        \]
+        in worse case. 
+
+
+    \medskip
+    \begin{center}
+    \rule{0.3\linewidth}{0.2pt}
+    \end{center}
+    \medskip
+
 
     \item as the while loop terminates when `len(X)` $\le 0$, and the in-loop operation do change X's size to `len(X)/2` in every iteration, it's a decreasing sequence, and the loop will terminate at some point. we try with a table of `X.length`-iterations first, with `X.length` = 64:
 
@@ -362,52 +378,52 @@ Your answer for this part should look like the following: $(\cdot)z + (\cdot)$.
         \end{tabular}
         \end{center}
         
-        as the given code is written in python, i'll assume python do it's magic, and will use the best case time per iteration of $k_1 \cdot \frac{z}{2} + 2k_2z + k_2$, where $z = $ `X.length`, so the total time usage would be
+        as the given code is written in python, i'll assume python do it's magic, and will use the best case time per iteration of $\left(\frac{k_1}{2} + 2k_2\right)z + k_2$, where $z = $ `X.length`, so the total time usage would be
 
-        \[\left(k_1 \cdot 2^{0-1} + 2k_22^0 + k_2\right) + \left(k_1 \cdot 2^{1-1} + 2k_22^1 + k_2\right) + \left(k_1 \cdot 2^{2-1} + 2k_22^2 + k_2\right) + ... + \left(k_1 \cdot 2^{n-1} + 2k_22^n + k_2\right)\]
-
-        or 
-
-        \[\sum_{i=0}^n k_1 \cdot 2^{i-1} + 2k_22^i + k_2\]
+        \[
+        \sum_{j=0}^{\log_2 n - 1}
+        \left[
+        \left(\frac{k_1}{2} + 2k_2\right)\frac{n}{2^j} + k_2
+        \right]
+        \]
 
         which is equivalent to 
 
         \begin{align*}
-            \sum_{i=0}^n k_1 \cdot 2^{i-1} + \sum_{i=0}^n {2k_22^i} + \sum_{i=0}^n k_2 &= n{k_1}\sum_{i=0}^n 2^{i-1} + 2nk_2\sum_{i=0}^n 2^i + nk_2
+        T(n)
+        &= \left(\frac{k_1}{2} + 2k_2\right)
+        \sum_{j=0}^{\log_2 n - 1} \frac{n}{2^j}
+        + k_2 \sum_{j=0}^{\log_2 n - 1} 1 \\
+        &= \left(\frac{k_1}{2} + 2k_2\right)
+        n \sum_{j=0}^{\log_2 n - 1} \frac{1}{2^j}
+        + k_2 \log_2 n
         \end{align*}
 
-        we try to solve the first term of $nk_1\sum_{i=0}^n 2^{i-1}$ by 
+        for the geometric series,
 
-        let
+        \[
+        \sum_{j=0}^{\log_2 n - 1} \frac{1}{2^j}
+        =
+        2\left(1 - \frac{1}{n}\right)
+        \]
 
-        \begin{align*}
-            S &= \sum_{i=0}^n 2^{i-1} \\
-            &= 2^{-1} + 2^0 + 2^1 + 2^2 + ... + 2^{n-1}
-        \end{algin*}
+        so we get
 
-        \[2S = 2^0 + 2^1 + 2^2 + ... + 2^n\]
+        \[
+        T(n)
+        =
+        \left(\frac{k_1}{2} + 2k_2\right)
+        n \cdot
+        2\left(1 - \frac{1}{n}\right)
+        + k_2 \log_2 n
+        \]
 
-        now, $2S - S$ would gives
+        \[
+        =
+        (k_1 + 4k_2)(n - 1)
+        + k_2 \log_2 n \in\boxed{\Theta(n)}
+        \]
 
-        \[S = 2^n - 2^{-1}\]
-
-        so, the first term would be $nk_1S = nk_1(2^n - 2^{-1})$
-
-        same applies for the second term, for $\sum_{i=0}^n 2^i$, it just the first term multiplies by 2, so the second term could be simplify to $2nk_2(2^{n+1} - 1)$
-
-        and so we could complete our analysis, this algorithm got a running time of 
-
-        \[nk_1(2^n - \frac{1}{2}) + 2nk_2(2^{n+1} - 1) + nk_2\]
-
-        this is for $2^n$, so we have to convert this from exponential to linear scale by
-        
-        let 
-
-        \[m = 2^n \rightarrow n = \log_2 m \quad \text{ we let } m = n\]
-
-        so, the running time of this algorithm is
-
-        \[k_1\log_2n({2^{{\log_2n}} - {\frac{1}{2}}}) + 2k_2(\log_2 n)({2^{\log_2 n + 1}} - 1) + k_2\log_2 n \in \boxed{\Theta(\log_2 n \cdot 2^{\log_2 n})}\]
 \end{enumerate}
 \vspace{1em}
 \hrulefill
