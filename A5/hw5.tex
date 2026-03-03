@@ -435,63 +435,122 @@ For the most part, we have focused almost exclusively on worst-case running time
 \textbf{(1)} Determine the best-case running time and the worst-case running time of \texttt{method1} in terms of $\Theta$.
 
 \begin{verbatim}
-static void method1(int[] array) {
-    int n = array.length;
-    for (int index=0;index<n-1;index++) {
-        int marker = helperMethod1(array, index, n - 1);
-        swap(array, marker, index);
-    }
-}
-
-static void swap(int[] array, int i, int j) {
-    int temp=array[i];
-    array[i]=array[j];
-    array[j]=temp;
-}
-
-static int helperMethod1(int[] array, int first, int last) {
-    int max = array[first];
-    int indexOfMax = first;
-    for (int i=last;i>first;i--) {
-        if (array[i] > max) {
-            max = array[i];
-            indexOfMax = i;
-        }
-    }
-    return indexOfMax;
-}
+   1 static void method1(int[] array) {
+   2     int n = array.length;
+   3     for (int index=0;index<n-1;index++) {
+   4         int marker = helperMethod1(array, index, n - 1);
+   5         swap(array, marker, index);
+   6     }
+   7 }
+   8
+   9 static void swap(int[] array, int i, int j) {
+  10     int temp=array[i];
+  11     array[i]=array[j];
+  12     array[j]=temp;
+  13 }
+  14
+  15 static int helperMethod1(int[] array, int first, int last) {
+  16     int max = array[first];
+  17     int indexOfMax = first;
+  18     for (int i=last;i>first;i--) {
+  19         if (array[i] > max) {
+  20             max = array[i];
+  21             indexOfMax = i;
+  22         }
+  23     }
+  24     return indexOfMax;
+  25 }
 \end{verbatim}
 
 \textbf{(2)} Determine the best-case running time and the worst-case running time of \texttt{method2} in terms of $\Theta$.
 
 \begin{verbatim}
-static boolean method2(int[] array, int key) {
-    int n = array.length;
-    for (int index=0;index<n;index++) {
-        if (array[index] == key) return true;
-    }
-    return false;
-}
-\end{verbatim}
+   1 static boolean method2(int[] array, int key) {
+   2     int n = array.length;
+   3     for (int index=0;index<n;index++) {
+   4         if (array[index] == key) return true;
+   5     }
+   6     return false;
+   7 }
+  \end{verbatim}
+\textbf{(3)} 
 
-\textbf{(3)} Determine the best-case running time and the worst-case running time of \texttt{method3} in terms of $\Theta$.
+Determine the best-case running time and the worst-case running time of \texttt{method3} in terms of $\Theta$.
 
 \begin{verbatim}
-static double method3(int[] array) {
-    int n = array.length;
-    double sum = 0;
-    for (int pass=100; pass >= 4; pass--) {
-        for (int index=0;index < 2*n;index++) {
-            for (int count=4*n;count>0;count/=2)
-                sum += 1.0*array[index/2]/count;
-        }
-    }
-    return sum;
-}
+   1 static double method3(int[] array) {
+   2     int n = array.length;
+   3     double sum = 0;
+   4     for (int pass=100; pass >= 4; pass--) {
+   5         for (int index=0;index < 2*n;index++) {
+   6             for (int count=4*n;count>0;count/=2)
+   7                 sum += 1.0*array[index/2]/count;
+   8         }
+   9     }
+  10     return sum;
+  11 }
 \end{verbatim}
 
 \medskip
 \solution
+
+\remark I assign line numbers to the code, which i will referenced from --- line 67 as (67). line numbers will get reset in every sub-task.
+
+\begin{enumerate}
+    \item firstly, on (2), `array.length` should be $\Theta(1)$, as the `array` object got `length` variable as static type. 
+
+        \vspace{1em}
+
+        then, we enter the loop, the loop just goes through every index of the array, starting from index 0. inside the loop, (4), `helperMethod1` was called, which the method goes through the whole range of the array, starting from `index` this time --- which `index`'s value will change in every iteration of the loop. the `helperMethod1` returns the index of max value in the array from the given range --- which would cost
+
+        \[n, n-1, n-2, n-3, ..., 2, 1\]
+
+        as `index` goes closer to the array's tail. this sums up to
+
+        \[\sum_{i=1}^n i = \frac{n(n+1)}{2}\]
+
+        so, $\Theta(n^2)$ --- we already accounter for the `method1`'s loop itself on this calculation. 
+
+        and lastly, on (5), this just swaps the `index` entry of the array with the greatest/ largest value in the remaining range, as `helperMethod1` returns to `marker` in (4). the `swap` method only cost 3 operations, so $\Theta(1)$
+
+        \vspace{1em}
+
+        so, this `method1` method got a time complexity of \boxed{\Theta(n^2)}, for both best case and worse case as `helperMethod1` goes through every entry in the given range anyway, and I think this is selection sort? 
+
+    \item the code iterate through the array of integer, `array`, and checks whether `key` exists inside the array or not, with early exit in case `key` was found early. So, best case, `array[0]` == `key`, and the method returns true --- that's \boxed{\Theta(1)}; and for worse case: `key` does not exist in `array` or `key' == `array[n-1]` (last index of the array) --- this will resulted in \boxed{\Theta(n)}
+
+    \item as there's no conditions or early exits, we just compute the complexity of each layers, and as it's sequencial, we use product rule.
+
+        \begin{itemize}
+            \item in (4), this is quite dependent layer, as it doesn't affect (5), (6), or the operation inside this triple-nested loop itself. it just goes through 
+
+                \[100, 99, 98, ..., 6, 5, 4\]
+
+                which is a multiplication factor of 97 to our complexity --- still it is $\Theta(1)$
+            
+            \item for (5), this loops through
+
+                \[0, 1, 2, 3, ..., 2n-2, 2n-1\]
+
+                thats $2n$ operations --- $\Theta(n)$, which will be multiplied to our final complexity.
+
+            \item lastly, (6), this one is a logarithmic scale, as `count` starts at $4n$, and got reduced by half in each iteration, as
+
+                \[4n, 2n, n, \frac{n}{2}, \frac{n}{4}, ..., 4, 2, 1\]
+
+                this'd cost $\log_2 4n \in \Theta(\log_2 n)$
+        \end{itemize}
+
+        and for the in-loop operation, `sum += 1.0 * array[index/2]/count;`: addition, search, multiplication and two divisions; supposed all took 1 operations, so that's 5 operations --- $\Theta(1)$.
+
+        \vspace{1em}
+
+        we combined all these time complexity as 
+
+        \[97 \cdot 2n \cdot \log_2 4n \cdot 5 = cn{\log_2 4n} \in \boxed{\Theta(n\log_2 n)}\]
+
+        this applies for both best case and worse case, as there's nothing in this method that could affect the running time, but the length of `array`.
+\end{enumerate}
 
 \vspace{1em}
 \hrulefill
