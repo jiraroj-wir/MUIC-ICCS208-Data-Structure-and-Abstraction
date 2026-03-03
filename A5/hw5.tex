@@ -323,6 +323,92 @@ Your answer for this part should look like the following: $(\cdot)z + (\cdot)$.
 \medskip
 \solution
 
+\begin{enumerate}
+    \item observe operations inside the loop, (1) costs $k_1\cdot \frac{z}{2}$, 
+
+        \vspace{1em}
+
+        then (2) would cost
+        \begin{itemize}
+            \item read $X[2i]$ \hfill --- $k_2$ operation
+            \item read $X[2i+1]$ \hfill --- $k_2$ operation
+            \item add $X[2i]$ and $X[2i+1]$ \hfill --- $k_2$ operation
+            \item save the result to $Y[i]$ \hfill --- $k_2$ operation
+        \end{itemize}
+
+        that's $4k_2$ operations in total for each of Y's entry, so $4k_2 \cdot \frac{z}{2} = 2k_2z$
+
+        \vspace{1em}
+
+        and for (3), this can vary (depend on the language, as far as i know, in some language like c, you can just assign X as some pointer address to Y, but in java, the language will try to copy new data every time (like in case of `String`, that's why we use `StringBuilder`)); best case (in terms of least operations), we only have to assign new addresss (write) to X, so that's $k_2$ operation; and for the worse case, we copy the whole thing, so just like (1), it's $k_1 \cdot \frac{z}{2}$
+        
+        \vspace{1em}
+
+        as these operation are not sequencial, we just add them up, as $\boxed{k_1\cdot \frac{z}{2} + 2k_2z + k_2}$ for best case, and $\boxed{k_1\cdot \frac{z}{2} + 2k_2z + k_1\cdot \frac{z}{2}}$ in worse case. 
+
+    \item as the while loop terminates when `len(X)` $\le 0$, and the in-loop operation do change X's size to `len(X)/2` in every iteration, it's a decreasing sequence, and the loop will terminate at some point. we try with a table of `X.length`-iterations first, with `X.length` = 64:
+
+        \begin{center}
+        \begin{tabular}{c|c|c}
+        \textbf{Iteration} & \textbf{$X.\text{length}$ (base 10)} & \textbf{$X.\text{length}$ ($2^k$ form)} \\
+        \hline
+        0 & 64 & $2^6$ \\
+        1 & 32 & $2^5$ \\
+        2 & 16 & $2^4$ \\
+        3 & 8  & $2^3$ \\
+        4 & 4  & $2^2$ \\
+        5 & 2  & $2^1$ \\
+        6 & 1  & $2^0$ \\
+        \end{tabular}
+        \end{center}
+        
+        as the given code is written in python, i'll assume python do it's magic, and will use the best case time per iteration of $k_1 \cdot \frac{z}{2} + 2k_2z + k_2$, where $z = $ `X.length`, so the total time usage would be
+
+        \[\left(k_1 \cdot 2^{0-1} + 2k_22^0 + k_2\right) + \left(k_1 \cdot 2^{1-1} + 2k_22^1 + k_2\right) + \left(k_1 \cdot 2^{2-1} + 2k_22^2 + k_2\right) + ... + \left(k_1 \cdot 2^{n-1} + 2k_22^n + k_2\right)\]
+
+        or 
+
+        \[\sum_{i=0}^n k_1 \cdot 2^{i-1} + 2k_22^i + k_2\]
+
+        which is equivalent to 
+
+        \begin{align*}
+            \sum_{i=0}^n k_1 \cdot 2^{i-1} + \sum_{i=0}^n {2k_22^i} + \sum_{i=0}^n k_2 &= n{k_1}\sum_{i=0}^n 2^{i-1} + 2nk_2\sum_{i=0}^n 2^i + nk_2
+        \end{align*}
+
+        we try to solve the first term of $nk_1\sum_{i=0}^n 2^{i-1}$ by 
+
+        let
+
+        \begin{align*}
+            S &= \sum_{i=0}^n 2^{i-1} \\
+            &= 2^{-1} + 2^0 + 2^1 + 2^2 + ... + 2^{n-1}
+        \end{algin*}
+
+        \[2S = 2^0 + 2^1 + 2^2 + ... + 2^n\]
+
+        now, $2S - S$ would gives
+
+        \[S = 2^n - 2^{-1}\]
+
+        so, the first term would be $nk_1S = nk_1(2^n - 2^{-1})$
+
+        same applies for the second term, for $\sum_{i=0}^n 2^i$, it just the first term multiplies by 2, so the second term could be simplify to $2nk_2(2^{n+1} - 1)$
+
+        and so we could complete our analysis, this algorithm got a running time of 
+
+        \[nk_1(2^n - \frac{1}{2}) + 2nk_2(2^{n+1} - 1) + nk_2\]
+
+        this is for $2^n$, so we have to convert this from exponential to linear scale by
+        
+        let 
+
+        \[m = 2^n \rightarrow n = \log_2 m \quad \text{ we let } m = n\]
+
+        so, the running time of this algorithm is
+
+        \[k_1\log_2n({2^{{\log_2n}} - {\frac{1}{2}}}) + 2k_2(\log_2 n)({2^{\log_2 n + 1}} - 1) + k_2\log_2 n \in \boxed{\Theta(\log_2 n \cdot 2^{\log_2 n})}\]
+\end{enumerate}
 \vspace{1em}
 \hrulefill
 
