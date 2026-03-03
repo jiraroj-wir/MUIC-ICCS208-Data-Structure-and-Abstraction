@@ -658,6 +658,103 @@ int[] prefixSum(int[] xs) {
     \end{center}
     \medskip
 
+    \item `anotherSum` canbe measured by the length of `xs`, which is
+
+        \[\boxed{n = \text{xs.length}}\]
+
+        for base case, the method will terminate when `xs.length` equals to 1, so
+
+        \[T(1) = \Theta(1)\]
+    
+        and in each recursives,
+
+        \begin{itemize}
+            \item `xs` got copied from index 1 to the end (skip index 0), to `ys`, $n-1$ operations --- so $\Theta(n)$
+            \item the method call itself, with the argument of the newly copied array with length (n-1)
+            \item on the same line, there's addition --- $\Theta(1)$
+        \end{itemize}
+
+        so, $\Theta(n)$ in total time complexity in each method call; which the method will recursively call itself, with `ys` as it's arguemnt, the recurrence could be written as
+
+        \[\boxed{T(n) = T(n-1) + \Theta(n)}\]
+
+        and, we try to solve the recurrence, by writing out the first few terms, and the last term
+
+        \[T(n) = \Theta(n) + T(n-1) \quad \text{--- } \Theta(n)\]
+        \[T(n-1) = \Theta(n-1) + T(n-2) \quad \text{--- } \Theta(n-1) \equiv \Theta(n)\]
+        \[T(n-2) = \Theta(n-2) + T(n-3) \quad \text{--- } \Theta(n-2) \equiv \Theta(n)\]
+        \[...\]
+        \[T(1) = \Theta(1) + T(0) \quad \text{--- } \Theta(1)\]
+
+        so, the combined complexity is
+
+        \[\Theta(n + (n-1) + (n-2) + (n-3) + ... + 2 + 1)\]
+
+        which is equivalent to
+
+        \[\Theta(n^2 - \frac{(n-1)(n)}{2}) \in \boxed{\Theta(n^2)}\]
+
+    \medskip
+    \begin{center}
+    \rule{0.3\linewidth}{0.2pt}
+    \end{center}
+    \medskip
+
+    \item we'll measure `prefixSum` problem size by array's length of `xs`, which
+
+        \[n = \text{xs.length}\]
+
+        for base case, the method will terminates when `xs.length` equals to 1, so 
+
+        \[T(1) = \Theta(1)\]
+
+        and in each recursives
+
+        \begin{itemize}
+            \item get `n`'s length --- $\Theta(1)$
+            \item copy the left half, $\frac{n}{2}$ operations --- that's $\Theta(n)$
+            \item the method call itself with that left half, of size $\frac{n}{2}$
+            \item copy the right half, $\frac{n}{2}$ operations --- that's $\Theta(n)$
+            \item the method call itself with that right half, of size $\frac{n}{2}$
+            \item allocate the array `ps` of size $\frac{n}{2}$ --- so $\Theta(n)$
+            \item access the last element of the left half --- $\Theta(1)$
+            \item loop through the left half (I supposed the in-loop operations here doesn't matter now), $\frac{n}{2}$ operations --- $\Theta(n)$
+            \item same, loop on the right half, $\frac{n}{2}$ operations --- $\Theta(n)$
+        \end{itemize}
+
+        we'd ignore some of the step above, as it's too detailed, only focus on $\Theta(n)$ ones, the time complexity wouuld be $\Theta(\frac{5}{2}n)$ in total for each method call; which the method will recursively call itself, with the left and right half of the initial array as an argument, the recurrence could be written as
+
+        \[\boxed{T(n) = 2T(\frac{n}{2}) + \Theta(\frac{5}{2}n))}\]
+
+        and, we try to solve the recurrence, by writing out the first few terms, and the last term (just like (1)) --- I simplify the time complaxity, as the rough complexity should remain the same (it's easier to calculate without fractions)
+
+        \[T(n) = \Theta(n) + 2T(\frac{n}{2}) \quad \text{--- } \Theta(n)\]
+
+        \[T(\frac{n}{2^1}) = \Theta(\frac{n}{2^1}) + 2T(\frac{n}{2^2})
+        \quad \text{--- } 2^1 \cdot \Theta(\frac{n}{2^1}) = \Theta(n)\]
+
+        \[T(\frac{n}{2^2}) = \Theta(\frac{n}{2^2}) + 2T(\frac{n}{2^3})
+        \quad \text{--- } 2^2 \cdot \Theta(\frac{n}{2^2}) = \Theta(n)\]
+
+        \[...\]
+
+        \[T(\frac{n}{2^k}) = \Theta(\frac{n}{2^k}) + 2T(\frac{n}{2^{k+1}})
+        \quad \text{--- } 2^k \cdot \Theta(\frac{n}{2^k}) = \Theta(n)\]
+
+        the recursion stops when
+
+        \[\frac{n}{2^k} = 1 \Rightarrow 2^k = n \Rightarrow k = \log_2 n\]
+
+        so, the combined complexity is
+
+        \[
+        \Theta(\underbrace{n + n + n + ... + n}_{k})
+        \]
+
+        therefore,
+
+        \[\boxed{T(n) \in \Theta(n\log n)}\]
+
 
 \end{enumerate*}
 
