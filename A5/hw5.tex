@@ -806,4 +806,113 @@ The following steps will guide you through determining the values of $a$, $b$, a
 \medskip
 \solution
 
+\begin{enumerate}
+    \item[(i)] by plugging $n = 0$ into (1), we get
+
+        \begin{align*}
+            g(0) &= a \cdot f(0) + b \cdot 0 + c \\
+            0 &= a(0) + b(0) + c \\
+            0 &= 0 + 0 + c
+        \end{align*}
+
+        therefore, $\boxed{c = 0}$.
+
+    \item[(ii)] plugging in $g(n)$ from (1), into the recurrence $g(n) = 2g(n-1) + n$, we get
+
+        \[
+        a \cdot f(n) + b \cdot n = 2\left(a \cdot f(n-1) + b \cdot (n-1)\right) + n
+        \]
+
+        \[
+        af(n) + bn = 2af(n-1) + 2b(n-1) + n
+        \]
+
+
+        format this as
+
+        \[
+        af(n) - 2af(n-1) + bn - 2b(n-1) - n = 0
+        \]
+
+        \[
+        a(f(n) - 2f(n-1)) + (bn - 2bn + 2b) - n = 0
+        \]
+
+        \[
+        a(f(n) - 2f(n-1)) + (-bn + 2b) - n = 0
+        \]
+
+        and as hinted that $f(n) = 2f(n-1) + 1 \Rightarrow f(n) - 2f(n-1) = 1$, we could derive
+
+        \[
+        a - bn + 2b - n = 0
+        \]
+
+        rearranging as
+
+        \[
+        (-b - 1)n + (a + 2b) = 0
+        \]
+
+        which means that 
+
+        \begin{align}
+        -b - 1 &= 0 \tag{i} \\
+        a + 2b &= 0 \tag{ii}
+        \end{align}
+
+        from (i), we get $\boxed{b = -1}$, and substituting into (ii),
+
+        \[
+        a + 2(-1) = 0 \Rightarrow \boxed{a = 2}.
+        \]
+
+    \item[(iii)] therefore,
+
+        \[
+        \boxed{g(n) = 2f(n) - n}
+        \]
+
+        since $f(n) = 2^n - 1$, as hinted (tower of hanoi), we got
+
+        \[
+        g(n) = 2(2^n - 1) - n
+        \]
+
+        \[
+        \boxed{g(n) = 2^{n+1} - n - 2}
+        \]
+
+    \item[(iv)] 
+    \begin{proof} 
+    we claim that
+
+    \[
+    P(n) \equiv g(n) = 2^{n+1} - n - 2
+    \]
+
+    for the \textbf{base case} where $n_0 = 0$
+
+    \[
+    \begin{aligned}
+    P(0) &= g(0) = 0 = 2^{0+1} - 0 - 2 \\
+    P(1) &= g(1) = 1 = 2^{1+1} - 1 - 2 \\
+    P(2) &= g(2) = 4 = 2^{2+1} - 2 - 2
+    \end{aligned}
+    \]
+
+    then, we assume P(k) for arbitrary $(k \ge n_0)$, we prove $p(k+1) \equiv g(k+1) 2^{(k+1)+1} - (k+1) - 2$
+
+    \begin{align*}
+    g(k+1) &= 2g(k) + (k+1) && \text{recurrence form of } g(n)\\
+    &= 2\big(2^{k+1} - k - 2\big) + (k+1) && \text{inductive hypothesis}\\
+    &= 2^{k+2} - 2k - 4 + k + 1\\
+    &= 2^{k+2} - k - 3\\
+    &= 2^{(k+1)+1} - (k+1) - 2 && \text{format until satisfied } P(k+1)
+    \end{align*}
+
+    since P(k+1) follows P(k), the \textbf{induction case} is satisfied, thus we can conclude the given relation is true 
+    \end{proof}
+
+    \end{enumerate}
 \end{document}
