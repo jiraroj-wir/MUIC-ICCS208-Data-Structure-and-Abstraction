@@ -517,7 +517,19 @@ Determine the best-case running time and the worst-case running time of \texttt{
 
         so, this `method1` method got a time complexity of \boxed{\Theta(n^2)}, for both best case and worse case as `helperMethod1` goes through every entry in the given range anyway, and I think this is selection sort? 
 
+    \medskip
+    \begin{center}
+    \rule{0.3\linewidth}{0.2pt}
+    \end{center}
+    \medskip
+
     \item the code iterate through the array of integer, `array`, and checks whether `key` exists inside the array or not, with early exit in case `key` was found early. So, best case, `array[0]` == `key`, and the method returns true --- that's \boxed{\Theta(1)}; and for worse case: `key` does not exist in `array` or `key' == `array[n-1]` (last index of the array) --- this will resulted in \boxed{\Theta(n)}
+
+    \medskip
+    \begin{center}
+    \rule{0.3\linewidth}{0.2pt}
+    \end{center}
+    \medskip
 
     \item as there's no conditions or early exits, we just compute the complexity of each layers, and as it's sequencial, we use product rule.
 
@@ -604,6 +616,50 @@ int[] prefixSum(int[] xs) {
 
 \medskip
 \solution
+
+\begin{enumerate*}
+    \item we'll measure `halvingSum`'s problem size by array's length of `xs`, which
+
+        \[\boxed{n = \text{xs.length}}\]
+
+        for base case, the method will terminates when `xs.length` equals to 1, so 
+
+        \[T(1) = \Theta(1)\]
+
+        and in each recursives, 
+
+        \begin{itemize}
+            \item allocate `ys` with half the length of `xs.length`, so `ys`'s length is $\frac{n}{2}$ --- that's $\Theta(n)$
+            \item the loop goes through the range of `ys` which is (0, $\frac{n}{2}$) --- so $\Theta(n)$
+            \item in-loop operation do access 2 indexes of `xs`, adds them, and write to a cooresponding index in `ys` --- that's 4 operations, so $\Theta(1)$
+        \end{itemize}
+
+        so, $\Theta(n)$ in total time complexity in each method call; which the method will recursively call itself, with `ys` as it's argument. the recurrence could be written as
+
+        \[\boxed{T(n) = \Theta(n) + T(\frac{n}{2})}\]
+
+        and, we try to solve the recurrence, by writing out the first few terms, and the last term
+
+        \[T(n) = \Theta(n) + T(\frac{n}{2}) \quad \text{--- } \Theta(n)\]
+        \[T(\frac{n}{2^1}) = \Theta(\frac{n}{2^1}) + T(\frac{n}{2^2}) \quad \text{--- } \Theta(\frac{n}{2^1})\]
+        \[T(\frac{n}{2^2}) = \Theta(\frac{n}{2^2}) + T(\frac{n}{2^3}) \quad \text{--- } \Theta(\frac{n}{2^2})\]
+        \[...\]
+        \[T(\frac{n}{2^k}) = T(1) = \Theta(\frac{n}{2^k}) + T(\frac{n}{2^{k+1}}) = \Theta(1) + T(0) \quad \text{--- } \Theta(\frac{n}{2^k}) = \Theta(1)\]
+
+        so, the combined complexity is
+
+        \[\Theta(n + \frac{n}{2} + \frac{n}{4} + ... + 2^1 + 1) \le \Theta(2n)\]
+
+        therefore, $\boxed{T(n) \in \Theta(n)}$ --- as `n` decrease in every call, and our recurrence already write it out well (i guess), the method that gets called don't split, so we don't have to do further conversion from exponential to linear scale (unlike the usual).
+
+    \medskip
+    \begin{center}
+    \rule{0.3\linewidth}{0.2pt}
+    \end{center}
+    \medskip
+
+
+\end{enumerate*}
 
 \vspace{1em}
 \hrulefill
