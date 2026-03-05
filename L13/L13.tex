@@ -7,6 +7,7 @@
 \usepackage{tikz}
 \usepackage[plain]{algorithm}
 \usepackage{algpseudocode}
+\usepackage{cancel}
 
 \usetikzlibrary{automata,positioning}
 
@@ -113,6 +114,26 @@ Suppose $f(n)$ is $\Theta(s(n))$. Let $g(n) = n \cdot f(n)$. Prove that $g(n)$ i
 \medskip
 \solution
 
+\begin{proof}
+
+\[f(n) \in \Theta(s(n)) \Rightarrow \lim_{n\rightarrow\infty} \frac{f(n)}{s(n)} = c \quad \text{ when } c \ne 0\]
+
+as $g(n) = n \cdot f(n)$ where $f(n) = c \cdot s(n)$
+
+\[
+\lim_{n\rightarrow\infty} \frac{g(n)}{n \cdot s(n)}
+=
+\lim_{n\rightarrow\infty}
+\frac{\cancel{n} \cdot c \cdot \cancel{s(n)}}{\cancel{n} \cdot \cancel{s(n)}} = c
+\]
+
+therefore
+
+\[g(n) \in \Theta(n \cdot s(n))\]
+
+\end{proof}
+
+\vspace{1em}
+\hrulefill
+
 \end{document}
-
-
