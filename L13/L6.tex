@@ -88,6 +88,21 @@ Mathematically, what is the running time of the code presented in the puzzle at 
 \medskip
 \solution
 
+we let $n = \text{\{length of numbers list\}}$, the `foobar` function is basically an \textbf{Insertion sort} implementation. it (`j`) goes through index $1, 2, 3, ..., (n-1)$, then in each of those iteration, set `key` = {value at index `j` of the list}, and goes through index i = `j` - 1, meanwhile assigning the value of index `i` to index `i` + 1 of the list, and the inner loop only terminates when $i < 0$ or when {the valvue at index `i` of the list} is lower than `key` --- this acts like finding the index that's suitable for our `key`, and lastly, when the inner-loop terminates, set the value of index `i` + 1 to `key` --- which assures that `key` is in the right place, and the list is sorted from the list's head, up to `j`. 
+
+\vspace{1em}
+
+for the \textbf{best case}, the list is already sorted (smallest to greatest), so the inner-loop terminats immediately --- so $\Theta(1)$ for the inner-loop; and we only accounted for the mandatory outer-loop --- of $\Theta(n)$ --- therefore, the total time complexity of the best case is $\boxed{\Theta(n)}$
+
+\vspace{1em}
+
+for the \textbf{worse case}, the list is sorted as well, but in reversed order from what this function intended (greatest to smallest), this will result in the inner-loop running for `j` times, so the total time complexity (already accounted for the outer-loop) would be 
+
+\begin{align*}
+    1 + 2 + 3 + ... + n &= \sum_{i=1}^n i \\
+    &= \frac{n(n+1)}{2} \in \boxed{\Theta(n^2)}
+\end{align*}
+
 \vspace{1em}
 \hrulefill
 
