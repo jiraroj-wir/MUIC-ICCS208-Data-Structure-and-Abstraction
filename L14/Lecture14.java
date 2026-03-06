@@ -1,17 +1,32 @@
+import java.util.*;
+
 /*
 1. Linear Search
+
 Linear search is a basic routine for locating an index where a target key appears in a collection (array). It does what
 the name suggests: it goes through the array from one end to the other in linear manner.
 
 Your task is to write a static method
 
-
 public static int linearSearch(String[] array, String targetKey)
+
 that takes in an array of Strings and a target key string, and returns the smallest index i that is the target key. If
 the target key is not present in the array, return -1.
 
 For example, linearSearch({"ab", "cc", "bex", "def"}, "cc") should return 1.
+*/
 
+public static int linearSearch(String[] array, String targetKey) {
+    for (int i = 0; i < array.length; i++) {
+        if (array[i].equals(targetKey)) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+/*
 2. Binary Search
 If the array is the previous exercise is ordered from small to large, you know you can write a much faster program using
 binary search. Write a static method
