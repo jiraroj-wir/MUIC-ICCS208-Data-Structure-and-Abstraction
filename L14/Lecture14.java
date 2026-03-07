@@ -29,16 +29,37 @@ public class Lecture14 {
 
     /*
     2. Binary Search
+
     If the array is the previous exercise is ordered from small to large, you know you can write a much faster program
     using binary search. Write a static method
 
-
     public static int binarySearch(String[] array, String targetKey)
-    from scratch (i.e., don't use the built-in binarySearch). If comparing two strings takes O(1)
-    , your code should run in O(log n)
-     time, where
-     is the length of the array.
 
+    from scratch (i.e., don't use the built-in binarySearch). If comparing two strings takes O(1) , your code should run
+    in O(log n) time, where n is the length of the array.
+    */
+
+    public static int binarySearch(String[] array, String targetKey) {
+        int lower_bound = 0;
+        int upper_bound = array.length - 1;
+
+        while (lower_bound <= upper_bound) {
+            int index = (lower_bound + upper_bound) >> 1;
+
+            int compare = array[index].compareTo(targetKey);
+            if (compare == 0) { // found `targetKey`
+                return index;
+            } else if (compare > 0) { // array[index] is greater than `targetKey`
+                upper_bound = index - 1;
+            } else {
+                lower_bound = index + 1;
+            }
+        }
+
+        return -1;
+    }
+
+    /*
     3. Running Time Recurrence
     Determine the running time of the following recursive functions (primSum and whazIt):
 
@@ -75,5 +96,15 @@ public class Lecture14 {
         assert linearSearch(new String[] {"a", "b", "c"}, "c") == 2;
         assert linearSearch(new String[] {"a", "b", "c"}, "x") == -1;
         assert linearSearch(new String[] {"x", "y", "x", "z"}, "x") == 0;
+
+        // 2. Binary Search
+        String[] arr1 = {"a", "b", "c", "d", "e"};
+        assert binarySearch(arr1, "c") == 2;
+        assert binarySearch(arr1, "a") == 0;
+        assert binarySearch(arr1, "e") == 4;
+        assert binarySearch(arr1, "x") == -1;
+
+        String[] arr2 = {"hello"};
+        assert binarySearch(arr2, "hello") == 0;
     }
 }
