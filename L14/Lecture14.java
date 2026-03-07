@@ -61,9 +61,11 @@ public class Lecture14 {
 
     /*
     3. Running Time Recurrence
+
     Determine the running time of the following recursive functions (primSum and whazIt):
+    */
 
-
+    /*
     int primSum(int[] xs) {
          if (xs.length == 1) return xs[0];
          if (xs.length == 2) return xs[0] + xs[1];
@@ -72,7 +74,17 @@ public class Lecture14 {
              return xs[0]+xs[1]+primSum(ys);
          }
     }
+    */
 
+    /*
+     * `primSum` could be written as
+     *
+     * T(n) = T(n-1) + O(n) -> T(n) = O(n + n-1 + n-2 + ... + 3 + 2 + 1)
+     *                              = O(n(n+1) / 2)
+     *                              = O(n^2)
+     */
+
+    /*
     int whazIt(int[] ys) {
         if (ys.length == 0) return 0;
         if (ys.length == 1) return ys[0];
@@ -88,6 +100,18 @@ public class Lecture14 {
         return a + b;
     }
     */
+
+    /*
+     * `whazIt` goes through the whole range of `ys`, then in each entry, replace the existing value with the summation
+     * of all entry from index 0, up to that point (`i`).
+     *
+     * then, it recursively calls itself with range (0, m) --- left side, and (m, ys.length) --- right side; the
+     * recurrence can be wrriten as
+     *
+     * T(n) = 2T(n/2) + O(n^2) -> T(n)  = O(2n^2) when n -> inf
+     *                                  = O(n^2)
+     */
+
     // test
     public static void main(String[] args) {
         // 1. Linear Search
