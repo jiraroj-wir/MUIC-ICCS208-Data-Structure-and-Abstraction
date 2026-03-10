@@ -19,15 +19,15 @@ To further your understanding of the sorting algorithms discussed in class, you 
 methods:
 */
 
-// Write static <T> void insertionSort(T[] array, Comparator<T> cc) This should run in time in the worst case.
+// Write static <T> void insertionSort(T[] array, Comparator<T> cc) This should run in O(n^2) time in the worst case.
 
 /*
 Write static <T> void quickSort(T[] array, Comparator<T> cc) Implement the version that picks pivots at random. This
-makes it a randomized algorithm and we expect it to run in time.Unless you're masochistic, it will make sense for your
-code to internally create an ArrayList from the given array, sort the ArrayList, and copy the results back into the
-initial array.
+makes it a randomized algorithm and we expect it to run in O(n logn) time.Unless you're masochistic, it will make sense
+for your code to internally create an ArrayList from the given array, sort the ArrayList, and copy the results back into
+the initial array.
 */
 
-// Write static <T> void mergeSort(T[] array, Comparator<T> cc) This should run in time in the worst case.
+// Write static <T> void mergeSort(T[] array, Comparator<T> cc) This should run in O(n logn) time in the worst case.
 
 // (You may wish to write helper methods or helper classes.)
