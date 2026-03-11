@@ -133,11 +133,14 @@ public class Lecture15<T> {
         }
     }
 
+    /*
+     * unused
+     *
     private static <T> void swap(T[] array, int i, int j) {
         T temp = array[i];
         array[i] = array[j];
         array[j] = temp;
-    }
+    } */
 
     // test
     public static void main(String[] args) {
