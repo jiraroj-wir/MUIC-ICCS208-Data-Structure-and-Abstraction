@@ -1,8 +1,29 @@
 public class Last {
+    /*
+     * we just continue the binary search, even if we found entry with `k` value, until the range is a single entry
+     */
+    public static Integer binarySearchLast(int[] a, int k) {
+        int left = 0;
+        int right = a.length - 1;
+        Integer last = null;
 
-    public static Integer binarySearchLast(int[] a, int k) { return (Integer)0; }
+        while (left <= right) {
+            int mid = (left + right) >> 1;
 
-    // test
+            if (a[mid] == k) {
+                last = mid;
+                left = mid + 1;
+            } else if (a[mid] > k) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return last;
+    }
+
+    // tests
     public static void main(String[] args) {
         assert binarySearchLast(new int[] {1, 2, 2, 2, 4, 5}, 2) == 3;
         assert binarySearchLast(new int[] {1, 2, 2, 2, 4, 5}, 0) == null;
