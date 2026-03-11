@@ -45,10 +45,53 @@ public class Lecture15<T> {
     sense for your code to internally create an ArrayList from the given array, sort the ArrayList, and copy the results
     back into the initial array.
     */
+    static <T> void quickSort(T[] array, Comparator<T> cc) {
+        ArrayList<T> list = new ArrayList<>(Arrays.asList(array));
 
-    // Write static <T> void mergeSort(T[] array, Comparator<T> cc) This should run in O(n logn) time in the worst case.
+        list = sortArrayList(list, cc); // sort
+
+        // copy the result back into the initial array
+        for (int i = 0; i < array.length; i++) {
+            array[i] = list.get(i);
+        }
+    }
+
+    // Write static <T> void mergeSort(T[] array, Comparator<T> cc) This should run in O(n logn) time in the worst
+    // case.
 
     // (You may wish to write helper methods or helper classes.)
+
+    // quick sort's sort
+    static <T> ArrayList<T> sortArrayList(ArrayList<T> list, Comparator<T> cc) {
+        if (list.size() <= 1) {
+            return list;
+        }
+
+        Random rand = new Random();
+        T pivot = list.get(rand.nextInt(list.size())); // get value of random index between [0,list.size)
+
+        ArrayList<T> less = new ArrayList<>();
+        ArrayList<T> equal = new ArrayList<>();
+        ArrayList<T> greater = new ArrayList<>();
+
+        for (T x : list) {
+            int cmp = cc.compare(x, pivot);
+            if (cmp < 0)
+                less.add(x);
+            else if (cmp > 0)
+                greater.add(x);
+            else
+                equal.add(x);
+        }
+
+        ArrayList<T> result = new ArrayList<>();
+        result.addAll(sortArrayList(less, cc));
+        result.addAll(equal);
+        result.addAll(sortArrayList(greater, cc));
+
+        return result;
+    }
+
     private static <T> void swap(T[] array, int i, int j) {
         T temp = array[i];
         array[i] = array[j];
@@ -59,24 +102,24 @@ public class Lecture15<T> {
     public static void main(String[] args) {
         Comparator<Integer> asc = Integer::compare;
 
-        Integer[] t1 = {1, 2, 3, 4, 5};
-        insertionSort(t1, asc);
-        assert Arrays.equals(t1, new Integer[] {1, 2, 3, 4, 5});
+        Integer[] ti1 = {1, 2, 3, 4, 5};
+        insertionSort(ti1, asc);
+        assert Arrays.equals(ti1, new Integer[] {1, 2, 3, 4, 5});
 
-        Integer[] t2 = {5, 4, 3, 2, 1};
-        insertionSort(t2, asc);
-        assert Arrays.equals(t2, new Integer[] {1, 2, 3, 4, 5});
+        Integer[] ti2 = {5, 4, 3, 2, 1};
+        insertionSort(ti2, asc);
+        assert Arrays.equals(ti2, new Integer[] {1, 2, 3, 4, 5});
 
-        Integer[] t3 = {3, 1, 4, 1, 5};
-        insertionSort(t3, asc);
-        assert Arrays.equals(t3, new Integer[] {1, 1, 3, 4, 5});
+        Integer[] ti3 = {3, 1, 4, 1, 5};
+        insertionSort(ti3, asc);
+        assert Arrays.equals(ti3, new Integer[] {1, 1, 3, 4, 5});
 
-        Integer[] t4 = {2, 2, 2, 1, 1};
-        insertionSort(t4, asc);
-        assert Arrays.equals(t4, new Integer[] {1, 1, 2, 2, 2});
+        Integer[] ti4 = {2, 2, 2, 1, 1};
+        insertionSort(ti4, asc);
+        assert Arrays.equals(ti4, new Integer[] {1, 1, 2, 2, 2});
 
-        String[] t5 = {"banana", "apple", "cherry"};
-        insertionSort(t5, String::compareTo);
-        assert Arrays.equals(t5, new String[] {"apple", "banana", "cherry"});
+        String[] ti5 = {"banana", "apple", "cherry"};
+        insertionSort(ti5, String::compareTo);
+        assert Arrays.equals(ti5, new String[] {"apple", "banana", "cherry"});
     }
 }
