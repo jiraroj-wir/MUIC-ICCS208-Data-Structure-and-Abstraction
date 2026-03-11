@@ -58,6 +58,7 @@ public class Lecture15<T> {
 
     // Write static <T> void mergeSort(T[] array, Comparator<T> cc) This should run in O(n logn) time in the worst
     // case.
+    static <T> void mergeSort(T[] array, Comparator<T> cc) { mergeSortHelper(array, 0, array.length - 1, cc); }
 
     // (You may wish to write helper methods or helper classes.)
 
@@ -90,6 +91,46 @@ public class Lecture15<T> {
         result.addAll(sortArrayList(greater, cc));
 
         return result;
+    }
+
+    private static <T> void mergeSortHelper(T[] array, int left, int right, Comparator<T> cc) {
+        if (left >= right) {
+            return;
+        }
+
+        int mid = (left + right) / 2;
+
+        mergeSortHelper(array, left, mid, cc);
+        mergeSortHelper(array, mid + 1, right, cc);
+
+        merge(array, left, mid, right, cc);
+    }
+
+    private static <T> void merge(T[] array, int left, int mid, int right, Comparator<T> cc) {
+        ArrayList<T> temp = new ArrayList<>();
+
+        int i = left;
+        int j = mid + 1;
+
+        while (i <= mid && j <= right) {
+            if (cc.compare(array[i], array[j]) <= 0) {
+                temp.add(array[i++]);
+            } else {
+                temp.add(array[j++]);
+            }
+        }
+
+        while (i <= mid) {
+            temp.add(array[i++]);
+        }
+
+        while (j <= right) {
+            temp.add(array[j++]);
+        }
+
+        for (int k = 0; k < temp.size(); k++) {
+            array[left + k] = temp.get(k);
+        }
     }
 
     private static <T> void swap(T[] array, int i, int j) {
@@ -145,7 +186,6 @@ public class Lecture15<T> {
         assert Arrays.equals(tq5, new String[] {"apple", "banana", "cherry"});
 
         // merge sort tests
-        /*
         Integer[] tm1 = {1, 2, 3, 4, 5};
         mergeSort(tm1, asc);
         assert Arrays.equals(tm1, new Integer[] {1, 2, 3, 4, 5});
@@ -165,6 +205,5 @@ public class Lecture15<T> {
         String[] tm5 = {"banana", "apple", "cherry"};
         mergeSort(tm5, String::compareTo);
         assert Arrays.equals(tm5, new String[] {"apple", "banana", "cherry"});
-        */
     }
 }
