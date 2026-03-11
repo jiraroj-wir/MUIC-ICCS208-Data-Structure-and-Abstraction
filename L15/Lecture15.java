@@ -102,6 +102,7 @@ public class Lecture15<T> {
     public static void main(String[] args) {
         Comparator<Integer> asc = Integer::compare;
 
+        // insertion sort tests
         Integer[] ti1 = {1, 2, 3, 4, 5};
         insertionSort(ti1, asc);
         assert Arrays.equals(ti1, new Integer[] {1, 2, 3, 4, 5});
@@ -121,5 +122,49 @@ public class Lecture15<T> {
         String[] ti5 = {"banana", "apple", "cherry"};
         insertionSort(ti5, String::compareTo);
         assert Arrays.equals(ti5, new String[] {"apple", "banana", "cherry"});
+
+        // quick sort tests
+        Integer[] tq1 = {1, 2, 3, 4, 5};
+        quickSort(tq1, asc);
+        assert Arrays.equals(tq1, new Integer[] {1, 2, 3, 4, 5});
+
+        Integer[] tq2 = {5, 4, 3, 2, 1};
+        quickSort(tq2, asc);
+        assert Arrays.equals(tq2, new Integer[] {1, 2, 3, 4, 5});
+
+        Integer[] tq3 = {3, 1, 4, 1, 5};
+        quickSort(tq3, asc);
+        assert Arrays.equals(tq3, new Integer[] {1, 1, 3, 4, 5});
+
+        Integer[] tq4 = {2, 2, 2, 1, 1};
+        quickSort(tq4, asc);
+        assert Arrays.equals(tq4, new Integer[] {1, 1, 2, 2, 2});
+
+        String[] tq5 = {"banana", "apple", "cherry"};
+        quickSort(tq5, String::compareTo);
+        assert Arrays.equals(tq5, new String[] {"apple", "banana", "cherry"});
+
+        // merge sort tests
+        /*
+        Integer[] tm1 = {1, 2, 3, 4, 5};
+        mergeSort(tm1, asc);
+        assert Arrays.equals(tm1, new Integer[] {1, 2, 3, 4, 5});
+
+        Integer[] tm2 = {5, 4, 3, 2, 1};
+        mergeSort(tm2, asc);
+        assert Arrays.equals(tm2, new Integer[] {1, 2, 3, 4, 5});
+
+        Integer[] tm3 = {3, 1, 4, 1, 5};
+        mergeSort(tm3, asc);
+        assert Arrays.equals(tm3, new Integer[] {1, 1, 3, 4, 5});
+
+        Integer[] tm4 = {2, 2, 2, 1, 1};
+        mergeSort(tm4, asc);
+        assert Arrays.equals(tm4, new Integer[] {1, 1, 2, 2, 2});
+
+        String[] tm5 = {"banana", "apple", "cherry"};
+        mergeSort(tm5, String::compareTo);
+        assert Arrays.equals(tm5, new String[] {"apple", "banana", "cherry"});
+        */
     }
 }
