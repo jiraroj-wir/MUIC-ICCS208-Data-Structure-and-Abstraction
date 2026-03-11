@@ -77,12 +77,13 @@ public class Lecture15<T> {
 
         for (T x : list) {
             int cmp = cc.compare(x, pivot);
-            if (cmp < 0)
+            if (cmp < 0) {
                 less.add(x);
-            else if (cmp > 0)
+            } else if (cmp > 0) {
                 greater.add(x);
-            else
+            } else {
                 equal.add(x);
+            }
         }
 
         ArrayList<T> result = new ArrayList<>();
