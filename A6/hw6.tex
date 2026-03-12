@@ -146,6 +146,12 @@ This recurrence represents the ``average'' running time of the randomized quick 
         \tag{3}
         \end{equation}
 
+    \medskip
+    \begin{center}
+    \rule{0.3\linewidth}{0.2pt}
+    \end{center}
+    \medskip
+
     \item let
 
         \[g(n) = \frac{f(n)}{n+1}\]
@@ -163,6 +169,13 @@ This recurrence represents the ``average'' running time of the randomized quick 
         \[            
             \boxed{g(n) = \frac{2}{n+1} + g(n-1)}
         \]
+
+
+    \medskip
+    \begin{center}
+    \rule{0.3\linewidth}{0.2pt}
+    \end{center}
+    \medskip
 
     \item write $g(n)$ out as
 
@@ -185,6 +198,33 @@ This recurrence represents the ``average'' running time of the randomized quick 
         we got
 
         \[\boxed{g(n) = 2H_{n+1}}\]
+
+
+    \medskip
+    \begin{center}
+    \rule{0.3\linewidth}{0.2pt}
+    \end{center}
+    \medskip
+
+
+    \item we know for a fact that
+
+        \[g(n) \le 2(1 + \ln{n+1})\]
+
+        so from $g(n) = \frac{f(n)}{n+1} \Rightarrow f(n) = (n+1)\cdot g(n)$
+
+        \begin{align*}
+            f(n) &\le 2(n+1)(1 + \ln{n+1}) \\
+            &\le 2n + 2n\ln{n+1} + 2 + 2\ln{n+1}
+        \end{align*}
+
+        which, 
+
+        \[\lim_{n\rightarrow\infty} \frac{f(n)}{n\ln{n}} = \lim{n\rightarrow\infty} \frac{2n + 2n\ln{n+1} + 2 + 2\ln{n+1}}{n\ln{n}} = 2\]
+
+        the limit of the two is a constant of 2, therefore
+
+        \[\boxed{f(n) \in \Theta(n\ln{n})}\]
 \end{enumerate}
 
 \end{document}
