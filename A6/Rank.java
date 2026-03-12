@@ -26,10 +26,42 @@ public class Rank {
     }
 
     public static Integer select(int[] A, int[] B, int k) {
-        return Math.max(binarySearch_select(A, k), binarySearch_select(B, k)) + 1;
-    }
+        int left = 0;
+        int right = A.length - 1;
 
-    private static Integer binarySearch_select(int[] arr, int k) { return null; }
+        while (left <= right) { // O(log n); n = A.length
+            int mid = (left + right) >> 1;
+            int r = rank(A, B, A[mid]); // O(log (n+m))
+
+            if (r == k) {
+                return A[mid];
+            }
+            if (r < k) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        left = 0;
+        right = B.length - 1;
+
+        while (left <= right) { // O(log m)
+            int mid = (left + right) >> 1;
+            int r = rank(A, B, B[mid]); // O(log (n+m))
+
+            if (r == k) {
+                return B[mid];
+            }
+            if (r < k) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return null;
+    }
 
     // tests
     public static void main(String[] args) {
