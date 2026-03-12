@@ -1,7 +1,14 @@
+import java.util.*;
+
 public class Rank {
     public static int rank(int[] A, int[] B, int e) { return binarySearch(A, e) + binarySearch(B, e); }
 
-    private static int binarySearch(int[] arr, int e) {
+    /*
+     * NOTE: Keep in mind that when n,m > 0,log n ≤ log(n+m) and log m ≤ log(n+m). Hence, we know that log n + log m is
+     * still O(log(n + m)).
+     */
+
+    private static int binarySearch(int[] arr, int e) { // O(log n)
         int left = 0;
         int right = arr.length - 1;
 
@@ -17,6 +24,8 @@ public class Rank {
 
         return left;
     }
+
+    public static Integer select(int[] A, int[] B, int k) {}
 
     // tests
     public static void main(String[] args) {
