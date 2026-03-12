@@ -8,6 +8,7 @@
 \usepackage[plain]{algorithm}
 \usepackage{algpseudocode}
 \usepackage{amssymb}
+\usepackage{enumitem}
 
 \usetikzlibrary{automata,positioning}
 
@@ -133,6 +134,34 @@ This recurrence represents the ``average'' running time of the randomized quick 
     \item[(iv)] Now that you can express $g(n)$ in terms of some expression involving Harmonic numbers, you can proceed to derive a closed form for $f(n)$. Finally, use the following fact to conclude that $f(n)$ is $O(n \ln n)$:
 
     Fact: $H_n \le 1 + \ln(n)$, where $\ln$ denotes the natural logarithm.
+\end{enumerate}
+
+\medskip
+\solution
+
+\begin{enumerate}[label=(\roman*)]
+    \item at the end of the reading, we got
+        \begin{equation}
+            n \cdot f(n) - (n-1)f(n-1) = 2n + 2f(n-1)
+        \tag{3}
+        \end{equation}
+    \item let
+
+        \[g(n) = \frac{f(n)}{n+1}\]
+
+        as hinted, we do 
+
+        \begin{align*}
+            \frac{(3)}{n(n+1)}: \frac{n \cdot f(n)}{n(n+1)} &= \frac{2n+(n+1)f(n-1)}{n(n+1)} \\
+            g(n) &= \frac{f(n)}{n+1} \\
+            g(n) &= \frac{2}{n+1} + \frac{f(n-1)}{n} && \quad \text{ as } g(n-1) = \frac{f(n-1)}{n}\\
+        \end{align*}
+
+        therefore, 
+
+        \[            
+            \boxed{g(n) = \frac{2}{n+1} + g(n-1)}
+        \]
 \end{enumerate}
 
 \end{document}
