@@ -145,6 +145,7 @@ This recurrence represents the ``average'' running time of the randomized quick 
             n \cdot f(n) - (n-1)f(n-1) = 2n + 2f(n-1)
         \tag{3}
         \end{equation}
+
     \item let
 
         \[g(n) = \frac{f(n)}{n+1}\]
@@ -162,6 +163,28 @@ This recurrence represents the ``average'' running time of the randomized quick 
         \[            
             \boxed{g(n) = \frac{2}{n+1} + g(n-1)}
         \]
+
+    \item write $g(n)$ out as
+
+        \begin{align*}
+            g(n) &= g(n-1) + \frac{2}{n+1} \\
+            &= g(n-2) + \frac{2}{n} + \frac{2}{n+1} \\
+            &= g(n-3) + \frac{2}{n-1} + \frac{2}{n} + \frac{2}{n+1} \\
+            &... \\
+            g(n) &= \frac{2}{0+1} + \frac{2}{1+1} + \frac{2}{2+1} + ... + \frac{2}{n-1} + \frac{2}{n} + \frac{2}{n+1}
+        \end{align*}
+
+        so, 
+
+        \[\boxed{g(n) = \sum_{i=0}^n \frac{2}{n+1}}\]
+
+        and as we're given a \textbf{fact} that
+
+        \[H_n \le 1 + \ln{n}\]
+
+        we got
+
+        \[\boxed{g(n) = 2H_{n+1}}\]
 \end{enumerate}
 
 \end{document}
