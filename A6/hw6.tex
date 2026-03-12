@@ -1,0 +1,138 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{}
+\rhead{\hmwkHeaderTitle}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0pt}
+
+\setlength\parindent{0pt}
+
+\newcommand{\hmwkTitle}{Homework\ 6}
+\newcommand{\hmwkDueDate}{Thursday, March 12, 2026,\ 11{:}59 pm (Thai time)}
+\newcommand{\hmwkClass}{Data Structure\ and Abstractions}
+\newcommand{\hmwkClassTime}{Section 2}
+\newcommand{\hmwkClassInstructor}{Kanat Tangwongsan}
+\newcommand{\hmwkAuthorName}{\textbf{Jiraroj Wiruchpongsanon (6781617)}}
+
+\newcommand{\hmwkHeaderTitle}{Data Structure and Abstractions: Homework 6}
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+\newcounter{partCounter}
+\newcommand{\solution}{\textbf{\large Solution}}
+
+\newtheorem*{theorem}{Theorem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\begin{document}
+
+\maketitle
+\begin{center}
+    \textit{Data Struct. and \{Abstractions, OOP\} (Term II/2025--26)}\\
+    \textit{built on 2026/03/03 at 12:44:44}\\
+    \textit{due: thu mar 12 @ 11:59pm}
+\end{center}
+\newpage
+
+\section*{Task 4: Quick Sort Recurrence (4 points)}
+
+Consider the recurrence
+\[
+    f(n) = n + 1 + \frac{2}{n} \bigl(f(n - 1) + f(n - 2) + \cdots + f(1)\bigr),
+\]
+where $f(0) = 0$.
+
+This recurrence represents the ``average'' running time of the randomized quick sort algorithm\footnote{Technically, for those who took Discrete Math already, this is the expected running time.}. For now, we won't discuss how one can come up with such a recurrence. In this exercise, we're interested in solving this recurrence for a closed form. You'll do this in a few steps:
+
+\begin{enumerate}
+    \item[(i)] Consider $f(n)$ and $f(n - 1)$, where $n \ge 2$. We have
+    \[
+        f(n) = (n + 1) + \frac{2}{n} \bigl(f(n - 1) + f(n - 2) + \cdots + f(1)\bigr)
+    \]
+    and
+    \[
+        f(n - 1) = n + \frac{2}{n - 1} \bigl(f(n - 2) + f(n - 3) + \cdots + f(1)\bigr).
+    \]
+    By multiplying the first equation by $n$ and the second equation by $(n - 1)$, we have
+    \begin{align}
+        n \cdot f(n) &= (n + 1)n + 2 f(n - 1) + f(n - 2) + \cdots + f(1) \tag{1} \\
+        (n - 1) f(n - 1) &= n(n - 1) + 2 f(n - 2) + f(n - 3) + \cdots + f(1). \tag{2}
+    \end{align}
+    Subtracting equation (2) from equation (1), we'll get
+    \[
+        n \cdot f(n) - (n - 1) f(n - 1) = 2n + 2 f(n - 1).
+    \]
+    In other words,
+    \[
+        n \cdot f(n) = 2n + (n + 1) f(n - 1). \tag{3}
+    \]
+    Your task in this step is to understand the derivation we just made. Other than that, no actions are required on your part.
+
+    \item[(ii)] Let $g(n) = \frac{f(n)}{n + 1}$. Can you write what you have in terms of the function $g$? (Hint: divide equation (3) by $n(n + 1)$.)
+
+    \item[(iii)] Your task in this step is to find a closed form for $g$. The recurrence $g$ that you have isn't listed in the table. But you can easily solve for a closed form. Before you begin, let us show you how to solve a related recurrence: $h(n) = h(n - 1) + \frac{1}{n}$, with $h(0) = 0$.
+
+    We start out by unraveling $h(n)$. By the definition of $h(n)$,
+    \[
+        h(n) = h(n - 1) + \frac{1}{n}
+    \]
+    \[
+        = h(n - 2) + \frac{1}{n} + \frac{1}{n - 1}
+    \]
+    \[
+        = h(n - 3) + \frac{1}{n} + \frac{1}{n - 1} + \frac{1}{n - 2}
+    \]
+    expand the recurrence one more time
+
+    expand the recurrence one more time
+
+    It is pretty clear that if we keep on expanding the recurrence, we'll get
+    \[
+        h(n) = \frac{1}{n} + \frac{1}{n - 1} + \frac{1}{n - 2} + \cdots + \frac{1}{3} + \frac{1}{2} + 1.
+    \]
+
+    In Math, this has a name: the $n$-th Harmonic number, denoted by $H_n$, is given by $H_n = \frac{1}{n} + \frac{1}{n - 1} + \frac{1}{n - 2} + \cdots + \frac{1}{3} + \frac{1}{2} + 1$, so in terms of Harmonic number $h(n) = H_n$.
+
+    \item[(iv)] Now that you can express $g(n)$ in terms of some expression involving Harmonic numbers, you can proceed to derive a closed form for $f(n)$. Finally, use the following fact to conclude that $f(n)$ is $O(n \ln n)$:
+
+    Fact: $H_n \le 1 + \ln(n)$, where $\ln$ denotes the natural logarithm.
+\end{enumerate}
+
+\end{document}
