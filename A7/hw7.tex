@@ -1,0 +1,315 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage{enumitem}
+
+\usetikzlibrary{automata,positioning}
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{}
+\rhead{\hmwkHeaderTitle}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0pt}
+
+\setlength\parindent{0pt}
+
+\newcommand{\hmwkTitle}{Homework\ 7}
+\newcommand{\hmwkDueDate}{Thursday, March 19, 2026,\ 11{:}59 pm (Thai time)}
+\newcommand{\hmwkClass}{Data Structure\ and Abstractions}
+\newcommand{\hmwkClassTime}{Section 2}
+\newcommand{\hmwkClassInstructor}{Kanat Tangwongsan}
+\newcommand{\hmwkAuthorName}{\textbf{Jiraroj Wiruchpongsanon (6781617)}}
+
+\newcommand{\hmwkHeaderTitle}{Data Structure and Abstractions: Homework 7}
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+\newcounter{partCounter}
+\newcommand{\solution}{\textbf{\large Solution}}
+
+\newtheorem*{theorem}{Theorem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\begin{document}
+
+\maketitle
+\begin{center}
+    \textit{Data Struct. and \{Abstractions, OOP\} (Term II/2025--26)}\\
+    \textit{due: thu mar 19 @ 11:59pm}\\
+    \textit{built on 2026/03/10 at 21:08:37}
+\end{center}
+\newpage
+
+This assignment contains both programming and written questions. For the written portion, you will typeset your answer, produce a PDF file called \texttt{hw7.pdf}. No other format will be accepted. For the programming portion, you will follow the naming described in this handout. To hand in, zip your work as \texttt{a7.zip} and upload it to Canvas. Your zip will contain only the following files:
+
+\begin{itemize}
+    \item \texttt{hw7.pdf}
+    \item \texttt{MultiwayMerge.java}
+    \item \texttt{MakeTree.java}
+    \item \texttt{Uproot.java}
+    \item \texttt{Decor.java}
+\end{itemize}
+
+To get started, you’ll need the starter pack for this assignment. In it, you’ll find a class for binary tree nodes, which will be used in multiple problems across the assignment.
+
+\subsection*{Collaboration}
+
+We interpret collaboration very liberally. You may work with other students. However, each student must write up and hand in his or her assignment separately. Let us repeat: You need to write your own code. You must not look at or copy someone else’s code. You need to write up answers to written problems individually. The fact that you can recreate the solution from memory will be taken as proof that you actually understood it, and you may actually be interviewed about your answers.
+
+\newpage
+
+\section*{Task 1: Mathematical Truth (2 points)}
+
+Remember binary trees from class? You will prove a proposition about them using a proof method of your choice:
+
+\textbf{Proposition:} Every binary tree on $n$ nodes where each has either zero or two children has precisely $\frac{n+1}{2}$ leaves.
+
+(Hints: By (strong) induction. It helps to recognize that a binary tree is either empty (null) or a node with two subtrees. This means that if a binary tree has $n$ nodes, then $n = 1 + n_L + n_R$, where $n_L$ and $n_R$ are the number of nodes in the left and right subtrees, respectively.)
+
+\medskip
+\solution
+
+\newpage
+
+\section*{Task 2: Higher-Order Merge (2 points)}
+
+For this task, save your work in \texttt{MultiwayMerge.java}
+
+This is a standard problem in data processing. You could find solutions everywhere on the Internet; please resist the urge to look them up :)
+
+Say you have $k$ \texttt{LinkedList<Integer>} instances, each of which is ordered from small to large, though there may be duplicates. Your goal is to merge these lists to create a combined sorted list. You will implement a function
+
+\begin{verbatim}
+public static LinkedList<Integer> mergeAll(LinkedList<Integer>[] lists)
+\end{verbatim}
+
+that takes an array of \texttt{LinkedList<Integer>}’s and returns a \texttt{LinkedList<Integer>} that is the combined list in sorted order (small to large).
+
+Your algorithm must run in $O(N \log k)$, where $N$ is the sum of the list lengths and $k = \texttt{lists.length}$. Keep in mind, accessing (i.e., reading from or writing to) a linked list is cheap at the front and the back of the list; however, accessing it anywhere else is generally expensive. The cost is proportional to how far it is from the end. (Hints: Keep a \texttt{PriorityQueue} and store inside it all the lists. Importantly, the size of the \texttt{PriorityQueue} should never exceed $k$.)
+
+\medskip
+\solution
+
+\newpage
+
+\section*{A Binary Tree Representation}
+
+You will be using the provided binary tree class for the rest of the assignment. The class is given in \texttt{BinaryTreeNode.java} and is called \texttt{BinaryTreeNode}. As with our discussion in class, each binary tree node is made up of an integer key, a (reference to) left subtree, and a (reference to) right subtree. The value attribute is omitted so we can focus on the key organization. More specifically:
+
+\begin{itemize}
+    \item an empty tree is represented by \texttt{null}; and
+    \item a tree node is a class instance of \texttt{BinaryTreeNode} (provided with the starter package) with the following attributes:
+    \begin{itemize}
+        \item \texttt{left} (that is, one can access \texttt{T.left}) contains the left child of this node, \texttt{null} if nonexistent.
+        \item \texttt{right} (that is, one can access \texttt{T.right}) contains the right child of this node, \texttt{null} if nonexistent.
+        \item \texttt{key} is the key stored at this node.
+    \end{itemize}
+\end{itemize}
+
+In addition, there are two ways to construct a binary tree node. For example,
+
+\begin{itemize}
+    \item \texttt{new BinaryTreeNode(10001)} creates a lone binary tree node with the key $10001$ that has no children (both left and right will be \texttt{null}).
+    \item Assuming \texttt{ll} and \texttt{rr} are binary tree nodes, \texttt{new BinaryTreeNode(ll, 512, rr)} creates a binary tree node with the key $512$, where the left subtree of this tree is what \texttt{ll} is, and the right subtree of this tree is what \texttt{rr} is.
+\end{itemize}
+
+Finally, we note that if \texttt{T} is a binary tree node, we can directly assign \texttt{T.left} and \texttt{T.right} at will.
+
+\newpage
+
+\section*{Task 3: Let’s Grow a Tree (2 points)}
+
+For this task, save your work in \texttt{MakeTree.java}
+
+In this task, you will write a function to construct a ``balanced'' binary search tree from a list of keys---and analyze its running time.
+
+\textbf{Subtask I:} You are to write a function
+
+\begin{verbatim}
+public static BinaryTreeNode buildBST(int[] keys)
+\end{verbatim}
+
+that takes an array of integer keys and returns a BST represented using the aforementioned format. If $n$ is the length of \texttt{keys}, your algorithm should take at most $O(n \log n)$ time and construct a BST that is no deeper than $1 + \log_2 n$ levels.
+
+\textbf{Subtask II:} You will also analyze the running time of this algorithm and argue why the tree generated meets the depth requirement.
+
+\medskip
+\solution
+
+\newpage
+
+\section*{Task 4: Uprooting (4 points)}
+
+For this task, save your work in \texttt{Uproot.java}
+
+You may still remember our discussion about tree representations several lectures ago. The parent mapping representation, which falls out directly from our definition of a tree, keeps for each node, the parent of that node in a map.
+
+More concretely, for this task, we’ll assume the keys are integers and are unique. In this context, then, parent mapping keeps a map \texttt{Map<Integer, Integer>}, where a node is referred to by its key---and looking up a node in this map would result in the key of its parent node. For example, we show a tree and its corresponding map below:
+
+\begin{verbatim}
+// Representation as a map:
+Map<Integer, Integer> p = new ...;
+p.put(20, 1);
+p.put(9, 1);
+p.put(14, 20);
+p.put(2, 9);
+p.put(18, 9);
+\end{verbatim}
+
+\begin{center}
+\begin{tikzpicture}[level distance=1.2cm, sibling distance=2.4cm, every node/.style={circle,draw,minimum size=0.8cm}]
+    \node {1}
+        child { node {20}
+            child { node {14} }
+            child[missing]
+        }
+        child { node {9}
+            child { node {2} }
+            child { node {18} }
+        };
+\end{tikzpicture}
+\end{center}
+
+In this problem, we will write functions to change to and from this representation and the more traditional representation using a \texttt{BinaryTreeNode} class.
+
+\textbf{Subtask I:} Implement a function
+
+\begin{verbatim}
+public static HashMap<Integer, Integer> treeToParentMap(BinaryTreeNode T)
+\end{verbatim}
+
+that takes a binary tree $T$, though not necessarily a BST, and returns a \texttt{HashMap} representing the same tree using the parent-mapping representation.
+
+\textbf{Subtask II:} Implement a function
+
+\begin{verbatim}
+public static BinaryTreeNode parentMapToTree(Map<Integer, Integer> map)
+\end{verbatim}
+
+that takes a parent-mapping map and returns a binary tree encoded as \texttt{BinaryTreeNode}. You may notice that the parent-mapping representation has no notion of left vs. right. You are free to choose which is your left node and which is your right node. Moreover, we guarantee that the tree encoded in the map is a legit binary tree, though not necessarily a BST.
+
+\textbf{Performance Expectations:} On input with about $2,000$ nodes, we expect your code to return within $2$ seconds.
+
+\medskip
+\solution
+
+\newpage
+
+\section*{Task 5: Decorative Tree (2 points)}
+
+For this task, save your work in \texttt{Decor.java}
+
+The 1502-er club @ MUIC plans to sell made-to-order embroidery trees and flowers. For a small fee, they’ll craft a tree of your design for you. There’s a quirk, however. Instead of sending them a drawing, you’ll provide them with the post-order traversal and the in-order traversal of the tree you intend to build; and they only build binary trees. These are merely binary trees, not necessarily BSTs.
+
+Now any tree traversal can be written as a sequence of keys we encounter as we traverse the tree. Specifically, each of the following functions (in a Python-like language) takes a tree and generates a list of keys that one would encounter during a traversal:
+
+\begin{verbatim}
+def postList(T):
+    if T==None: return []
+    else:
+        return postList(T.left) +
+               postList(T.right) +
+               [T.key]
+
+def inList(T):
+    if T==None: return []
+    else:
+        return inList(T.left) +
+               [T.key] +
+               inList(T.right)
+\end{verbatim}
+
+For example, traversing the tree structure below using post-order and in-order traversals (i.e., the functions \texttt{postList} and \texttt{inList}, respectively) yield the two lists on its right:
+
+\begin{center}
+\begin{tikzpicture}[level distance=1.2cm, sibling distance=2.2cm, every node/.style={circle,draw,minimum size=0.8cm}]
+    \node {a}
+        child { node {x}
+            child { node {w} }
+            child { node {t} }
+        }
+        child { node {z} };
+\end{tikzpicture}
+\hspace{2em}
+\begin{minipage}{0.35\textwidth}
+post-order: $[w, t, x, z, a]$\\[0.5em]
+in-order: $[w, x, t, a, z]$
+\end{minipage}
+\end{center}
+
+We will assume that the keys are unique---that is to say, no two nodes have the same key. With this assumption, convince yourself that it is possible to come up with a recipe for constructing a tree given the post- and in-order traversal sequences. Your recipe probably looks like this:
+
+\begin{enumerate}
+    \item determine the root’s key from the given sequences;
+    \item carve out the post- and in-order traversal sequences for the left subtree;
+    \item carve out the post- and in-order traversal sequences for the right subtree; and
+    \item solve these recursively.
+\end{enumerate}
+
+\textbf{Your Task:} You will implement a function
+
+\begin{verbatim}
+public static BinaryTreeNode mkTree(
+        List<Integer> postOrder,
+        List<Integer> inOrder
+)
+\end{verbatim}
+
+that takes in two traversal sequences corresponding to postorder or inorder traversals and returns a tree (represented using \texttt{BinaryTreeNode}’s and \texttt{null} for an empty tree) that matches the traversal sequences. Write as many helper functions as appropriate.
+
+\textbf{Expectations:} For full-credit, your algorithm should run in $O(n)$ time, where $n$ is the length of the traversal sequences.
+
+(Hint: A \texttt{Map} data structure can be useful in finding where the root of the tree is located. Also, once the location of the root is known in both sequences, can you easily determine in $O(1)$ time the sizes of the left- and right- subtrees?)
+
+\medskip
+\solution
+
+\newpage
+
+\section*{Task 6: Optional: HackerRank Problems (0 points)}
+
+This part is optional but will be good practice. You do not need to hand it in. There are four problems in this set. Work on the following problems on HackerRank:
+
+\begin{itemize}
+    \item \texttt{jesse-and-cookies}
+    \item \texttt{is-binary-search-tree}
+    \item \texttt{queens-attack-2}
+    \item \texttt{maximum-subarray-sum}
+\end{itemize}
+
+\medskip
+\solution
+
+\end{document}
