@@ -101,6 +101,83 @@ Remember binary trees from class? You will prove a proposition about them using 
 \medskip
 \solution
 
+\begin{proof}
+
+we prove this with strong induction, we claim that
+
+\[P(n) \equiv \text{Every binary tree with n nodes, where each node has either 0 or 2 children has exactly } \frac{n+1}{2} \text{ leaves.}\]
+
+for the \textbf{base case} where $n_0 = 0$ 
+
+\[
+\begin{aligned}
+P(0) &= 0 = \left\lfloor{\frac{0+1}{2}}\right\rfloor \\
+P(1) &= 1 = \left\lfloor{\frac{1+1}{2}}\right\rfloor = \left\lfloor{\frac{2}{2}}\right\rfloor \\
+P(3) &= 2 = \left\lfloor{\frac{3+1}{2}}\right\rfloor = \left\lfloor{\frac{4}{2}}\right\rfloor
+\end{aligned}
+\]
+
+as illustrated below, we'll see that the base case is satisfied --- regardless of what you consider as a bare minimum `binary tree` (n = 0 or n = 1)
+ 
+\begin{center}
+\begin{tikzpicture}[scale=1, every node/.style={circle, draw, minimum size=7mm, inner sep=0pt}]
+
+% n = 0
+\node[draw=none] at (0,2) {$n=0$};
+\node[draw=none] at (0,0.8) {empty tree};
+
+% n = 1
+\node[draw=none] at (5,2) {$n=1$};
+\node (a) at (5,0.8) {};
+\node[draw=none] at (5,-0.2) {1 leaf};
+
+% n = 2
+\node[draw=none] at (10,2) {$n=2$};
+\node (b1) at (10,1.1) {};
+\node (b2) at (9.2,0.1) {};
+\draw (b1) -- (b2);
+\node[draw=none, align=center, text width=6cm] at (10,-2.0) 
+{doesn't satisfy our predicate, as each of the binary tree's node could only have 0 or 2 child node};
+
+% n = 3
+\node[draw=none] at (15,2) {$n=3$};
+\node (c1) at (15,1.2) {};
+\node (c2) at (14.2,0.2) {};
+\node (c3) at (15.8,0.2) {};
+\draw (c1) -- (c2);
+\draw (c1) -- (c3);
+\node[draw=none] at (15,-0.6) {2 leaves};
+
+\end{tikzpicture}
+\end{center}
+
+by observing the charasteristic of a binary tree (each node with 0 or 2 childrens), we can write the related of initial root note as 
+
+\[n = 1 + n_l + n_r \tag{i}\]
+
+where $n_l$ is the root node of all the nodes on the left, and $n_r$ is the root node of all the nodes on the right. we then assume $P(k)$ holds true for arbitrary $k \ge n_0$, and try to prove that $P(k) = \frac{n+1}{2}$
+
+\vspace{1em}
+
+as $n_l < n$ and $n_r < n$, $P(n_l)) \text{ and } P(n_r)$ is assumed to be true, and each side would have $\frac{n_l + 1}{2}$ and $\frac{n_r + 1}{2}$ accordingly. 
+
+\vspace{1em}
+
+so, according to our inductive hypothesis, binary tree with n nodes, where each node has either 0 or 2 children will has 
+
+\[\frac{n_l + 1}{2} + \frac{n_r + 1}{2} = \frac{n_l + n_r + 2}{2}\]
+
+and as we got the relation in (i), 
+
+\[\frac{n_l + n_r + 2}{2} = \frac{n + 1}{2}\]
+
+and the \textbf{inductive case} is satisfied, and we can conclude that every binary tree with n nodes, where each node has either 0 or 2 children, has exactly  $\frac{n+1}{2}$ leaves.
+
+\end{proof}
+
+\vspace{1em}
+\hrulefill
+
 \section*{Task 3: Let’s Grow a Tree (2 points)}
 
 For this task, save your work in \texttt{MakeTree.java}
