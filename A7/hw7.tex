@@ -101,31 +101,6 @@ Remember binary trees from class? You will prove a proposition about them using 
 \medskip
 \solution
 
-\section*{A Binary Tree Representation}
-
-You will be using the provided binary tree class for the rest of the assignment. The class is given in \texttt{BinaryTreeNode.java} and is called \texttt{BinaryTreeNode}. As with our discussion in class, each binary tree node is made up of an integer key, a (reference to) left subtree, and a (reference to) right subtree. The value attribute is omitted so we can focus on the key organization. More specifically:
-
-\begin{itemize}
-    \item an empty tree is represented by \texttt{null}; and
-    \item a tree node is a class instance of \texttt{BinaryTreeNode} (provided with the starter package) with the following attributes:
-    \begin{itemize}
-        \item \texttt{left} (that is, one can access \texttt{T.left}) contains the left child of this node, \texttt{null} if nonexistent.
-        \item \texttt{right} (that is, one can access \texttt{T.right}) contains the right child of this node, \texttt{null} if nonexistent.
-        \item \texttt{key} is the key stored at this node.
-    \end{itemize}
-\end{itemize}
-
-In addition, there are two ways to construct a binary tree node. For example,
-
-\begin{itemize}
-    \item \texttt{new BinaryTreeNode(10001)} creates a lone binary tree node with the key $10001$ that has no children (both left and right will be \texttt{null}).
-    \item Assuming \texttt{ll} and \texttt{rr} are binary tree nodes, \texttt{new BinaryTreeNode(ll, 512, rr)} creates a binary tree node with the key $512$, where the left subtree of this tree is what \texttt{ll} is, and the right subtree of this tree is what \texttt{rr} is.
-\end{itemize}
-
-Finally, we note that if \texttt{T} is a binary tree node, we can directly assign \texttt{T.left} and \texttt{T.right} at will.
-
-\newpage
-
 \section*{Task 3: Let’s Grow a Tree (2 points)}
 
 For this task, save your work in \texttt{MakeTree.java}
