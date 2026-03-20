@@ -178,6 +178,7 @@ and the \textbf{inductive case} is satisfied, and we can conclude that every bin
 \vspace{1em}
 \hrulefill
 
+\newpage
 \section*{Task 3: Let’s Grow a Tree (2 points)}
 
 For this task, save your work in \texttt{MakeTree.java}
@@ -196,5 +197,87 @@ that takes an array of integer keys and returns a BST represented using the afor
 
 \medskip
 \solution
+
+\begin{enumerate}
+\item 
+\begin{verbatim}
+public static BinaryTreeNode buildBST(int[] keys) {
+    int mid = keys.length >> 1;
+
+    return new BinaryTreeNode(helper(keys, 0, mid - 1), keys[mid], helper(keys, mid + 1, keys.length - 1));
+}
+
+private static BinaryTreeNode helper(int[] keys, int left, int right) {
+    if (left > right) {
+        return null;
+    }
+
+    int mid = (left + right) >> 1;
+
+    return new BinaryTreeNode(helper(keys, left, mid - 1), keys[mid], helper(keys, mid + 1, right));
+}
+\end{verbatim}
+
+    \medskip
+    \begin{center}
+    \rule{0.3\linewidth}{0.2pt}
+    \end{center}
+    \medskip
+
+\item from my solution on sub-section I, we can write the recurrence as
+
+    \[T(n) = 2T(\frac{n}{2}) + \Theta(1)\]
+
+    we try to solve this in exponential scale first, let
+
+    \[T(2^m) = 2T(2^{m-1}) + \Theta(1)\]
+
+    then try write out some examples
+
+        \[T(2^1) = 2T(1) + \Theta(1) && \quad \text{ where } T(1) = \Theta(1)\]
+        \[T(2^2) = 2T(2^1) + \Theta(1) = 4T(1) +  2\Theta(1) + \Theta(1)\]
+        \[T(2^3) = 2T(2^2) + \Theta(1) = 8T(1) +  4\Theta(1) + 2\Theta(1) + \Theta(1)\]
+        \[...\]
+        \[T(2^m = \sum_{i=0}^m {2^i} = log_2 n)\]
+
+    as $n = 2^m \rightarrow m = \log_2 n$
+
+        \[T(n) = 2^{\log_2 n + 1} = 2n-1\]
+
+    therefore, 
+        \[T(n) \in \Theta(n)\]
+
+    but, if we assumed the array isn't sorted yet (as we're not told so), we have to sort the array first, say we use quick sort, that'll take \boxed{\Theta(n \cdot \log n)} --- which is the total running time of this algorithm.
+
+    \medskip
+    \begin{center}
+    \rule{0.3\linewidth}{0.2pt}
+    \end{center}
+    \medskip
+
+    and for the height, as we are working with binary tree, the amount of members in each height level increases exponentially; or we could write the height as 
+
+    \[h(n) = 1 + h\left(\frac{n}{2}\right)\]
+
+    we write it in exponential scale as
+
+    \[h(2^m) = 1 + h(2^{m-1})\]
+
+    write out some examples, 
+
+    \[h(2^1) = h(1) + 1 && \quad \text{ where } h(1) = 1\]
+    \[h(2^2) = (h(1) + 1) + 1\]
+
+    by these examples, we could derive 
+
+    \[h(2^m) = m+1\]
+
+    and as $2^m = n \rightarrow m = \log_2 n$, we got
+
+    \[\boxed{h(n) = \log_2 n + 1}\]
+\end{enumerate}
+
+\vspace{1em}
+\hrulefill
 
 \end{document}
