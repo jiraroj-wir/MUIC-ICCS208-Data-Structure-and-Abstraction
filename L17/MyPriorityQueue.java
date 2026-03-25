@@ -29,6 +29,10 @@ public class MyPriorityQueue<T> {
     public T peek() { return this.heap[0]; }
 
     public T poll() {
+        if (this.size == 0) {
+            return null;
+        }
+
         T root = this.heap[0];
 
         this.heap[0] = this.heap[this.size - 1];
@@ -67,4 +71,8 @@ public class MyPriorityQueue<T> {
         this.heap[a] = this.heap[b];
         this.heap[b] = temp;
     }
+
+    public int size() { return this.size; }
+
+    public boolean isEmpty() { return (this.size == 0); }
 }
