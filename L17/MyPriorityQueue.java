@@ -12,6 +12,9 @@ public class MyPriorityQueue<T> {
     }
 
     public void add(T item) {
+        if (this.size == this.heap.length) {
+            resize(this.heap.length << 1);
+        }
         this.heap[this.size] = item;
         int i = this.size;
         this.size++;
@@ -23,9 +26,11 @@ public class MyPriorityQueue<T> {
         }
     }
 
-    private void swap(int child, int parent) {
-        T temp = this.heap[child];
-        this.heap[child] = this.heap[parent];
-        this.heap[parent] = temp;
+    private void resize(int newSize) { this.heap = Arrays.copyOf(this.heap, newSize); }
+
+    private void swap(int a, int b) {
+        T temp = this.heap[a];
+        this.heap[a] = this.heap[b];
+        this.heap[b] = temp;
     }
 }
