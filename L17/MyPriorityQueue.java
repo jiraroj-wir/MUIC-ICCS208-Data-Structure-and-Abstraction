@@ -26,6 +26,8 @@ public class MyPriorityQueue<T> {
         }
     }
 
+    public T peek() { return this.heap[0]; }
+
     private void resize(int newSize) { this.heap = Arrays.copyOf(this.heap, newSize); }
 
     private void swap(int a, int b) {
