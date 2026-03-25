@@ -76,6 +76,19 @@ public class MyPriorityQueue<T> {
 
     public boolean isEmpty() { return (this.size == 0); }
 
+    public static <T> void heapSort(T[] a, Comparator<T> cc) {
+        MyPriorityQueue<T> pq = new MyPriorityQueue<>(cc);
+
+        for (T item : a) {
+            pq.add(item);
+        }
+
+        int i = 0;
+        while (!pq.isEmpty()) {
+            a[i++] = pq.poll();
+        }
+    }
+
     // tests
     public static void main(String[] args) {
         MyPriorityQueue<Integer> pq1 = new MyPriorityQueue<Integer>(Comparator.naturalOrder());
