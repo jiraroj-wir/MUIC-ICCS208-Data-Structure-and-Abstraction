@@ -123,5 +123,18 @@ public class MyPriorityQueue<T> {
         pq5.add(3);
         pq5.add(2);
         assert pq5.peek() == 3;
+
+        // heap sort tests
+        Integer[] a1 = {5, 3, 8, 1, 2};
+        heapSort(a1, Comparator.naturalOrder());
+        assert Arrays.equals(a1, new Integer[] {1, 2, 3, 5, 8});
+
+        Integer[] a2 = {5, 3, 8, 1, 2};
+        heapSort(a2, Comparator.reverseOrder());
+        assert Arrays.equals(a2, new Integer[] {8, 5, 3, 2, 1});
+
+        String[] a3 = {"banana", "apple", "cherry"};
+        heapSort(a3, Comparator.naturalOrder());
+        assert Arrays.equals(a3, new String[] {"apple", "banana", "cherry"});
     }
 }
