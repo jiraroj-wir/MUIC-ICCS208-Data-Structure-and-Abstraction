@@ -75,4 +75,40 @@ public class MyPriorityQueue<T> {
     public int size() { return this.size; }
 
     public boolean isEmpty() { return (this.size == 0); }
+
+    // tests
+    public static void main(String[] args) {
+        MyPriorityQueue<Integer> pq1 = new MyPriorityQueue<Integer>(Comparator.naturalOrder());
+        pq1.add(5);
+        pq1.add(1);
+        pq1.add(3);
+        assert pq1.peek() == 1;
+
+        MyPriorityQueue<Integer> pq2 = new MyPriorityQueue<Integer>(Comparator.naturalOrder());
+        pq2.add(4);
+        pq2.add(2);
+        pq2.add(7);
+        assert pq2.poll() == 2;
+        assert pq2.peek() == 4;
+
+        MyPriorityQueue<Integer> pq3 = new MyPriorityQueue<Integer>(Comparator.naturalOrder());
+        for (int i = 10; i >= 1; i--)
+            pq3.add(i);
+        for (int i = 1; i <= 10; i++)
+            assert pq3.poll() == i;
+
+        MyPriorityQueue<String> pq4 = new MyPriorityQueue<String>(Comparator.naturalOrder());
+        pq4.add("c");
+        pq4.add("a");
+        pq4.add("b");
+        assert pq4.poll().equals("a");
+        assert pq4.poll().equals("b");
+        assert pq4.poll().equals("c");
+
+        MyPriorityQueue<Integer> pq5 = new MyPriorityQueue<Integer>(Comparator.reverseOrder());
+        pq5.add(1);
+        pq5.add(3);
+        pq5.add(2);
+        assert pq5.peek() == 3;
+    }
 }
