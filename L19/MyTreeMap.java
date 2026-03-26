@@ -26,4 +26,21 @@ public class MyTreeMap<K extends Comparable<K>, V> {
     }
 
     Node root;
+
+    V get(K k) {
+        Node current = this.root;
+        while (current != null) {
+            int cmp = current.key.compareTo(k);
+
+            if (cmp == 0) {
+                return current.value;
+            } else if (cmp > 0) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+
+        return null;
+    }
 }
