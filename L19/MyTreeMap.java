@@ -43,4 +43,20 @@ public class MyTreeMap<K extends Comparable<K>, V> {
 
         return null;
     }
+
+    // tests
+    public static void main(String[] args) {
+        // get
+        MyTreeMap<Integer, String> map = new MyTreeMap<>();
+
+        assert map.get(1) == null;
+
+        map.root = map.new Node(5, "a");
+        map.root.left = map.new Node(3, "b");
+        map.root.right = map.new Node(7, "c");
+
+        assert "a".equals(map.get(5));
+        assert "b".equals(map.get(3));
+        assert "c".equals(map.get(7));
+    }
 }
