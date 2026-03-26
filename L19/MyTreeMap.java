@@ -123,5 +123,23 @@ public class MyTreeMap<K extends Comparable<K>, V> {
 
         mapP.put(5, "updated");
         assert "updated".equals(mapP.root.value);
+
+        // lowerKey
+        MyTreeMap<Integer, String> mapL = new MyTreeMap<>();
+
+        assert mapL.lowerKey(5) == null;
+
+        mapL.put(5, "a");
+        mapL.put(3, "b");
+        mapL.put(7, "c");
+        mapL.put(2, "d");
+        mapL.put(4, "e");
+        mapL.put(6, "f");
+        mapL.put(8, "g");
+
+        assert mapL.lowerKey(5) == 4;
+        assert mapL.lowerKey(6) == 5;
+        assert mapL.lowerKey(1) == null;
+        assert mapL.lowerKey(10) == 8;
     }
 }
