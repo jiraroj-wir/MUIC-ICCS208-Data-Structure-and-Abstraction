@@ -77,16 +77,30 @@ public class MyTreeMap<K extends Comparable<K>, V> {
     // tests
     public static void main(String[] args) {
         // get
-        MyTreeMap<Integer, String> map = new MyTreeMap<>();
+        MyTreeMap<Integer, String> mapG = new MyTreeMap<>();
 
-        assert map.get(1) == null;
+        assert mapG.get(1) == null;
 
-        map.root = map.new Node(5, "a");
-        map.root.left = map.new Node(3, "b");
-        map.root.right = map.new Node(7, "c");
+        mapG.root = mapG.new Node(5, "a");
+        mapG.root.left = mapG.new Node(3, "b");
+        mapG.root.right = mapG.new Node(7, "c");
 
-        assert "a".equals(map.get(5));
-        assert "b".equals(map.get(3));
-        assert "c".equals(map.get(7));
+        assert "a".equals(mapG.get(5));
+        assert "b".equals(mapG.get(3));
+        assert "c".equals(mapG.get(7));
+
+        // put
+        MyTreeMap<Integer, String> mapP = new MyTreeMap<>();
+
+        mapP.put(5, "a");
+        assert "a".equals(mapP.root.value);
+
+        mapP.put(3, "b");
+        mapP.put(7, "c");
+        assert "b".equals(mapP.root.left.value);
+        assert "c".equals(mapP.root.right.value);
+
+        mapP.put(5, "updated");
+        assert "updated".equals(mapP.root.value);
     }
 }
