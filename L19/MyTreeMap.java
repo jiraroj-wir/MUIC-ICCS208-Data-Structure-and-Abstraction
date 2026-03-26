@@ -29,6 +29,7 @@ public class MyTreeMap<K extends Comparable<K>, V> {
 
     V get(K k) {
         Node current = this.root;
+
         while (current != null) {
             int cmp = current.key.compareTo(k);
 
@@ -52,6 +53,7 @@ public class MyTreeMap<K extends Comparable<K>, V> {
 
         Node current = this.root;
         Node parent = null;
+
         while (current != null) {
             parent = current;
             int cmp = current.key.compareTo(k);
@@ -72,6 +74,25 @@ public class MyTreeMap<K extends Comparable<K>, V> {
         } else {
             parent.right = new Node(k, v);
         }
+    }
+
+    K lowerKey(K k) {
+        Node current = this.root;
+        K result = null;
+
+        while (current != null) {
+            int cmp = current.key.compareTo(k);
+
+            if (cmp < 0) {
+                // current.key < k, then consider it as candidate
+                result = current.key;
+                current = current.right;
+            } else {
+                current = current.left;
+            }
+        }
+
+        return result;
     }
 
     // tests
