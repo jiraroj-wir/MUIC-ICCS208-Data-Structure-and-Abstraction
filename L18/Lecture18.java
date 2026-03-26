@@ -6,6 +6,7 @@ public class Lecture18 {
         TreeNode<E> left, right;
 
         // constructors omitted
+        TreeNode(E k) { this.key = k; }
     }
 
     /*
@@ -18,5 +19,22 @@ public class Lecture18 {
         }
 
         return 1 + count(tree.left) + count(tree.right);
+    }
+
+    // tests
+    public static void main(String[] args) {
+        assert count(null) == 0;
+
+        TreeNode<Integer> single = new TreeNode<Integer>(1);
+        assert count(single) == 1;
+
+        TreeNode<Integer> root = new TreeNode<Integer>(1);
+        root.left = new TreeNode<Integer>(2);
+        root.right = new TreeNode<Integer>(3);
+        assert count(root) == 3;
+
+        root.left.left = new TreeNode<Integer>(4);
+        root.left.right = new TreeNode<Integer>(5);
+        assert count(root) == 5;
     }
 }
