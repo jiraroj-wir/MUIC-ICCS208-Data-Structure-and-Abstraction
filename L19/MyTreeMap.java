@@ -44,6 +44,36 @@ public class MyTreeMap<K extends Comparable<K>, V> {
         return null;
     }
 
+    void put(K k, V v) {
+        if (this.root == null) {
+            this.root = new Node(k, v);
+            return;
+        }
+
+        Node current = this.root;
+        Node parent = null;
+        while (current != null) {
+            parent = current;
+            int cmp = current.key.compareTo(k);
+
+            if (cmp == 0) {
+                current.value = v;
+                return;
+            } else if (cmp > 0) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+
+        // `current = null` when the loop terminates
+        if (parent.key.compareTo(k) > 0) {
+            parent.left = new Node(k, v);
+        } else {
+            parent.right = new Node(k, v);
+        }
+    }
+
     // tests
     public static void main(String[] args) {
         // get
