@@ -77,6 +77,14 @@ public class BFS {
 
             return adj.get(u).contains(v);
         }
+
+        @Override
+        public void addVertex(Vertex v) {
+            if (!adj.containsKey(v)) {
+                this.adj.put(v, new HashSet<>());
+                this.vertices++;
+            }
+        }
     }
 
     /*
