@@ -97,6 +97,21 @@ public class BFS {
                 edges++;
             }
         }
+
+        @Override
+        public void removeVertex(Vertex x) {
+            if (!adj.containsKey(x)) {
+                return;
+            }
+
+            for (Vertex neighbor : adj.get(x)) {
+                adj.get(neighbor).remove(x);
+                edges--;
+            }
+
+            adj.remove(x);
+            vertices--;
+        }
     }
 
     /*
