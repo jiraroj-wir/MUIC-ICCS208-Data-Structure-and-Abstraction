@@ -68,6 +68,15 @@ public class BFS {
 
             return adj.get(v);
         }
+
+        @Override
+        public boolean isEdge(Vertex u, Vertex v) {
+            if (!adj.containsKey(u)) {
+                return false;
+            }
+
+            return adj.get(u).contains(v);
+        }
     }
 
     /*
