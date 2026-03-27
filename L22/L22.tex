@@ -72,6 +72,45 @@
 \medskip
 \solution
 
+let
+
+\[E \equiv \text{number of tosses from the start before you encounter the pattern HT consecutively}\]
+
+as $E$ is starting pattern (empty) or when the previous toss is a T --- so no partial match yet, we defined
+
+\[{E^'} \equiv \text{expected T, comes after that partial match (H)}\]
+
+so, initially, after the first toss (you tosses once), we got probability $p$ of landing a H, and $(1-p)$ of landing a T. we'll got a relation of
+
+\[E = 1 + p\cdot{E^'} + (1-p)E\]
+
+format it as
+
+\[(1-(1-p))E = 1 + p\cdot E^'\]
+
+\[pE = 1 + p\cdot {E^'}\]
+
+\[E = \frac{1+p \cdot E^'}{p} && \tag{1}\]
+
+in case we got $H$ for our first toss, the two possibility is the same: probability p for H --- the state remain as partial match, probability (1-p) for T --- which gives the $HT$ pattern, so 
+
+\[{E^'} = 1 + p \cdot {E^'} + (1-p)\cdot 0\]
+
+we can now solve for $E^'$ as
+
+\[(1-p){E^'} = 1 + 0\]
+
+hence
+
+\[{E^'} = \frac{1}{1-p}\]
+
+and, we can substitude $E^'$ in (1) 
+
+\[E = \frac{1 + p\cdot \left(\frac{1}{1-p}\right)}{p}\]
+
+so, you need $\boxed{E = \frac{1}{p} + \frac{1}{1-p}}$ tosses in expectation before you encounter the pattern HT consecutively.
+
+
 \vspace{1em}
 \hrulefill
 
