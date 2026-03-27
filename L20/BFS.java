@@ -99,17 +99,17 @@ public class BFS {
         }
 
         @Override
-        public void removeVertex(Vertex x) {
-            if (!this.adj.containsKey(x)) {
+        public void removeVertex(Vertex v) {
+            if (!this.adj.containsKey(v)) {
                 return;
             }
 
-            for (Vertex neighbor : this.adj.get(x)) {
-                this.adj.get(neighbor).remove(x);
+            for (Vertex neighbor : this.adj.get(v)) {
+                this.adj.get(neighbor).remove(v);
                 this.edges--;
             }
 
-            this.adj.remove(x);
+            this.adj.remove(v);
             this.vertices--;
         }
     }
