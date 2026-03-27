@@ -131,4 +131,49 @@ public class BFS {
 
     (Notice that the path starts from a and ends at b)
     */
+
+    // tests
+    public static void main(String[] args) {
+        BFS bfs = new BFS();
+        UndirectedGraph<Integer> g = bfs.new UndirectedAdjMap<>();
+
+        g.addVertex(1);
+        g.addVertex(2);
+        g.addVertex(3);
+
+        assert g.numVertices() == 3;
+        assert g.numEdges() == 0;
+
+        g.addEdge(1, 2);
+        assert g.numEdges() == 1;
+        assert g.isEdge(1, 2);
+        assert g.isEdge(2, 1);
+        assert g.deg(1) == 1;
+        assert g.deg(2) == 1;
+
+        g.addEdge(2, 3);
+        assert g.numEdges() == 2;
+        assert g.deg(2) == 2;
+        assert g.deg(3) == 1;
+
+        g.addEdge(1, 3);
+        assert g.numEdges() == 3;
+        assert g.deg(1) == 2;
+        assert g.deg(3) == 2;
+
+        g.addEdge(1, 2);
+        assert g.numEdges() == 3;
+
+        g.removeEdge(1, 2);
+        assert g.numEdges() == 2;
+        assert !g.isEdge(1, 2);
+        assert g.deg(1) == 1;
+        assert g.deg(2) == 1;
+
+        g.removeVertex(3);
+        assert g.numVertices() == 2;
+        assert g.numEdges() == 0;
+        assert g.deg(1) == 0;
+        assert g.deg(2) == 0;
+    }
 }
