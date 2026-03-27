@@ -91,26 +91,26 @@ public class BFS {
             addVertex(u);
             addVertex(v);
 
-            if (!adj.get(u).contains(v)) {
-                adj.get(u).add(v);
-                adj.get(v).add(u);
-                edges++;
+            if (!this.adj.get(u).contains(v)) {
+                this.adj.get(u).add(v);
+                this.adj.get(v).add(u);
+                this.edges++;
             }
         }
 
         @Override
         public void removeVertex(Vertex x) {
-            if (!adj.containsKey(x)) {
+            if (!this.adj.containsKey(x)) {
                 return;
             }
 
-            for (Vertex neighbor : adj.get(x)) {
-                adj.get(neighbor).remove(x);
-                edges--;
+            for (Vertex neighbor : this.adj.get(x)) {
+                this.adj.get(neighbor).remove(x);
+                this.edges--;
             }
 
-            adj.remove(x);
-            vertices--;
+            this.adj.remove(x);
+            this.vertices--;
         }
     }
 
