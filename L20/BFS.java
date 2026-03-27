@@ -177,8 +177,8 @@ public class BFS {
 
     // tests
     public static void main(String[] args) {
-        BFS bfs = new BFS();
-        UndirectedGraph<Integer> g = bfs.new UndirectedAdjMap<>();
+        BFS bfs1 = new BFS();
+        UndirectedGraph<Integer> g = bfs1.new UndirectedAdjMap<>();
 
         g.addVertex(1);
         g.addVertex(2);
@@ -218,5 +218,35 @@ public class BFS {
         assert g.numEdges() == 0;
         assert g.deg(1) == 0;
         assert g.deg(2) == 0;
+
+        BFS bfs2 = new BFS();
+        UndirectedGraph<Integer> g2 = bfs2.new UndirectedAdjMap<>();
+
+        g2.addEdge(2, 3);
+        g2.addEdge(3, 1);
+        g2.addEdge(2, 4);
+        g2.addEdge(4, 5);
+        g2.addEdge(5, 1);
+
+        java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+        java.io.PrintStream old = System.out;
+        System.setOut(new java.io.PrintStream(out));
+
+        findShortest(g2, 2, 1);
+        System.out.flush();
+        String res1 = out.toString().trim();
+        assert res1.equals("2 3 1") || res1.equals("2 4 5 1");
+
+        out.reset();
+        findShortest(g2, 2, 5);
+        System.out.flush();
+        String res2 = out.toString().trim();
+        assert res2.equals("2 4 5");
+
+        out.reset();
+        findShortest(g2, 1, 2);
+        System.out.flush();
+        String res3 = out.toString().trim();
+        assert res3.equals("1 3 2") || res3.equals("1 5 4 2");
     }
 }
