@@ -85,6 +85,18 @@ public class BFS {
                 this.vertices++;
             }
         }
+
+        @Override
+        public void addEdge(Vertex u, Vertex v) {
+            addVertex(u);
+            addVertex(v);
+
+            if (!adj.get(u).contains(v)) {
+                adj.get(u).add(v);
+                adj.get(v).add(u);
+                edges++;
+            }
+        }
     }
 
     /*
