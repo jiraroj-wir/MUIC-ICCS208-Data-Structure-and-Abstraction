@@ -49,6 +49,20 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
         return (hash & 0x7fffffff) % capacity;
     }
 
+    public V get(K key) {
+        Entry<K, V> current = this.table[hash(key)];
+
+        while (current != null) {
+            if (key.equals(current.key)) {
+                return current.value;
+            }
+
+            current = current.next;
+        }
+
+        return null;
+    }
+
     public int size() { return this.size; }
 
     public boolean isEmpty() { return (this.size() == 0); }
