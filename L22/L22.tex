@@ -126,9 +126,28 @@ def fancy_search(a: List[int], k: int) -> int:
     return random_loc
 \end{verbatim}
 
-\end{document}
-
 \medskip
 \solution
+
+the probability of picking the right number is $\frac{1}{n}$, on each trial, there's probability $p$ that `random\_loc == k`, and $(p-1)$ that it's not (use 1 trial, and the probability remain the same); we can write that out as
+
+\[E = p\cdot1 + (1-p)(1+E)\]
+
+where,
+
+\[E \equiv \text{the expected number of loop's iteration/ the algorithm returns k}\]
+
+simplify this equation
+
+\[E = p + 1 + E - p -pE\]
+
+hence, 
+
+\[E = \frac{1}{p}\]
+
+where p in this case equalse to $\frac{1}{n}$, so $E = n \in \boxed{\Theta(n)}$
+
+\end{document}
+
 
 
