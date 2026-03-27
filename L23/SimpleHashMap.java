@@ -43,4 +43,9 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
         this.table = (Entry<K, V>[]) new Entry[capacity];
         this.size = 0;
     }
+
+    private int hash(K key) {
+        int hash = (key == null) ? 0 : key.hashCode();
+        return (hash & 0x7fffffff) % capacity;
+    }
 }
