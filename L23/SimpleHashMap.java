@@ -48,4 +48,8 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
         int hash = (key == null) ? 0 : key.hashCode();
         return (hash & 0x7fffffff) % capacity;
     }
+
+    public int size() { return this.size; }
+
+    public boolean isEmpty() { return (this.size() == 0); }
 }
