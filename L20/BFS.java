@@ -50,6 +50,15 @@ public class BFS {
         public int numVertices() {
             return this.vertices;
         }
+
+        @Override
+        public int deg(Vertex v) {
+            if (!adj.containsKey(v)) { // the vertex doesn't exist
+                return 0;
+            }
+
+            return adj.get(v).size();
+        }
     }
 
     /*
