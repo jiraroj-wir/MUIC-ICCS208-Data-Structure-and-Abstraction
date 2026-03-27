@@ -45,6 +45,11 @@ public class BFS {
         public int numEdges() {
             return this.edges;
         }
+
+        @Override
+        public int numVertices() {
+            return this.vertices;
+        }
     }
 
     /*
