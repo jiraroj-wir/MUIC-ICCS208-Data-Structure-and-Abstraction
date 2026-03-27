@@ -131,6 +131,49 @@ public class BFS {
 
     (Notice that the path starts from a and ends at b)
     */
+    public static void findShortest(UndirectedGraph<Integer> G, Integer a, Integer b) {
+        Queue<Integer> q = new LinkedList<>();
+        Set<Integer> visited = new HashSet<>();
+        Map<Integer, Integer> parent = new HashMap<>();
+
+        q.add(a);
+        visited.add(a);
+        parent.put(a, null);
+
+        while (!q.isEmpty()) {
+            int current = q.poll();
+
+            if (current == b) {
+                break;
+            }
+
+            for (Integer neighbor : G.adj(current)) {
+                if (!visited.contains(neighbor)) {
+                    q.add(neighbor);
+                    visited.add(neighbor);
+                    parent.put(neighbor, current);
+                }
+            }
+        }
+
+        if (!parent.containsKey(b)) {
+            return;
+        }
+
+        List<Integer> path = new LinkedList<>();
+        Integer cur = b;
+
+        while (cur != null) {
+            path.add(cur);
+            cur = parent.get(cur);
+        }
+
+        Collections.reverse(path);
+
+        for (Integer v : path) {
+            System.out.printf(v + " ");
+        }
+    }
 
     // tests
     public static void main(String[] args) {
