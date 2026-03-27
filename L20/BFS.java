@@ -59,6 +59,15 @@ public class BFS {
 
             return adj.get(v).size();
         }
+
+        @Override
+        public Iterable<Vertex> adj(Vertex v) {
+            if (!adj.containsKey(v)) {
+                return Collections.emptySet();
+            }
+
+            return adj.get(v);
+        }
     }
 
     /*
