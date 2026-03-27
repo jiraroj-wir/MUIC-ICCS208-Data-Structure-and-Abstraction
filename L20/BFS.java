@@ -31,11 +31,20 @@ public class BFS {
     }
 
     class UndirectedAdjMap<Vertex> implements UndirectedGraph<Vertex> {
-        int edges;
-        int vertices;
-        Map<Vertex, Set<Vertex>> adj;
+        private int edges;
+        private int vertices;
+        private Map<Vertex, Set<Vertex>> adj;
 
-        UndirectedAdjMap() { this.adj = new HashMap<>(); }
+        UndirectedAdjMap() {
+            this.edges = 0;
+            this.vertices = 0;
+            this.adj = new HashMap<>();
+        }
+
+        @Override
+        public int numEdges() {
+            return this.edges;
+        }
     }
 
     /*
