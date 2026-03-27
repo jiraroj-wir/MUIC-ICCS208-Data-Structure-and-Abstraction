@@ -53,34 +53,34 @@ public class BFS {
 
         @Override
         public int deg(Vertex v) {
-            if (!adj.containsKey(v)) { // the vertex doesn't exist
+            if (!this.adj.containsKey(v)) { // the vertex doesn't exist
                 return 0;
             }
 
-            return adj.get(v).size();
+            return this.adj.get(v).size();
         }
 
         @Override
         public Iterable<Vertex> adj(Vertex v) {
-            if (!adj.containsKey(v)) {
+            if (!this.adj.containsKey(v)) {
                 return Collections.emptySet();
             }
 
-            return adj.get(v);
+            return this.adj.get(v);
         }
 
         @Override
         public boolean isEdge(Vertex u, Vertex v) {
-            if (!adj.containsKey(u)) {
+            if (!this.adj.containsKey(u)) {
                 return false;
             }
 
-            return adj.get(u).contains(v);
+            return this.adj.get(u).contains(v);
         }
 
         @Override
         public void addVertex(Vertex v) {
-            if (!adj.containsKey(v)) {
+            if (!this.adj.containsKey(v)) {
                 this.adj.put(v, new HashSet<>());
                 this.vertices++;
             }
