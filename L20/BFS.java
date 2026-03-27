@@ -112,6 +112,15 @@ public class BFS {
             this.adj.remove(v);
             this.vertices--;
         }
+
+        @Override
+        public void removeEdge(Vertex u, Vertex v) {
+            if (this.adj.containsKey(u) && this.adj.get(u).contains(v)) {
+                this.adj.get(u).remove(v);
+                this.adj.get(v).remove(u);
+                this.edges--;
+            }
+        }
     }
 
     /*
