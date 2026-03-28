@@ -101,6 +101,28 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
         return (get(key) != null);
     }
 
+    public void remove(K key) {
+        int page = hash(key);
+        Entry<K, V> current = this.table[page];
+        Entry<K, V> prev = null;
+
+        while (current != null) {
+            if (key.equals(current.key)) {
+                if (prev == null) {
+                    this.table[page] = current.next;
+                } else {
+                    prev.next = current.next;
+                }
+                this.size--;
+
+                return;
+            }
+
+            prev = current;
+            current = current.next;
+        }
+    }
+
     public int size() { return this.size; }
 
     public boolean isEmpty() { return (this.size() == 0); }
