@@ -1,6 +1,6 @@
 import java.util.*;
 
-public static interface Map<K, V> {
+interface Map<K, V> {
     // retrieve the value associated iwht a key key
     V get(K key);
 
@@ -25,6 +25,7 @@ class Entry<K, V> {
     V value;
     Entry<K, V> next;
 
+    @SuppressWarnings("unchecked")
     Entry(K key, V value, Entry<K, V> next) {
         this.key = key;
         this.value = value;
