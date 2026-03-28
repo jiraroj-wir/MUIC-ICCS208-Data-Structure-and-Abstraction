@@ -106,9 +106,6 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
     }
 
     public void remove(K key) {
-        if ((float)this.size / this.capacity < 0.25) {
-            resize(this.capacity >> 1);
-        }
         int page = hash(key);
         Entry<K, V> current = this.table[page];
         Entry<K, V> prev = null;
@@ -127,6 +124,10 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 
             prev = current;
             current = current.next;
+        }
+
+        if ((float)this.size / this.capacity < 0.25) {
+            resize(this.capacity >> 1);
         }
     }
 
