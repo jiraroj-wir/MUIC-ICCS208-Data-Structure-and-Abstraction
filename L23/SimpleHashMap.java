@@ -150,4 +150,65 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
             }
         }
     }
+
+    // tests
+    public static void main(String[] args) {
+        SimpleHashMap<String, Integer> map = new SimpleHashMap<>();
+
+        assert map.isEmpty();
+        assert map.size() == 0;
+
+        map.put("a", 1);
+        map.put("b", 2);
+        map.put("c", 3);
+
+        assert !map.isEmpty();
+        assert map.size() == 3;
+        assert map.get("a") == 1;
+        assert map.get("b") == 2;
+        assert map.get("c") == 3;
+
+        map.put("a", 10);
+        assert map.get("a") == 10;
+        assert map.size() == 3;
+
+        assert map.containsKey("a");
+        assert map.containsKey("b");
+        assert !map.containsKey("x");
+
+        map.remove("b");
+        assert map.size() == 2;
+        assert !map.containsKey("b");
+        assert map.get("b") == null;
+
+        map.remove("a");
+        map.remove("c");
+
+        assert map.isEmpty();
+        assert map.size() == 0;
+
+        for (int i = 0; i < 100; i++) {
+            map.put("k" + i, i);
+        }
+
+        assert map.size() == 100;
+
+        for (int i = 0; i < 100; i++) {
+            assert map.get("k" + i) == i;
+        }
+
+        for (int i = 0; i < 50; i++) {
+            map.remove("k" + i);
+        }
+
+        assert map.size() == 50;
+
+        for (int i = 0; i < 50; i++) {
+            assert map.get("k" + i) == null;
+        }
+
+        for (int i = 50; i < 100; i++) {
+            assert map.get("k" + i) == i;
+        }
+    }
 }
