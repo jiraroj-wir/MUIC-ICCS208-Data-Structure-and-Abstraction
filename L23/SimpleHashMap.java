@@ -64,6 +64,23 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
         return null;
     }
 
+    public void put(K key, V val) {
+        int page = hash(key);
+        Entry<K, V> current = this.table[page];
+
+        while (current != null) {
+            if (key.equals(current.key)) {
+                current.value = val;
+                return;
+            }
+
+            current = current.next;
+        }
+
+        this.table[page] = new Entry<>(key, val, this.table[page]); // insert at the head
+        this.size++;
+    }
+
     public int size() { return this.size; }
 
     public boolean isEmpty() { return (this.size() == 0); }
