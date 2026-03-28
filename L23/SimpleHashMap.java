@@ -81,6 +81,26 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
         this.size++;
     }
 
+    public boolean containsKey(K key) {
+        /*
+         * this is exactly like V get(K key)
+         *
+        Entry<K, V> current = this.table[hash(key)];
+
+        while (current != null) {
+            if (key.equals(current.key)) {
+                return true;
+            }
+
+            current = current.next;
+        }
+
+        return false;
+        */
+
+        return (get(key) != null);
+    }
+
     public int size() { return this.size; }
 
     public boolean isEmpty() { return (this.size() == 0); }
