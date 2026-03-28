@@ -65,6 +65,10 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
     }
 
     public void put(K key, V val) {
+        if ((float)this.size / this.capacity > 0.75) {
+            resize(this.capacity << 1);
+        }
+
         int page = hash(key);
         Entry<K, V> current = this.table[page];
 
@@ -102,6 +106,9 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
     }
 
     public void remove(K key) {
+        if ((float)this.size / this.capacity < 0.25) {
+            resize(this.capacity >> 1);
+        }
         int page = hash(key);
         Entry<K, V> current = this.table[page];
         Entry<K, V> prev = null;
@@ -126,4 +133,20 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
     public int size() { return this.size; }
 
     public boolean isEmpty() { return (this.size() == 0); }
+
+    @SuppressWarnings("unchecked")
+    private void resize(int cap) {
+        Entry<K, V>[] oldTable = this.table;
+        this.capacity = cap;
+        this.table = (Entry<K, V>[]) new Entry[this.capacity];
+        this.size = 0; // re-compute
+
+        for (Entry<K, V> head : oldTable) {
+            Entry<K, V> current = head;
+            while (current != null) {
+                put(current.key, current.value); // rehash into new table
+                current = current.next;
+            }
+        }
+    }
 }
