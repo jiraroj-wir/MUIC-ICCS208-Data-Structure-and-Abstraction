@@ -1,0 +1,163 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage{enumitem}
+
+\usetikzlibrary{automata,positioning}
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{}
+\rhead{\hmwkHeaderTitle}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0pt}
+
+\setlength\parindent{0pt}
+
+\newcommand{\hmwkTitle}{Homework\ 8}
+\newcommand{\hmwkDueDate}{Monday, March 30, 2026,\ 11{:}59 pm (Thai time)}
+\newcommand{\hmwkClass}{Data Structure\ and Abstractions}
+\newcommand{\hmwkClassTime}{Section 2}
+\newcommand{\hmwkClassInstructor}{Kanat Tangwongsan}
+\newcommand{\hmwkAuthorName}{\textbf{Jiraroj Wiruchpongsanon (6781617)}}
+
+\newcommand{\hmwkHeaderTitle}{Data Structure and Abstractions: Homework 8}
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+\newcounter{partCounter}
+\newcommand{\solution}{\textbf{\large Solution}}
+
+\newtheorem*{theorem}{Theorem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\begin{document}
+
+\maketitle
+\begin{center}
+    \textit{Data Struct. and \{Abstractions, OOP\} (Term II/2025--26)}\\
+    \textit{built on 2026/03/19 at 13:42:12}\\
+    \textit{due: mon mar 30 @ 11:59pm}
+\end{center}
+\newpage
+
+This assignment contains both programming and written questions. For the written portion, you
+will typeset your answer, produce a PDF file called \texttt{hw8.pdf}, and upload it to Canvas. No other format
+will be accepted.
+
+\subsection*{Collaboration}
+
+We interpret collaboration very liberally. You may work with other students. However, each student
+must write up and hand in his or her assignment separately. Let us repeat: You need to write your
+own code. You must not look at or copy someone else’s code. You need to write up answers to written
+problems individually. The fact that you can recreate the solution from memory will be taken as proof
+that you actually understood it, and you may actually be interviewed about your answers.
+
+\newpage
+
+\section*{Task 1: Breadth-First Search Running Time (2 points)}
+
+Our breadth-first (BFS) implementation from class uses HashSets and HashMaps to keep track of
+progress. In this task, you’ll reanalyze the running time of BFS if we use TreeSets and TreeMaps instead.
+Show your work carefully. To keep things simple, we’ll work with the BFS code shown above. It only
+reports vertices reachable from a source s. It has been rewritten from the version presented in class to
+make the operations more explicit.
+
+\begin{verbatim}
+Set<Integer> nbrsExcluding(
+    UndirectedGraph<Integer> G,
+    Set<Integer> vtxes,
+    Set<Integer> excl
+) {
+    Set<Integer> union = new TreeSet<>(); // not HashMap
+    for (Integer src : vtxes) {
+        for (Integer dst : G.adj(src))
+            if (!excl.contains(dst)) { union.add(dst); }
+    }
+    return union;
+}
+
+Set<Integer> bfs(UndirectedGraph<Integer> G, int s) {
+    Set<Integer> frontier = new TreeSet<>(Arrays.asList(s));
+    Set<Integer> visited = new TreeSet<>(Arrays.asList(s));
+    while (!frontier.isEmpty()) {
+        frontier = nbrsExcluding(G, frontier, visited);
+        visited.addAll(frontier); // the i-th position is what's reached at i hops
+    }
+    return visited;
+}
+\end{verbatim}
+
+You should know that the TreeSet implementation uses a balanced binary search tree (BST), so
+add, contains, and remove, unlike in a HashSet, take O(logS) per operation, where S is the size of the
+collection. Though addAll may perform other optimizations, for the purpose of this task, assume that
+addAll(X) simply repeatedly calls add on each element of X .
+
+Homework 8 Data Struct.
+You should also assume that UndirectedGraph G is implemented as an adjacency table using
+HashMaps, so G.adj takes O(1).
+
+\medskip
+\solution
+
+\vspace{1em}
+\hrulefill
+
+\section*{Task 2: Random Permutations (2 points)}
+
+Remember that [n] is the set \{1,2,...,n\}. Let p : [n] $\to$ [n] be a random permutation on [n] chosen
+uniformly among the n! permutations. Consider the following code:
+
+\begin{verbatim}
+int minSoFar = Integer.MAX_VALUE;
+int numUpdate = 0;
+for (int i=1;i<=n;i++) {
+    if (p(i) < minSoFar) {
+        minSoFar = p(i);
+        numUpdate++;
+    }
+}
+\end{verbatim}
+
+We’ll see that numUpdate is a random variable that depends on the permutation randomly chosen.
+Prove that at the end of the for-loop,
+
+\[\ln(n +1) \le \mathbf{E}[\text{numUpdate}] \le 1+\ln n\]
+
+\vspace{1em}
+\hrulefill
+
+% hackerrank id
+
+\end{document}
