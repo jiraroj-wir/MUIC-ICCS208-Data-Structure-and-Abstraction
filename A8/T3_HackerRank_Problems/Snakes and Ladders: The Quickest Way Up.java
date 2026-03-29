@@ -38,18 +38,34 @@ class Result {
             snakesMap.put(snake.get(0), snake.get(1));
         }
 
+        boolean[] visited = new boolean[101]; // no 0 and 100
+
         Queue<Pair> q = new LinkedList<>();
         q.add(new Pair(1, 0));
+        visited[1] = true;
 
         while (!q.isEmpty()) {
             Pair current = q.poll();
 
             for (int i = 1; i <= 6; i++) {
                 int temp = current.pos + i;
+
+                if (visited[temp]) {
+                    continue;
+                }
+
+                visited[temp] = true;
+
                 if (laddersMap.containsKey(temp)) {
                     temp = laddersMap.get(temp);
+                    if (visited[temp]) {
+                        continue;
+                    }
                 } else if (snakesMap.containsKey(temp)) {
                     temp = snakesMap.get(temp);
+                    if (visited[temp]) {
+                        continue;
+                    }
                 }
 
                 if (temp == 100) {
@@ -57,6 +73,7 @@ class Result {
                 }
 
                 q.add(new Pair(temp, current.moves + 1));
+                visited[temp] = true;
             }
         }
 
