@@ -137,20 +137,20 @@ let $|V|$ be the number of vertices and $|E|$ the number of edges. we analyze th
 firstly, for `nbrsExcluding` function, for each `src` $\in$ `vtxes`, we iterate over all neighbors with `G.adj(src)`. and since `G.adj` takes $\Theta(1)$, the total number of neighbor iterations over the entire BFS is
 
 \[
-\sum_{v \in V} \deg(v) = 2|E|.
+\sum_{v \in V} \deg(v) = 2|E|
 \]
 
 for each neighbor `dst`, we do `excl.contains(dst)`, which takes $\Theta(\log |V|)$ and possibly `union.add(dst)`, that takes $\Theta(\log |V|)$; thus, each neighbor examination costs $\Theta(\log |V|)$, and in total `nbrsExcluding` takes
 
 \[
-\Theta(|E| \log |V|).
+\Theta(|E| \log |V|)
 \]
 
 \vspace{1em}
 
 and for `visited.addAll(frontier)`; each of the vertices is added to `visited` once; and ince each add takes $\Theta(\log |V|)$, the total cost is
 \[
-\Theta(|V| \log |V|).
+\Theta(|V| \log |V|)
 \]
 
 \vspace{1em}
@@ -184,8 +184,51 @@ Prove that at the end of the for-loop,
 
 \[\ln(n +1) \le \mathbf{E}[\text{numUpdate}] \le 1+\ln n\]
 
+\medskip
+\solution
+
+let $X_i$ be $1$ if an update happens at step $i$, else 0, then
+
+\[
+\text{`numUpdate`} = \sum_{i=1}^n X_i
+\quad
+\mathbf{E}[\text{`numUpdate`}] = \sum_{i=1}^n \mathbf{E}[X_i]
+\]
+
+at each step, an update happens exactly when $p(i)$ is the smallest among $p(1), P(2), ..., p(i)$ --- since the permutation is random, each of these $i$ positions
+is equally likely to contain the minimum, so
+
+\[
+\Pr(X_i=1) = \frac{1}{i}
+\]
+
+hence, 
+
+\[
+\mathbf{E}[\text{`numUpdate`}] = \sum_{i=1}^n \frac{1}{i}
+\]
+
+from the question, i supposed we have to estimate this summation with integral bounding, so
+
+\[
+    \int_{1}^{n+1} \frac{1}{i} di \quad \le \quad \sum_{i=1}^{n} \frac{1}{i} \quad \le \quad \frac{1}{1} + \int_1^n \frac{1}{i} di
+\]
+
+which gives
+
+\[
+    ln(n+1) \le \sum_{i=1}^n \frac{1}{i} \le 1 + \ln n
+\]
+
+therefore,
+
+\[
+\boxed{\ln(n+1) \le \mathbf{E}[\text{`numUpdate`}] \le 1 + \ln n}
+\]
+
 \vspace{1em}
 \hrulefill
+
 
 % hackerrank id
 
