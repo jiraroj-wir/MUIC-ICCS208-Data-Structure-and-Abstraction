@@ -124,12 +124,41 @@ add, contains, and remove, unlike in a HashSet, take O(logS) per operation, wher
 collection. Though addAll may perform other optimizations, for the purpose of this task, assume that
 addAll(X) simply repeatedly calls add on each element of X .
 
-Homework 8 Data Struct.
 You should also assume that UndirectedGraph G is implemented as an adjacency table using
 HashMaps, so G.adj takes O(1).
 
 \medskip
 \solution
+
+let $|V|$ be the number of vertices and $|E|$ the number of edges. we analyze the cost of each part as
+
+\vspace{1em}
+
+firstly, for `nbrsExcluding` function, for each `src` $\in$ `vtxes`, we iterate over all neighbors with `G.adj(src)`. and since `G.adj` takes $\Theta(1)$, the total number of neighbor iterations over the entire BFS is
+
+\[
+\sum_{v \in V} \deg(v) = 2|E|.
+\]
+
+for each neighbor `dst`, we do `excl.contains(dst)`, which takes $\Theta(\log |V|)$ and possibly `union.add(dst)`, that takes $\Theta(\log |V|)$; thus, each neighbor examination costs $\Theta(\log |V|)$, and in total `nbrsExcluding` takes
+
+\[
+\Theta(|E| \log |V|).
+\]
+
+\vspace{1em}
+
+and for `visited.addAll(frontier)`; each of the vertices is added to `visited` once; and ince each add takes $\Theta(\log |V|)$, the total cost is
+\[
+\Theta(|V| \log |V|).
+\]
+
+\vspace{1em}
+
+therefore, the total run time of this BFS implementation is 
+\[
+    \Theta(|E| \log |V| + |V| \log |V|) \in \boxed{\Theta((|V| + |E|)\log |V|)}
+\]
 
 \vspace{1em}
 \hrulefill
