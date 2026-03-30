@@ -45,6 +45,43 @@ public class Lecture15<T> {
     sense for your code to internally create an ArrayList from the given array, sort the ArrayList, and copy the results
     back into the initial array.
     */
+
+    /*
+    private static void quickSort(int[] arr) { quickSortHelper(arr, 0, arr.length - 1); }
+
+    private static void quickSortHelper(int[] arr, int low, int high) {
+        if (low >= high) {
+            return;
+        }
+
+        int pivotIndex = partition(arr, low, high);
+
+        quickSortHelper(arr, low, pivotIndex - 1);
+        quickSortHelper(arr, pivotIndex + 1, high);
+    }
+
+    private static int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                swap(arr, i, j);
+            }
+        }
+
+        swap(arr, i + 1, high);
+
+        return i + 1;
+    }
+
+    private static void swap(int[] arr, int a, int b) {
+        int temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+    }
+    */
     static <T> void quickSort(T[] array, Comparator<T> cc) {
         ArrayList<T> list = new ArrayList<>(Arrays.asList(array));
 
