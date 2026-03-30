@@ -61,7 +61,11 @@ public class Lecture15<T> {
     }
 
     private static int partition(int[] arr, int low, int high) {
-        int pivot = arr[high];
+        // int pivot = arr[high];
+        int pivotIndex = low + new Random().nextInt(high - low + 1);
+        int pivotValue = arr[pivotIndex];
+        swap(arr, pivotIndex, high);
+
         int i = low - 1;
 
         for (int j = low; j < high; j++) {
